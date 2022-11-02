@@ -1,3 +1,5 @@
+import {StyleSheet} from "react-native";
+
 export const g_style = StyleSheet.create({
     bg_E51937: {
         backgroundColor: "#E51937"
