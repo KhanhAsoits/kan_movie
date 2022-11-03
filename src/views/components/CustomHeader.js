@@ -7,14 +7,14 @@ import {TouchableOpacity, TextInput, StyleSheet} from "react-native";
 export const CustomHeader = ({title, route, isSearching, toggleSearching}) => {
     return (
         <NativeBaseProvider>
-            <Box  height={88}>
+            <Box height={88} bgColor={"white"}>
                 <Box style={{height: 88}} justifyContent={"space-between"}
                      flexDir={'row'}
                      alignItems={'center'} pt={8} px={3} shadow={1}>
                     {isSearching ?
                         <TextInput autoFocus={true} style={styles.inputSearch}/>
                         :
-                        <Text color={'gray.600'} fontSize={20}>{title}</Text>
+                        <Text color={'gray.600'} fontSize={24} fontWeight={"500"}>{title}</Text>
                     }
                     <TouchableOpacity onPress={toggleSearching}>
                         <Ionicons name={isSearching ? 'close' : 'search'} color={'gray.600'}
