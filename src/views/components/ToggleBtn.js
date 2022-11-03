@@ -12,12 +12,16 @@ export const ToggleBtn = ({active, item, handleSwitch}) => {
                 ...styles.btnToggle,
                 backgroundColor: active ? "#E51937" : "white"
             }}>
-            <Ionicons
-                name={item?.icon.name}
-                size={22}
-                color={active ? 'white' : '#0F1B2B'}>
+            {
+                item.icon &&
+                <Ionicons
+                    name={item?.icon.name}
+                    size={22}
+                    color={active ? 'white' : '#0F1B2B'}>
 
-            </Ionicons>
+                </Ionicons>
+            }
+
             <Text color={active ? 'white' : "#0F1B2B"}
                   fontSize={14}
                   style={{marginHorizontal: 6}}

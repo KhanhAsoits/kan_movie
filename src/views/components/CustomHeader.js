@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     inputSearch: {
         paddingLeft: 10,
         color: 'rgba(0,0,0,0.5)',
-        fontSize: 20,
+        fontSize: 16,
         paddingVertical: 5,
         flex: 1,
         borderRadius: 16
