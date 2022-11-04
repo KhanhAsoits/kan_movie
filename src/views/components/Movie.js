@@ -1,8 +1,48 @@
-import {Box} from "native-base";
+import {Box, Image, Text} from "native-base/src/index";
+import {StyleSheet, TouchableOpacity} from "react-native";
+import {RatingGenerator} from "./RatingGenerator";
+import {CalculatorRating, getRandomInt} from "../../core/helper";
 
 export const Movie = ({movie, nav}) => {
     return (
-        <Box></Box>
+        <Box>
+            <TouchableOpacity activeOpacity={.7}>
+                <Image source={{uri: movie?.image}} style={styles.responsiveImg} alt={'movie - thumbnail'}></Image>
+                <Box my={2}>
+                    <RatingGenerator total={5} per={CalculatorRating(movie?.imDbRating)}/>
+                    <Text width={160} height={6} overflow={"hidden"} fontSize={16}
+                          fontWeight={"500"}>{movie?.title}</Text>
+                    <Box width={160} overflow={"hidden"} justifyContent={"flex-start"} alignItems={'center'}
+                         flexDir={'row'}>
+                        <Text height={6} fontSize={12}
+                              style={{color: "#0F1B2B", opacity: .6}}>
+                            {movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value}
+                        </Text>
+                        <Box mb={1} mx={2} style={styles.dot}></Box>
+                        <Text height={6} fontSize={11}
+                              style={{color: "#0F1B2B", opacity: .6}}>
+                            {movie?.runtimeStr} | {movie?.contentRating || movie?.releaseState}
+                        </Text>
+                    </Box>
+                </Box>
+            </TouchableOpacity>
+        </Box>
     )
 }
+
+const styles = StyleSheet.create({
+    responsiveImg: {
+        width: 162,
+        height: 250,
+        borderRadius: 4,
+        resizeMode: "cover"
+    },
+    dot: {
+        width: 4,
+        height: 4,
+        backgroundColor: "#0F1B2B",
+        opacity: .4,
+        borderRadius: 50
+    }
+})
 

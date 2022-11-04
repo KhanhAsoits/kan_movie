@@ -1,0 +1,55 @@
+import {makeAutoObservable, runInAction} from "mobx";
+import connectionStore from "./ConnectionStore";
+import BaseAPI from "../core/api";
+
+class ComingSoonMovieStore {
+
+    comingSoonMovies = []
+    comingSoonMoviesByPage = new Set()
+
+    coming_page = 1
+    coming_limit = 8
+
+    fetching = true
+
+    constructor(props) {
+        makeAutoObservable(this)
+    }
+
+    setFetching(isFetching) {
+        this.fetching = isFetching
+    }
+
+    onGetComingSoonMoviePage() {
+        runInAction(() => {
+            let current_record = this.coming_page * this.coming_limit
+            let onPageMovies = this.comingSoonMovies.slice(current_record, current_record + this.coming_limit)
+            onPageMovies.forEach((movie, index) => {
+                this.comingSoonMoviesByPage.add(movie)
+            })
+        })
+    }
+
+    async onGetComingSoonMovie() {
+        try {
+            if (await connectionStore.checkConnection() === true && this.comingSoonMovies.length == 0) {
+                let res = await BaseAPI.get('ComingSoon')
+                runInAction(() => {
+                    this.fetching = true
+                    this.comingSoonMovies = res.items
+                    this.onGetComingSoonMoviePage()
+                    console.log(this.comingSoonMoviesByPage.size)
+                    this.fetching = false
+                })
+            } else {
+                this.setFetching(false)
+            }
+        } catch (e) {
+            console.log(e)
+            this.setFetching(false)
+        }
+    }
+}
+
+const comingSoonMovieStore = new ComingSoonMovieStore();
+export default comingSoonMovieStore

@@ -1,10 +1,9 @@
 import {ScrollView} from "native-base/src/index";
 
-export const TabContent = ({active, id, content}) => {
+export const TabContent = ({content}) => {
     return (
         <>
-            {active === id && content.content}
-
+            {content.content}
         </>
     )
 }

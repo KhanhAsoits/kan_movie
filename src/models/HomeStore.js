@@ -1,20 +1,14 @@
 import {makeAutoObservable} from 'mobx'
 
 class HomeStore {
-    //
-    isLoading = true
-    heroes = []
+    active = 1
 
     constructor() {
         makeAutoObservable(this)
     }
 
-    addHero(hero) {
-        this.heroes.push(hero)
-    }
-
-    deleteHero(id) {
-        this.heroes.slice(this.heroes.findIndex(id), 1)
+    setActive(value) {
+        this.active = value
     }
 }
 
