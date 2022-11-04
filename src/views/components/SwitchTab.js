@@ -13,8 +13,7 @@ export const SwitchTab = ({links, active, handleSwitch}) => {
                  borderWidth={1}
                  borderColor={"gray.200"}
                  borderRadius={50}
-                 style={{padding: 2}}
-                 mx={4}>
+                 mx={3}>
                 {
                     links.map((item, index) => {
                         const isActive = active === item?.id
