@@ -16,7 +16,7 @@ export const Movie = ({movie, nav}) => {
                          flexDir={'row'}>
                         <Text height={6} fontSize={12}
                               style={{color: "#0F1B2B", opacity: .6}}>
-                            {movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value}
+                            {movie.genreList.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value :"None"}
                         </Text>
                         <Box mb={1} mx={2} style={styles.dot}></Box>
                         <Text height={6} fontSize={11}

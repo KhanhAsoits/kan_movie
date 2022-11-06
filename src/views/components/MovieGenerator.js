@@ -1,9 +1,11 @@
 import {Movie} from "./Movie";
-import {HStack} from "native-base/src";
 import {Box} from "native-base";
-import {Dimensions} from "react-native";
+import movieStore from "../../models/ShowingMoviesStore";
+import {Loader} from "./Loader";
+import {observer} from "mobx-react";
+import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
 
-export const MovieGenerator = ({movies, nav, width}) => {
+const MovieGenerator = ({movies, nav, width}) => {
     return (
         <Box flex={1} flexDir={"row"} style={{width: width}} justifyContent={"space-between"} my={2}
              flexWrap={'wrap'}>
@@ -12,6 +14,9 @@ export const MovieGenerator = ({movies, nav, width}) => {
                     <Movie key={index.toString()} movie={movie} nav={nav}></Movie>
                 )
             })}
+            {movieStore.loading && <Loader></Loader>}
+            {comingSoonMovieStore.loading && <Loader></Loader>}
         </Box>
     )
 }
+export default observer(MovieGenerator)

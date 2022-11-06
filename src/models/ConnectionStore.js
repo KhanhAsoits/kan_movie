@@ -14,7 +14,7 @@ class ConnectionStore {
     }
 
     async reloadConnection() {
-        this.setConnected(this.checkConnection())
+        this.setConnected(await this.checkConnection())
     }
 
     async checkConnection() {

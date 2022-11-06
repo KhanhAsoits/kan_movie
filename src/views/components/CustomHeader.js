@@ -7,7 +7,7 @@ import {TouchableOpacity, TextInput, StyleSheet} from "react-native";
 export const CustomHeader = ({title, route, isSearching, toggleSearching}) => {
     return (
         <NativeBaseProvider>
-            <Box height={88} bgColor={"white"} shadow={3}>
+            <Box height={88} bgColor={"white"}>
                 <Box style={{height: 88}} justifyContent={"space-between"}
                      flexDir={'row'}
                      alignItems={'center'} pt={8} px={3} shadow={1}>
