@@ -2,12 +2,18 @@ import {Box, Image, Text} from "native-base/src/index";
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {RatingGenerator} from "./RatingGenerator";
 import {CalculatorRating, getRandomInt} from "../../core/helper";
+import {Dimensions} from "react-native";
 
 export const Movie = ({movie, nav}) => {
+    const screenWidth = Dimensions.get('window').width
     return (
         <Box>
             <TouchableOpacity activeOpacity={.7}>
-                <Image source={{uri: movie?.image}} style={styles.responsiveImg} alt={'movie - thumbnail'}></Image>
+                <Image source={{uri: movie?.image}} style={{
+                    ...styles.responsiveImg,
+                    width: screenWidth / 2 - 18,
+                    height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
+                }} alt={'movie - thumbnail'}></Image>
                 <Box my={2}>
                     <RatingGenerator total={5} per={CalculatorRating(movie?.imDbRating)}/>
                     <Text width={160} height={6} overflow={"hidden"} fontSize={16}
@@ -16,7 +22,7 @@ export const Movie = ({movie, nav}) => {
                          flexDir={'row'}>
                         <Text height={6} fontSize={12}
                               style={{color: "#0F1B2B", opacity: .6}}>
-                            {movie.genreList.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value :"None"}
+                            {movie.genreList.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value : "None"}
                         </Text>
                         <Box mb={1} mx={2} style={styles.dot}></Box>
                         <Text height={6} fontSize={11}
@@ -32,8 +38,7 @@ export const Movie = ({movie, nav}) => {
 
 const styles = StyleSheet.create({
     responsiveImg: {
-        width: 162,
-        height: 250,
+
         borderRadius: 4,
         resizeMode: "cover"
     },

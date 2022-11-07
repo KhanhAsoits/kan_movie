@@ -7,6 +7,7 @@ import NotificationScreen from "./src/views/screens/NotificationScreen";
 import UserScreen from "./src/views/screens/UserScreen";
 import {HeaderViewModel} from "./src/viewmodels/HeaderViewModel";
 import HomeViewModel from "./src/viewmodels/HomeViewModel";
+import {Platform} from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
 
 export default function App() {
@@ -48,7 +49,7 @@ export default function App() {
             return <Ionicons name={iconName} size={22.5} color={color}/>;
         },
         tabBarHideOnKeyboard: true,
-        tabBarStyle: {height: 50},
+        tabBarStyle: {height: Platform.OS === "android" ? 60 : 75},
         tabBarActiveTintColor: "#47CFFF",
         tabBarInactiveTintColor: 'gray',
     })
