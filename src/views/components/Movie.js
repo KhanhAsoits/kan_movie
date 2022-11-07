@@ -1,14 +1,15 @@
 import {Box, Image, Text} from "native-base/src/index";
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {RatingGenerator} from "./RatingGenerator";
-import {CalculatorRating, getRandomInt} from "../../core/helper";
+import {CalculatorRating, getRandomInt, handleMoving} from "../../core/helper";
 import {Dimensions} from "react-native";
+import {Link} from "native-base";
 
 export const Movie = ({movie, nav}) => {
     const screenWidth = Dimensions.get('window').width
     return (
         <Box>
-            <TouchableOpacity activeOpacity={.7}>
+            <TouchableOpacity activeOpacity={.7} onPress={()=>{handleMoving(nav,'single_movie')}}>
                 <Image source={{uri: movie?.image}} style={{
                     ...styles.responsiveImg,
                     width: screenWidth / 2 - 18,
@@ -38,7 +39,6 @@ export const Movie = ({movie, nav}) => {
 
 const styles = StyleSheet.create({
     responsiveImg: {
-
         borderRadius: 4,
         resizeMode: "cover"
     },

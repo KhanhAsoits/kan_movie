@@ -9,6 +9,9 @@ import comingSoonMovieStore from "../models/ComingSoonMovieStore";
 import showingMoviesStore from "../models/ShowingMoviesStore";
 import {Dimensions} from "react-native";
 import connectionStore from "../models/ConnectionStore";
+import SingleMovieVIewModel from "./SingleMovieViewModel";
+import {createStackNavigator} from "@react-navigation/stack";
+import {useFocusEffect} from "@react-navigation/native";
 
 const HomeViewModel = ({route, nav}) => {
 
@@ -74,15 +77,19 @@ const HomeViewModel = ({route, nav}) => {
         homeStore.setActive(id)
     }
 
+    const Stack = createStackNavigator()
+
+
     return (
-        <HomeScreen
-            handleSwitch={handleSwitch}
-            active={homeStore.active}
-            links={switchTabItems}
-            route={route}
-            nav={nav}
-        >
-        </HomeScreen>
+        <Stack.Navigator>
+            <Stack.Screen options={{headerShown: false}} name={'home_screen'}
+                          children={(props) => <HomeScreen {...props} active={homeStore.active}
+                                                           links={switchTabItems}
+                                                           handleSwitch={handleSwitch}/>}></Stack.Screen>
+            <Stack.Screen name={'single_movie'} options={{
+                headerShown: false
+            }} component={SingleMovieVIewModel}></Stack.Screen>
+        </Stack.Navigator>
     )
 
 }

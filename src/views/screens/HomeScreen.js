@@ -5,8 +5,18 @@ import {SwitchTabViewModel} from "../../viewmodels/SwitchTabViewModel";
 import {TabContentViewModel} from "../../viewmodels/TabContentViewModel";
 import connectionStore from "../../models/ConnectionStore";
 import {ErrorScreen} from "./ErrorScreen";
+import {useFocusEffect} from "@react-navigation/native";
+import {useCallback} from "react";
+import homeStore from "../../models/HomeStore";
 
 const HomeScreen = ({route, nav, links, active, handleSwitch}) => {
+    useFocusEffect(
+        useCallback(() => {
+            if (homeStore.showHeader===false){
+                homeStore.setHidden(true)
+            }
+        }, [])
+    )
     return (
         <NativeBaseProvider>
             <Box flex={1} mt={20}>
@@ -16,6 +26,8 @@ const HomeScreen = ({route, nav, links, active, handleSwitch}) => {
                     :
                     <ErrorScreen message={"You don't connect a network >.<"}/>
                 }
+                {/*    config stack screen*/}
+
             </Box>
         </NativeBaseProvider>
     )

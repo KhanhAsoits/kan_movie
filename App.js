@@ -9,20 +9,24 @@ import {HeaderViewModel} from "./src/viewmodels/HeaderViewModel";
 import HomeViewModel from "./src/viewmodels/HomeViewModel";
 import {Platform} from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
+import {observer} from "mobx-react";
+import homeStore from "./src/models/HomeStore";
 
-export default function App() {
+function App() {
     //app config
     const Tab = createBottomTabNavigator();
     // NavigationBar.setBackgroundColorAsync("white").then(r => console.log('change system bar'))
 
     // home header config
     const HomeConfig = {
-        tabBarShowLabel: false, header: ({nav, route, options}) => {
+        tabBarShowLabel: false,
+        header: ({nav, route, options}) => {
             const title = "Start Movie";
             return (
                 <HeaderViewModel title={title} route={route} nav={nav}></HeaderViewModel>
             )
-        }
+        },
+        headerShown: homeStore.showHeader
     }
     //screen config
     const ScreenConfig = ({route}) => ({
@@ -72,4 +76,4 @@ export default function App() {
     )
 }
 
-
+export default observer(App)

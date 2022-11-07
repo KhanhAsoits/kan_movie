@@ -5,8 +5,11 @@ import showingMoviesStore from "../../models/ShowingMoviesStore";
 import MovieGenerator from "../components/MovieGenerator";
 import movieStore from "../../models/ShowingMoviesStore";
 import {Loader} from "../components/Loader";
+import {useNavigation} from "@react-navigation/native";
 
-const ShowingScreen = ({id, movies, nav, screenWidth, refreshing, handleRefresh}) => {
+const ShowingScreen = ({id, movies, screenWidth, refreshing, handleRefresh}) => {
+
+    const navigation = useNavigation()
 
     const handleLoad = (event) => {
         const spaceToEnd = 250
@@ -23,7 +26,7 @@ const ShowingScreen = ({id, movies, nav, screenWidth, refreshing, handleRefresh}
                     }
                     key={Math.random().toString()} flex={1}>
 
-            <MovieGenerator movies={movies} width={screenWidth - 23} nav={nav}></MovieGenerator>
+            <MovieGenerator movies={movies} width={screenWidth - 23} nav={navigation}></MovieGenerator>
             {movieStore.fetching && <Loader></Loader>}
         </ScrollView>
     )

@@ -5,8 +5,15 @@ import {Dimensions} from "react-native";
 
 export const TabContentViewModel = ({active, items}) => {
     const ScreenWidth = Dimensions.get("window").width
+    let left = 0;
+    if (active <= 1) {
+        left = 0
+    } else {
+        left = -ScreenWidth * (active - 1)
+    }
     return (
-        <Box flex={1} left={active === 1 ? 0 : - ScreenWidth} flexDir={'row'} bgColor={"blue.500"} width={ScreenWidth * 2}>
+        <Box flex={1} left={left} flexDir={'row'} bgColor={"blue.500"}
+             width={ScreenWidth * items.length}>
             {items.map((item, index) => {
                 return (
                     <TabContent key={index.toString()} active={active} id={item.id} content={item}></TabContent>
