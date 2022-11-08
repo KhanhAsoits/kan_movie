@@ -67,7 +67,7 @@ const SingleMovie = ({movie, links, handleSwitch}) => {
                                                 text: {marginVertical: 0, fontSize: 14},
                                                 button: styles.cSwitchBtn
                                             }}></SwitchTabViewModel>
-                        <TabContentViewModel active={SingleMovieStore.active} ></TabContentViewModel>
+                        <TabContentViewModel items={links} active={SingleMovieStore.active}></TabContentViewModel>
                     </View>
                 </ScrollView>
             </Box>
