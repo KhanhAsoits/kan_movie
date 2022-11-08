@@ -12,6 +12,7 @@ import connectionStore from "../models/ConnectionStore";
 import SingleMovieVIewModel from "./SingleMovieViewModel";
 import {createStackNavigator} from "@react-navigation/stack";
 import {useFocusEffect} from "@react-navigation/native";
+import SingleMovieStore from "../models/SingleMovieStore";
 
 const HomeViewModel = ({route, nav}) => {
 
@@ -69,8 +70,10 @@ const HomeViewModel = ({route, nav}) => {
 
 
     useEffect(() => {
+        SingleMovieStore.clearState()
         homeStore.setActive(switchTabItems[0].id)
     }, [])
+
 
 
     const handleSwitch = (id) => {
@@ -78,7 +81,6 @@ const HomeViewModel = ({route, nav}) => {
     }
 
     const Stack = createStackNavigator()
-
 
     return (
         <Stack.Navigator>

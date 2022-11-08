@@ -3,18 +3,27 @@ import {StyleSheet, TouchableOpacity} from "react-native";
 import {RatingGenerator} from "./RatingGenerator";
 import {CalculatorRating, getRandomInt, handleMoving} from "../../core/helper";
 import {Dimensions} from "react-native";
-import {Link} from "native-base";
+import {observer} from "mobx-react";
+import ExpoFastImage from "expo-fast-image";
+import 'react-native-get-random-values'
+import {v4 as UUID} from 'uuid'
 
-export const Movie = ({movie, nav}) => {
+const Movie = ({movie, nav}) => {
     const screenWidth = Dimensions.get('window').width
     return (
         <Box>
-            <TouchableOpacity activeOpacity={.7} onPress={()=>{handleMoving(nav,'single_movie')}}>
-                <Image source={{uri: movie?.image}} style={{
-                    ...styles.responsiveImg,
-                    width: screenWidth / 2 - 18,
-                    height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
-                }} alt={'movie - thumbnail'}></Image>
+            <TouchableOpacity activeOpacity={.7} onPress={() => {
+                handleMoving(nav, 'single_movie',{movie_id:movie.id})
+            }}>
+                <ExpoFastImage
+                    uri={movie?.image}
+                    cacheKey={UUID()}
+                    style={{
+                        ...styles.responsiveImg,
+                        width: screenWidth / 2 - 18,
+                        height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
+                    }}
+                />
                 <Box my={2}>
                     <RatingGenerator total={5} per={CalculatorRating(movie?.imDbRating)}/>
                     <Text width={160} height={6} overflow={"hidden"} fontSize={16}
@@ -36,6 +45,8 @@ export const Movie = ({movie, nav}) => {
         </Box>
     )
 }
+
+export default observer(Movie)
 
 const styles = StyleSheet.create({
     responsiveImg: {

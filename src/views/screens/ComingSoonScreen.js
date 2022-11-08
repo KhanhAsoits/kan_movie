@@ -1,14 +1,9 @@
 import {observer} from "mobx-react";
-import {Box, Text} from "native-base";
 import {ScrollView} from "native-base/src/index";
-import homeStore from "../../models/HomeStore";
-import {Dimensions, RefreshControl} from "react-native";
-import {useCallback, useEffect, useState} from "react";
-import movieStore from "../../models/ShowingMoviesStore";
+import {RefreshControl} from "react-native";
 import MovieGenerator from "../components/MovieGenerator";
 import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
-import {Loader} from "../components/Loader";
-import showingMoviesStore from "../../models/ShowingMoviesStore";
+import Loader from "../components/Loader";
 
 const ComingSoonScreen = ({nav, id, movies, screenWidth, refreshing, handleRefresh}) => {
     const handleLoad = (event) => {

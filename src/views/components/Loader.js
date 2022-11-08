@@ -2,8 +2,11 @@ import {Box} from "native-base/src/index";
 import {Text, View} from "native-base";
 import {useEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
+import {SCREEN_HEIGHT} from "../../core/helper";
+import homeStore from "../../models/HomeStore";
+import {observer} from "mobx-react";
 
-export const Loader = () => {
+const Loader = () => {
     const ani = useRef(new Animated.Value(0)).current
     const spinInto = ani.interpolate({
         inputRange: [0, 1],
@@ -21,15 +24,16 @@ export const Loader = () => {
 
 
     return (
-        <Box height={500} position={'relative'} justifyContent={'center'} alignItems={'center'}>
+        <Box height={homeStore.showHeader ? 500 : SCREEN_HEIGHT} position={'relative'} justifyContent={'center'}
+             alignItems={'center'}>
             <Animated.View
                 width={30}
                 height={30}
                 borderWidth={2}
                 borderRadius={50}
                 style={{
-                    borderStyle:"dashed",
-                    borderColor:'red',
+                    borderStyle: "dashed",
+                    borderColor: 'red',
                     transform: [{rotate: spinInto}]
                 }}
             >
@@ -37,3 +41,5 @@ export const Loader = () => {
         </Box>
     )
 }
+
+export default observer(Loader)

@@ -8,18 +8,20 @@ import {ErrorScreen} from "./ErrorScreen";
 import {useFocusEffect} from "@react-navigation/native";
 import {useCallback} from "react";
 import homeStore from "../../models/HomeStore";
+import {CustomHeader} from "../components/CustomHeader";
 
 const HomeScreen = ({route, nav, links, active, handleSwitch}) => {
-    useFocusEffect(
-        useCallback(() => {
-            if (homeStore.showHeader===false){
-                homeStore.setHidden(true)
-            }
-        }, [])
-    )
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         if (homeStore.showHeader === false) {
+    //             homeStore.setHidden(true)
+    //         }
+    //     }, [])
+    // )
     return (
         <NativeBaseProvider>
-            <Box flex={1} mt={20}>
+            <CustomHeader title={'Start Movie'}/>
+            <Box flex={1}>
                 <SwitchTabViewModel active={active} handleSwitch={handleSwitch} links={links}></SwitchTabViewModel>
                 {connectionStore.connected ?
                     <TabContentViewModel active={active} items={links}></TabContentViewModel>

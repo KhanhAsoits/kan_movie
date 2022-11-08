@@ -4,7 +4,7 @@ import {Dimensions, RefreshControl} from "react-native";
 import showingMoviesStore from "../../models/ShowingMoviesStore";
 import MovieGenerator from "../components/MovieGenerator";
 import movieStore from "../../models/ShowingMoviesStore";
-import {Loader} from "../components/Loader";
+import Loader from "../components/Loader";
 import {useNavigation} from "@react-navigation/native";
 
 const ShowingScreen = ({id, movies, screenWidth, refreshing, handleRefresh}) => {

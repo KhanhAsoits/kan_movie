@@ -12,7 +12,7 @@ export const TabContentViewModel = ({active, items}) => {
         left = -ScreenWidth * (active - 1)
     }
     return (
-        <Box flex={1} left={left} flexDir={'row'} bgColor={"blue.500"}
+        <Box flex={1} left={left} flexDir={'row'} bgColor={"white"}
              width={ScreenWidth * items.length}>
             {items.map((item, index) => {
                 return (

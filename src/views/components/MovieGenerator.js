@@ -1,7 +1,7 @@
-import {Movie} from "./Movie";
+import Movie from "./Movie";
 import {Box} from "native-base";
 import movieStore from "../../models/ShowingMoviesStore";
-import {Loader} from "./Loader";
+import Loader from "./Loader";
 import {observer} from "mobx-react";
 import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
 

@@ -12,8 +12,8 @@ export function getRandomInt(max) {
 export const checkConnection = async () => {
     return (await NetInfo.fetch()).isConnected
 }
-export const handleMoving = (nav, to) => {
-    nav.navigate(to)
+export const handleMoving = (nav, to, param = {}) => {
+    nav.navigate(to, param)
 }
 export const SCREEN_WIDTH = Dimensions.get('window').width
 export const SCREEN_HEIGHT = Dimensions.get('window').height

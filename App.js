@@ -20,19 +20,11 @@ function App() {
     // home header config
     const HomeConfig = {
         tabBarShowLabel: false,
-        header: ({nav, route, options}) => {
-            const title = "Start Movie";
-            return (
-                <HeaderViewModel title={title} route={route} nav={nav}></HeaderViewModel>
-            )
-        },
-        headerShown: homeStore.showHeader
+        headerShown: false
     }
     //screen config
     const ScreenConfig = ({route}) => ({
-
         //config tab bar icon
-
         tabBarIcon: ({focused, color, size}) => {
             let iconName;
 
