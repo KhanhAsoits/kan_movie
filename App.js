@@ -7,7 +7,7 @@ import NotificationScreen from "./src/views/screens/NotificationScreen";
 import UserScreen from "./src/views/screens/UserScreen";
 import {HeaderViewModel} from "./src/viewmodels/HeaderViewModel";
 import HomeViewModel from "./src/viewmodels/HomeViewModel";
-import {Platform} from "react-native";
+import {LogBox, Platform} from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
 import {observer} from "mobx-react";
 import homeStore from "./src/models/HomeStore";
@@ -17,6 +17,7 @@ function App() {
     const Tab = createBottomTabNavigator();
     // NavigationBar.setBackgroundColorAsync("white").then(r => console.log('change system bar'))
 
+    LogBox.ignoreAllLogs(true)
     // home header config
     const HomeConfig = {
         tabBarShowLabel: false,

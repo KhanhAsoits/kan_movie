@@ -7,6 +7,7 @@ import DetailTabViewModel from "./DetailTabViewModel";
 import ReviewTabViewModel from "./ReviewTabViewModel";
 import ShowTimeTabViewModel from "./ShowTimeTabViewModel";
 import {useNavigation} from "@react-navigation/native";
+import {BackHandler} from "react-native";
 
 const SingleMovieViewModel = ({route}) => {
     const {movie_id} = route.params
@@ -32,10 +33,19 @@ const SingleMovieViewModel = ({route}) => {
             await SingleMovieStore.onGetMovie(movie_id)
         }
         if (Object.keys(SingleMovieStore.movie).length === 0 || SingleMovieStore.movie.id !== movie_id) {
+            SingleMovieStore.clearState()
             async_bs()
         }
-        console.log(movie_id)
+        const backHandle = BackHandler.addEventListener("hardwareBackPress", function () {
+            nav.goBack()
+        })
+        return () => backHandle.remove()
     }, [movie_id])
+
+    BackHandler.addEventListener("hardwareBackPress", function () {
+        SingleMovieStore.clearState()
+        return true
+    })
     return (
         <>
             <SingleMovie handleBack={handleBack} handleSwitch={handleSwitch} movie={SingleMovieStore.movie}
