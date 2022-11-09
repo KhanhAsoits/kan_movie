@@ -4,10 +4,6 @@ import {observer} from "mobx-react";
 import SingleMovieHeader from "../components/SingleMovieHeader";
 import SingleMovieTitle from "../components/SingleMovieTitle";
 import SingleMovieTab from "../components/SingleMovieTab";
-import {SingleMovePhoto} from "../components/SingleMovePhoto";
-import {SingleMovieVideo} from "../components/SingleMovieVideo";
-import {SingleMovieBlogPost} from "../components/SingleMovieBlogPost";
-import SingleMovieCast from "../components/SingleMovieCast";
 import singleMovieStore from "../../models/SingleMovieStore";
 import Loader from "../components/Loader";
 

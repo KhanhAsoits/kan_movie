@@ -1,8 +1,6 @@
-import {Box, HStack, ScrollView, Text} from "native-base";
+import {Box, ScrollView, Text} from "native-base";
 import {SCREEN_WIDTH} from "../../core/helper";
-import {TouchableOpacity} from "react-native";
 import {useState} from "react";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import SingleMovieStore from "../../models/SingleMovieStore";
 import SingleMovieCast from "../components/SingleMovieCast";
 import SingleMovePhoto from "../components/SingleMovePhoto";
@@ -15,6 +13,7 @@ export const DetailScreen = ({route, nav}) => {
     const handleCollapse = () => {
         setTruncate(c => !c)
     }
+
     return (
         <ScrollView style={{width: SCREEN_WIDTH}} bgColor={'white'} mt={0} mb={5}>
             <Box mx={5}>
@@ -29,7 +28,7 @@ export const DetailScreen = ({route, nav}) => {
                 {/*end casts and crew*/}
                 {/*    photos*/}
                 <SingleMovePhoto photos={SingleMovieStore.movie?.images?.items}/>
-                {/*    photos*/}
+                {/*photos*/}
                 <SingleMovieRelated videos={SingleMovieStore.movie?.similars}/>
                 {/*<SingleMovieBlogPost/>*/}
             </Box>
