@@ -13,6 +13,8 @@ import SingleMovieVIewModel from "./SingleMovieViewModel";
 import {createStackNavigator} from "@react-navigation/stack";
 import {useFocusEffect} from "@react-navigation/native";
 import SingleMovieStore from "../models/SingleMovieStore";
+import {MediaViewAll} from "../views/components/MediaViewAll";
+import {CastAndCrewViewAll} from "../views/components/CastAndCrewViewAll";
 
 const HomeViewModel = ({route, nav}) => {
 
@@ -75,7 +77,6 @@ const HomeViewModel = ({route, nav}) => {
     }, [])
 
 
-
     const handleSwitch = (id) => {
         homeStore.setActive(id)
     }
@@ -91,6 +92,14 @@ const HomeViewModel = ({route, nav}) => {
             <Stack.Screen name={'single_movie'} options={{
                 headerShown: false
             }} component={SingleMovieVIewModel}></Stack.Screen>
+            <Stack.Screen name={'photo-review'} component={MediaViewAll} options={{
+                title: "Photos",
+                headerShown: false
+            }}></Stack.Screen>
+            <Stack.Screen name={'cast-review'} component={CastAndCrewViewAll} options={{
+                title: "Casts And Crew",
+                headerShown: false
+            }}></Stack.Screen>
         </Stack.Navigator>
     )
 

@@ -16,6 +16,7 @@ const ComingSoonScreen = ({movies, screenWidth, refreshing, handleRefresh}) => {
     const nav = useNavigation()
     return (
         <ScrollView flex={1}
+                    scrollEventThrottle={16}
                     bgColor={'white'} px={3}
                     onScroll={handleLoad}
                     refreshControl={

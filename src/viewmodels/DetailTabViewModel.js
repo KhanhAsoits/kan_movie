@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 
 const DetailTabViewModel = ({route, nav}) => {
     return (
-        <DetailScreen></DetailScreen>
+        <DetailScreen nav={nav}></DetailScreen>
     )
 
 }

@@ -14,6 +14,12 @@ export const DetailScreen = ({route, nav}) => {
         setTruncate(c => !c)
     }
 
+    const handleViewAllPhoto = () => {
+        nav.navigate('photo-review', {photos: SingleMovieStore.movie?.images?.items})
+    }
+    const handleViewAllCast = () => {
+        nav.navigate('cast-review', {casts: SingleMovieStore.movie?.actorList})
+    }
     return (
         <ScrollView style={{width: SCREEN_WIDTH}} bgColor={'white'} mt={0} mb={5}>
             <Box mx={5}>
@@ -24,10 +30,11 @@ export const DetailScreen = ({route, nav}) => {
                     {SingleMovieStore.movie?.plot}
                 </Text>
                 {/*cast and crew*/}
-                <SingleMovieCast casts={SingleMovieStore.movie?.actorList}/>
+                <SingleMovieCast handleViewAllCast={handleViewAllCast} casts={SingleMovieStore.movie?.actorList}/>
                 {/*end casts and crew*/}
                 {/*    photos*/}
-                <SingleMovePhoto photos={SingleMovieStore.movie?.images?.items}/>
+                <SingleMovePhoto handleViewAllPhotos={handleViewAllPhoto}
+                                 photos={SingleMovieStore.movie?.images?.items}/>
                 {/*photos*/}
                 <SingleMovieRelated videos={SingleMovieStore.movie?.similars}/>
                 {/*<SingleMovieBlogPost/>*/}

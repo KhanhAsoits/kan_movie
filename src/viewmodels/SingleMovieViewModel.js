@@ -14,15 +14,15 @@ const SingleMovieViewModel = ({route}) => {
     const [refreshing, setRefreshing] = useState(false)
     const nav = useNavigation()
     const handleBack = () => {
-        SingleMovieStore.clearState()
         nav.goBack()
+        SingleMovieStore.clearState()
     }
     const handleSwitch = (id) => {
         SingleMovieStore.setActive(id)
     }
     const handleRefresh = () => {
     }
-    let detailTab = new HomeSwitchItem(1, 'Detail', 'single_movie/:id', {}, <DetailTabViewModel/>)
+    let detailTab = new HomeSwitchItem(1, 'Detail', 'single_movie/:id', {}, <DetailTabViewModel nav={nav}/>)
 
     let reviewTab = new HomeSwitchItem(2, 'Reviews', 'single_movie/:id/reviews', {}, <ReviewTabViewModel/>)
     let showtimeTab = new HomeSwitchItem(3, 'Showtime', 'single_movie/:id/show_time', {}, <ShowTimeTabViewModel/>)
@@ -33,19 +33,16 @@ const SingleMovieViewModel = ({route}) => {
             await SingleMovieStore.onGetMovie(movie_id)
         }
         if (Object.keys(SingleMovieStore.movie).length === 0 || SingleMovieStore.movie.id !== movie_id) {
-            SingleMovieStore.clearState()
             async_bs()
         }
         const backHandle = BackHandler.addEventListener("hardwareBackPress", function () {
+            // SingleMovieStore.clearState()
             nav.goBack()
+
         })
         return () => backHandle.remove()
     }, [movie_id])
 
-    BackHandler.addEventListener("hardwareBackPress", function () {
-        SingleMovieStore.clearState()
-        return true
-    })
     return (
         <>
             <SingleMovie handleBack={handleBack} handleSwitch={handleSwitch} movie={SingleMovieStore.movie}

@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
         zIndex: 10
     },
     responsiveThumbnail: {
+        backgroundColor:'rgba(0,0,0,0.1)',
         borderRadius: 6,
         resizeMode: "cover",
         width: SCREEN_WIDTH / 1.6 - 50,

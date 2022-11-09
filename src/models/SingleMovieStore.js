@@ -20,6 +20,7 @@ class SingleMovieStore {
         try {
             this.isFetching = true
             let uri = `${configs.api_en_base_uri}/Title/${configs.token}/${id}/FullActor,FullCast,Posters,Images,Trailer,Ratings,`
+            console.log(uri)
             let result = (await axios.get(uri)).data
             runInAction(() => {
                 this.movie = result

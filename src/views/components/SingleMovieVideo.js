@@ -9,7 +9,7 @@ import {v4 as UUID} from "uuid";
 const SingleMovieRelated = ({videos}) => {
     return (
         <Box my={2}>
-            <Box flexDir={'row'} justifyContent={'space-between'} alignItems={'center'} mr={4}>
+            <Box flexDir={'row'} justifyContent={'space-between'} alignItems={'center'}>
                 <Text fontSize={18} color={'black'} fontWeight={'500'} mb={3}>Similars</Text>
                 <TouchableOpacity>
                     <Text color={'blue.400'} fontSize={14} mb={3}>View All</Text>
@@ -24,6 +24,7 @@ const SingleMovieRelated = ({videos}) => {
                                 cacheKey={UUID()}
                                 uri={val?.image}
                                 style={{
+                                    backgroundColor:'rgba(0,0,0,0.1)',
                                     width: SCREEN_WIDTH / 4,
                                     height: SCREEN_WIDTH / 5,
                                     borderRadius: 6,

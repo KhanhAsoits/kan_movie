@@ -20,6 +20,7 @@ const ShowingScreen = ({id, movies, screenWidth, refreshing, handleRefresh}) => 
 
     return (
         <ScrollView bgColor={'white'} px={3}
+                    scrollEventThrottle={16}
                     onScroll={handleLoad}
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}></RefreshControl>

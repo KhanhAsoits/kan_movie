@@ -7,18 +7,20 @@ import 'react-native-get-random-values'
 import {v4 as UUID} from 'uuid'
 import {SCREEN_WIDTH} from "../../core/helper";
 
-export const CastGenerator = ({casts}) => {
+export const CastGenerator = ({casts, all = false}) => {
     return (
-        casts.slice(0, 6).map((val, index) => {
+        casts?.slice(0, all ? casts.length : 6)?.map((val, index) => {
             return (
-                <HStack key={index.toString()} flexDir={'row'} justifyContent={'flex-start'} space={16}
+                <HStack width={all ? SCREEN_WIDTH - 30 : "100%"} key={index.toString()}
+                        flexDir={'row'}
+                        justifyContent={'flex-start'} space={16}
                         alignItems={'center'} my={2}>
-                    <HStack width={SCREEN_WIDTH / 2.7} justifyContent={'space-between'} alignItems={'center'}
-                            space={2}>
+                    <HStack width={SCREEN_WIDTH / 2.7} justifyContent={'flex-start'} alignItems={'center'}
+                            space={4}>
                         <ExpoFastImage
                             uri={val?.image}
                             cacheKey={UUID()}
-                            style={{width: 46, height: 46, borderRadius: 50}}
+                            style={{width: 46, backgroundColor: 'rgba(0,0,0,0.1)', height: 46, borderRadius: 50}}
                         />
                         <Text fontSize={14} fontWeight={'500'}>{val?.name}</Text>
                     </HStack>
