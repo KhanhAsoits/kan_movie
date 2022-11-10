@@ -1,12 +1,16 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import BaseAPI from "../core/api";
 import connectionStore from "./ConnectionStore";
+import axios from "axios";
+import {configs} from "../core/configs";
 
 class SearchingMovieStore {
 
     showingMovies = []
 
-    fetching = true
+    query = ''
+
+    fetching = false
 
     showingMoviesByPage = new Set()
 
@@ -15,6 +19,8 @@ class SearchingMovieStore {
     showing_limit = 8
 
     loading = false
+
+    his_movie = []
 
     constructor() {
         makeAutoObservable(this)
@@ -57,14 +63,42 @@ class SearchingMovieStore {
         })
     }
 
+    searchInLocal() {
+        let reg = `/*.${this.query}.*/`
+        let localResult = this.showingMovies.filter((val, index) => {
+            return val?.title.match(reg)
+        })
+        return localResult ? localResult : []
+    }
+
+
     async onGetShowingMovie() {
         try {
             if (await connectionStore.checkConnection() === true && this.showingMovies.length === 0) {
-                let res = await BaseAPI.get('InTheaters')
+                let searchInLocal = false
+                let res = this.showingMovies
+                if (this.showingMovies.length === 0) {
+                    if (this.query.trim() !== "") {
+                        res = (await axios.get(`${configs.api_en_base_uri}/SearchMovie/${configs.token}/${this.query}`)).data
+                        console.log('fetch')
+                    } else {
+                        searchInLocal = true
+                    }
+                } else {
+                    searchInLocal = true
+                }
                 runInAction(() => {
                     this.fetching = true
-                    this.showingMovies = res.items
-                    this.onGetShowingMovieByPage()
+                    if (!searchInLocal) {
+                        console.log('fetch online')
+                        this.showingMovies = res?.results
+                    } else {
+                        console.log('fetch local')
+                        this.his_movie = this.showingMovies
+                        this.showingMovies = this.searchInLocal()
+                    }
+                    console.log('after fetch  : ', this.showingMovies)
+                    this.onGetSearchMovieByPage()
                     this.fetching = false
                 })
             } else {
@@ -78,6 +112,10 @@ class SearchingMovieStore {
             this.setFetching(false)
             connectionStore.setConnected(false)
         }
+    }
+
+    setQuery(text) {
+        this.query = text
     }
 }
 

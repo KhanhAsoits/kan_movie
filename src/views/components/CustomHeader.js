@@ -5,6 +5,7 @@ import React, {useState} from "react";
 import {TouchableOpacity, TextInput, StyleSheet} from "react-native";
 import HomeStore from "../../models/HomeStore";
 import {observer} from "mobx-react";
+import SearchingMovieStore from "../../models/SearchingMovieStore";
 
 const CustomHeader = ({title, route}) => {
     return (
@@ -13,7 +14,8 @@ const CustomHeader = ({title, route}) => {
                  flexDir={'row'}
                  alignItems={'center'} pt={8} px={3} shadow={1}>
                 {HomeStore.searching ?
-                    <TextInput autoFocus={true} style={styles.inputSearch}/>
+                    <TextInput onChangeText={text => SearchingMovieStore.setQuery(text)} autoFocus={true}
+                               style={styles.inputSearch}/>
                     :
                     <Text color={'gray.600'} fontSize={24} fontWeight={"500"}>{title}</Text>
                 }

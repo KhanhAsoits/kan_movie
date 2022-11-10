@@ -13,13 +13,14 @@ const Movie = ({movie, nav}) => {
     return (
         <Box>
             <TouchableOpacity activeOpacity={.7} onPress={() => {
-                handleMoving(nav, 'single_movie',{movie_id:movie.id})
+                handleMoving(nav, 'single_movie', {movie_id: movie.id})
             }}>
                 <ExpoFastImage
                     uri={movie?.image}
                     cacheKey={UUID()}
                     style={{
                         ...styles.responsiveImg,
+                        backgroundColor: 'rgba(0,0,0,0.1)',
                         width: screenWidth / 2 - 18,
                         height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
                     }}
@@ -32,7 +33,7 @@ const Movie = ({movie, nav}) => {
                          flexDir={'row'}>
                         <Text height={6} fontSize={12}
                               style={{color: "#0F1B2B", opacity: .6}}>
-                            {movie.genreList.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value : "None"}
+                            {movie?.genreList?.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList?.length)]?.value : "None"}
                         </Text>
                         <Box mb={1} mx={2} style={styles.dot}></Box>
                         <Text height={6} fontSize={11}
