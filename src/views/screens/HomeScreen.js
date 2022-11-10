@@ -5,18 +5,27 @@ import {SwitchTabViewModel} from "../../viewmodels/SwitchTabViewModel";
 import {TabContentViewModel} from "../../viewmodels/TabContentViewModel";
 import connectionStore from "../../models/ConnectionStore";
 import {ErrorScreen} from "./ErrorScreen";
-import {CustomHeader} from "../components/CustomHeader";
+import CustomHeader from "../components/CustomHeader";
+import HomeStore from "../../models/HomeStore";
+import SearchResultViewModel from "../../viewmodels/SearchResultViewModel";
 
-const HomeScreen = ({route, nav, links, active, handleSwitch}) => {
+const HomeScreen = ({route, nav, searching, links, active, handleSwitch}) => {
     return (
         <NativeBaseProvider>
             <CustomHeader title={'Start Movie'}/>
             <Box flex={1}>
-                <SwitchTabViewModel active={active} handleSwitch={handleSwitch} links={links}></SwitchTabViewModel>
-                {connectionStore.connected ?
-                    <TabContentViewModel active={active} items={links}></TabContentViewModel>
-                    :
-                    <ErrorScreen message={"You don't connect a network >.<"}/>
+                {
+                    HomeStore.searching ?
+                        <SearchResultViewModel/> :
+                        <>
+                            <SwitchTabViewModel active={active} handleSwitch={handleSwitch}
+                                                links={links}></SwitchTabViewModel>
+                            {connectionStore.connected ?
+                                <TabContentViewModel active={active} items={links}></TabContentViewModel>
+                                :
+                                <ErrorScreen message={"You don't connect a network >.<"}/>
+                            }
+                        </>
                 }
             </Box>
         </NativeBaseProvider>

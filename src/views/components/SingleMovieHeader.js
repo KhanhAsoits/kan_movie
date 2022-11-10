@@ -11,7 +11,7 @@ import ExpoFastImage from "expo-fast-image";
 import {useNavigation} from "@react-navigation/native";
 import SingleMovieStore from "../../models/SingleMovieStore";
 
-const SingleMovieHeader = ({image, background,handleBack}) => {
+const SingleMovieHeader = ({image, background, handleBack}) => {
 
     return (
         <>
@@ -75,12 +75,11 @@ const styles = StyleSheet.create({
         zIndex: 10
     },
     responsiveThumbnail: {
-        backgroundColor:'rgba(0,0,0,0.1)',
+        backgroundColor: 'rgba(0,0,0,1)',
         borderRadius: 6,
         resizeMode: "cover",
         width: SCREEN_WIDTH / 1.6 - 50,
         height: SCREEN_HEIGHT / 2.9,
         zIndex: 10
-
     },
 })

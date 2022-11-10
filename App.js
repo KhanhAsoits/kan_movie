@@ -1,22 +1,18 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useLayoutEffect} from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {NavigationContainer} from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import TicketScreen from "./src/views/screens/TicketScreen";
 import NotificationScreen from "./src/views/screens/NotificationScreen";
 import UserScreen from "./src/views/screens/UserScreen";
-import {HeaderViewModel} from "./src/viewmodels/HeaderViewModel";
 import HomeViewModel from "./src/viewmodels/HomeViewModel";
 import {LogBox, Platform} from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
 import {observer} from "mobx-react";
-import homeStore from "./src/models/HomeStore";
 
 function App() {
     //app config
     const Tab = createBottomTabNavigator();
-    // NavigationBar.setBackgroundColorAsync("white").then(r => console.log('change system bar'))
-
     LogBox.ignoreAllLogs(true)
     // home header config
     const HomeConfig = {

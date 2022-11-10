@@ -20,6 +20,7 @@ const SingleMovieViewModel = ({route}) => {
     const handleSwitch = (id) => {
         SingleMovieStore.setActive(id)
     }
+
     const handleRefresh = () => {
     }
     let detailTab = new HomeSwitchItem(1, 'Detail', 'single_movie/:id', {}, <DetailTabViewModel nav={nav}/>)
@@ -35,12 +36,11 @@ const SingleMovieViewModel = ({route}) => {
         if (Object.keys(SingleMovieStore.movie).length === 0 || SingleMovieStore.movie.id !== movie_id) {
             async_bs()
         }
-        const backHandle = BackHandler.addEventListener("hardwareBackPress", function () {
-            // SingleMovieStore.clearState()
-            nav.goBack()
-
+        const handleBack = BackHandler.addEventListener('hardwareBackPress', function () {
+            console.log('back')
+            return true
         })
-        return () => backHandle.remove()
+        return () => handleBack.remove()
     }, [movie_id])
 
     return (

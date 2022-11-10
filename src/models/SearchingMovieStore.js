@@ -2,9 +2,9 @@ import {makeAutoObservable, runInAction} from "mobx";
 import BaseAPI from "../core/api";
 import connectionStore from "./ConnectionStore";
 
-class ShowingMoviesStore {
+class SearchingMovieStore {
 
-    showingMovies = [{name:'kanh'}]
+    showingMovies = []
 
     fetching = true
 
@@ -20,7 +20,6 @@ class ShowingMoviesStore {
         makeAutoObservable(this)
     }
 
-
     setLoading(isLoading) {
         this.loading = isLoading
     }
@@ -29,7 +28,7 @@ class ShowingMoviesStore {
         this.fetching = isFetching
     }
 
-    onGetShowingMovieByPage() {
+    onGetSearchMovieByPage() {
         runInAction(() => {
             if (Math.ceil(this.showingMovies.length / this.showing_limit) >= this.showing_page + 1) {
                 let current_record = this.showing_page * this.showing_limit
@@ -41,7 +40,7 @@ class ShowingMoviesStore {
         })
     }
 
-    onGetShowingMovieByPageLoading() {
+    onGetSearchMovieByPageLoading() {
         runInAction(() => {
             if (!this.loading) {
                 if (Math.round(this.showingMovies.length / this.showing_limit) - 1 > this.showing_page) {
@@ -82,5 +81,5 @@ class ShowingMoviesStore {
     }
 }
 
-const movieStore = new ShowingMoviesStore();
-export default movieStore
+const searchingMovieStore = new SearchingMovieStore();
+export default searchingMovieStore

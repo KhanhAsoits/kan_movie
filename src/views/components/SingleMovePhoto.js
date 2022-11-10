@@ -26,6 +26,7 @@ const SingleMoviePhoto = ({photos,handleViewAllPhotos}) => {
                                     cacheKey={UUID()}
                                     uri={val?.image}
                                     style={{
+                                        backgroundColor:'rgba(0,0,0,0.1)',
                                         width: SCREEN_WIDTH / 4,
                                         height: SCREEN_WIDTH / 5,
                                         borderRadius: 6,

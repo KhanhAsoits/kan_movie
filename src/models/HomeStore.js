@@ -5,8 +5,14 @@ class HomeStore {
 
     showHeader = true
 
+    searching = false
+
     constructor() {
         makeAutoObservable(this)
+    }
+
+    setSearching(value) {
+        this.searching = value
     }
 
     setActive(value) {
