@@ -4,7 +4,7 @@ import connectionStore from "./ConnectionStore";
 
 class ShowingMoviesStore {
 
-    showingMovies = [{name:'kanh'}]
+    showingMovies = []
 
     fetching = true
 
@@ -30,6 +30,7 @@ class ShowingMoviesStore {
     }
 
     onGetShowingMovieByPage() {
+        //if data not fetch check default data
         runInAction(() => {
             if (Math.ceil(this.showingMovies.length / this.showing_limit) >= this.showing_page + 1) {
                 let current_record = this.showing_page * this.showing_limit
