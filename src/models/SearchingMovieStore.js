@@ -64,23 +64,29 @@ class SearchingMovieStore {
     }
 
     searchInLocal() {
+        console.log('length : ', this.showingMovies.length)
+        console.log('query', this.query)
         let reg = `/*.${this.query}.*/`
         let localResult = this.showingMovies.filter((val, index) => {
             return val?.title.match(reg)
         })
+        console.log('local result : ', localResult)
         return localResult ? localResult : []
     }
 
 
     async onGetShowingMovie() {
         try {
+            console.log('here')
             if (await connectionStore.checkConnection() === true && this.showingMovies.length === 0) {
+                this.setFetching(true)
                 let searchInLocal = false
                 let res = this.showingMovies
                 if (this.showingMovies.length === 0) {
                     if (this.query.trim() !== "") {
-                        res = (await axios.get(`${configs.api_en_base_uri}/SearchMovie/${configs.token}/${this.query}`)).data
-                        console.log('fetch')
+                        let uri = `${configs.api_en_base_uri}/SearchMovie/${configs.token}/${this.query}`
+                        res = (await axios.get(uri)).data
+                        console.log(uri)
                     } else {
                         searchInLocal = true
                     }
@@ -88,18 +94,21 @@ class SearchingMovieStore {
                     searchInLocal = true
                 }
                 runInAction(() => {
-                    this.fetching = true
                     if (!searchInLocal) {
                         console.log('fetch online')
-                        this.showingMovies = res?.results
+                        if (res?.results) {
+                            this.showingMovies = res?.results
+                        } else {
+                            this.showingMovies = []
+                        }
                     } else {
                         console.log('fetch local')
                         this.his_movie = this.showingMovies
                         this.showingMovies = this.searchInLocal()
                     }
-                    console.log('after fetch  : ', this.showingMovies)
-                    this.onGetSearchMovieByPage()
-                    this.fetching = false
+                    setTimeout(() => {
+                        this.setFetching(false)
+                    }, 1000)
                 })
             } else {
                 if (await connectionStore.checkConnection() === false) {

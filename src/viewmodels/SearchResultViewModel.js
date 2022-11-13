@@ -10,7 +10,6 @@ const SearchResultViewModel = ({route}) => {
             await SearchingMovieStore.onGetShowingMovie();
         }
         if (!SearchingMovieStore.fetching) {
-            console.log('fetch : ', SearchingMovieStore.fetching)
             getSync()
         }
     }, [SearchingMovieStore.query])
