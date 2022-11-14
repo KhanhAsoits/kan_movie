@@ -1,4 +1,4 @@
-import SearchResultScreen from "../views/screens/SearchResultScreen";
+import SearchResultScreen from "../views/screens/search/SearchResultScreen";
 import {observer} from "mobx-react";
 
 const SearchResultViewModel = ({route}) => {

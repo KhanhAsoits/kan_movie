@@ -1,9 +1,9 @@
 import {observer} from "mobx-react";
-import HomeScreen from "../views/screens/HomeScreen";
+import HomeScreen from "../views/screens/home/HomeScreen";
 import HomeSwitchItem from "../core/types/HomeSwitchItem";
 import {useCallback, useEffect, useState} from "react";
-import ShowingScreen from "../views/screens/ShowingScreen";
-import ComingSoonScreen from "../views/screens/ComingSoonScreen";
+import ShowingScreen from "../views/screens/home/ShowingScreen";
+import ComingSoonScreen from "../views/screens/home/ComingSoonScreen";
 import homeStore from "../models/HomeStore";
 import comingSoonMovieStore from "../models/ComingSoonMovieStore";
 import showingMoviesStore from "../models/ShowingMoviesStore";
@@ -15,6 +15,7 @@ import {useFocusEffect} from "@react-navigation/native";
 import SingleMovieStore from "../models/SingleMovieStore";
 import {MediaViewAll} from "../views/components/MediaViewAll";
 import {CastAndCrewViewAll} from "../views/components/CastAndCrewViewAll";
+import {ReviewDetailScreen} from "../views/screens/movie_detail/ReviewDetailScreen";
 
 const HomeViewModel = ({route, nav}) => {
 
@@ -100,6 +101,7 @@ const HomeViewModel = ({route, nav}) => {
                 title: "Casts And Crew",
                 headerShown: false
             }}></Stack.Screen>
+            <Stack.Screen name={'review_detail'} component={ReviewDetailScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
     )
 

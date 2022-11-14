@@ -1,4 +1,4 @@
-import {DetailScreen} from "../views/screens/DetailScreen";
+import {DetailScreen} from "../views/screens/movie_detail/DetailScreen";
 import {observer} from "mobx-react";
 
 const DetailTabViewModel = ({route, nav}) => {

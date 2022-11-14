@@ -6,7 +6,7 @@ import {SCREEN_HEIGHT} from "../../core/helper";
 import homeStore from "../../models/HomeStore";
 import {observer} from "mobx-react";
 
-const Loader = () => {
+const Loader = ({height}) => {
     const ani = useRef(new Animated.Value(0)).current
     const spinInto = ani.interpolate({
         inputRange: [0, 1],
@@ -24,7 +24,7 @@ const Loader = () => {
 
 
     return (
-        <Box height={homeStore.showHeader ? 500 : SCREEN_HEIGHT} position={'relative'} justifyContent={'center'}
+        <Box height={height ? height : 500} position={'relative'} justifyContent={'center'}
              alignItems={'center'}>
             <Animated.View
                 width={30}

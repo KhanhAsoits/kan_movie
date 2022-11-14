@@ -1,9 +1,9 @@
 import {observer} from "mobx-react";
 import {ScrollView} from "native-base/src/index";
 import {RefreshControl} from "react-native";
-import MovieGenerator from "../components/MovieGenerator";
-import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
-import Loader from "../components/Loader";
+import MovieGenerator from "../../components/MovieGenerator";
+import comingSoonMovieStore from "../../../models/ComingSoonMovieStore";
+import Loader from "../../components/Loader";
 import {useNavigation} from "@react-navigation/native";
 
 const ComingSoonScreen = ({movies, screenWidth, refreshing, handleRefresh}) => {

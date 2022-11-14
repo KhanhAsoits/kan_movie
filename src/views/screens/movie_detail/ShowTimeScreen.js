@@ -1,5 +1,5 @@
 import {Box, ScrollView, Text} from "native-base";
-import {SCREEN_WIDTH} from "../../core/helper";
+import {SCREEN_WIDTH} from "../../../core/helper";
 
 export const ShowTimeScreen = ({route, nav}) => {
     return (

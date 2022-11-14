@@ -1,4 +1,4 @@
-import MovieGenerator from "../components/MovieGenerator";
+import MovieGenerator from "../../components/MovieGenerator";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 import {observer} from "mobx-react";
 import {BorderlessButton} from "react-native-gesture-handler";

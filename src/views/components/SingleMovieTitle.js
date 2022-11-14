@@ -21,7 +21,6 @@ const SingleMovieTitle = ({title, rating, generics, time, contentRating}) => {
                 </Text>
                 <RatingGenerator per={CalculatorRating(rating)} total={5} cSize={16}></RatingGenerator>
             </HStack>
-
         </>
     )
 }

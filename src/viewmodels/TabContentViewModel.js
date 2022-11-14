@@ -3,7 +3,7 @@ import {ScrollView} from "native-base/src/index";
 import {Box, HStack, Text, View} from "native-base";
 import {Dimensions} from "react-native";
 
-export const TabContentViewModel = ({active, items}) => {
+export const TabContentViewModel = ({active, items, height}) => {
     const ScreenWidth = Dimensions.get("window").width
     let left = 0;
     if (active <= 1) {
@@ -16,7 +16,7 @@ export const TabContentViewModel = ({active, items}) => {
              width={ScreenWidth * items.length}>
             {items.map((item, index) => {
                 return (
-                    <TabContent key={index.toString()} active={active} id={item.id} content={item}></TabContent>
+                    <TabContent height={height} key={index.toString()} active={active} id={item.id} content={item}></TabContent>
                 )
             })}
 

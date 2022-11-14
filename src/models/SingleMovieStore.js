@@ -1,7 +1,6 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {configs} from "../core/configs";
 import axios from "axios";
-import movie from "../views/components/Movie";
 
 class SingleMovieStore {
 
@@ -9,11 +8,39 @@ class SingleMovieStore {
 
     isFetching = true
     isLoading = false
+    reviewFetching = false
 
     movie = {}
 
+    id = null
+
+    reviews = []
+
     constructor() {
         makeAutoObservable(this)
+    }
+
+    setReviewFetching(value) {
+        this.reviewFetching = value
+    }
+
+    async onGetReviews() {
+        try {
+            if (this.reviews.length === 0 && !this.reviewFetching) {
+                this.setReviewFetching(true)
+                let res = (await axios.get(`${configs.api_en_base_uri}/Reviews/${configs.token}/${this.movie?.id}`)).data
+                console.log(`${configs.api_en_base_uri}/Reviews/${configs.token}/${this.movie?.id}`)
+                if (res?.items) {
+                    this.reviews = res.items
+                    console.log('items : ', res.items[0])
+                } else {
+                    console.log('err')
+                }
+                this.setReviewFetching(false)
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     async onGetMovie(id) {

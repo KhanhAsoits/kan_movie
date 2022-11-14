@@ -1,5 +1,5 @@
 import {Box, ScrollView, Text} from "native-base/src";
-import {TouchableOpacity} from "react-native";
+import {TouchableOpacity, Platform, StyleSheet} from "react-native";
 import {HStack, Image} from "native-base";
 import {SCREEN_WIDTH} from "../../core/helper";
 import ExpoFastImage from "expo-fast-image";
@@ -7,7 +7,7 @@ import 'react-native-get-random-values'
 import {v4 as UUID} from "uuid";
 import {observer} from "mobx-react";
 
-const SingleMoviePhoto = ({photos,handleViewAllPhotos}) => {
+const SingleMoviePhoto = ({photos, handleViewAllPhotos}) => {
     return (
         <>
             <Box my={2}>
@@ -21,17 +21,21 @@ const SingleMoviePhoto = ({photos,handleViewAllPhotos}) => {
                     <HStack space={2}>
                         {photos.slice(0, 4).map((val, index) => {
                             return (
-                                <ExpoFastImage
-                                    key={index.toString()}
-                                    cacheKey={UUID()}
-                                    uri={val?.image}
-                                    style={{
-                                        backgroundColor:'rgba(0,0,0,0.1)',
-                                        width: SCREEN_WIDTH / 4,
-                                        height: SCREEN_WIDTH / 5,
-                                        borderRadius: 6,
-                                        resizeMode: 'cover'
-                                    }}/>
+                                <>
+                                    {
+                                        Platform.OS === 'android' ?
+                                            <ExpoFastImage
+                                                key={index.toString()}
+                                                cacheKey={UUID()}
+                                                uri={val?.image}
+                                                style={styles.responsiveImage}/>
+                                            :
+                                            <Image source={{uri: val?.image}} key={index.toString()}
+                                                   style={styles.responsiveImage}/>
+                                    }
+
+                                </>
+
                             )
                         })}
                     </HStack>
@@ -41,4 +45,13 @@ const SingleMoviePhoto = ({photos,handleViewAllPhotos}) => {
         </>
     )
 }
+const styles = StyleSheet.create({
+    responsiveImage: {
+        backgroundColor: 'rgba(0,0,0,0.1)',
+        width: SCREEN_WIDTH / 4,
+        height: SCREEN_WIDTH / 5,
+        borderRadius: 6,
+        resizeMode: 'cover'
+    }
+})
 export default observer(SingleMoviePhoto)

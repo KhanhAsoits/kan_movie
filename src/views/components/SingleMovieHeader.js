@@ -15,8 +15,7 @@ const SingleMovieHeader = ({image, background, handleBack}) => {
 
     return (
         <>
-            <ImageBackground style={styles.responsiveBackground} source={{uri: background}} resizeMode={"cover"}
-                             blurRadius={3}>
+            <ImageBackground style={styles.responsiveBackground} source={{uri: background}} resizeMode={"cover"}>
                 <Box flex={1} flexDir={'row'} justifyContent={'space-between'} alignItems={'center'} px={3}
                      height={10} mt={10}>
                     <TouchableOpacity activeOpacity={.6} onPress={handleBack}>
@@ -45,7 +44,6 @@ const SingleMovieHeader = ({image, background, handleBack}) => {
                     style={styles.responsiveThumbnail}
                 />
             </View>
-            {/*<View style={styles.overlay}></View>*/}
             <View style={{height: SCREEN_HEIGHT / 5, backgroundColor: "white"}}></View>
         </>
     )

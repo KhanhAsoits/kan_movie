@@ -1,4 +1,4 @@
-import SingleMovie from "../views/screens/SingleMovie";
+import SingleMovie from "../views/screens/movie_detail/SingleMovie";
 import {observer} from "mobx-react";
 import {useEffect, useState} from "react";
 import HomeSwitchItem from "../core/types/HomeSwitchItem";

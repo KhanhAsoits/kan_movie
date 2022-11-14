@@ -3,8 +3,9 @@ import SingleMovieStore from "../../models/SingleMovieStore";
 import {TabContentViewModel} from "../../viewmodels/TabContentViewModel";
 import {StyleSheet} from "react-native";
 import {observer} from "mobx-react";
+import {SCREEN_HEIGHT} from "../../core/helper";
 
- const SingleMovieTab = ({handleSwitch, links}) => {
+const SingleMovieTab = ({handleSwitch, links}) => {
     return (
         <>
             <SwitchTabViewModel handleSwitch={handleSwitch} active={SingleMovieStore.active} links={links}
@@ -12,7 +13,8 @@ import {observer} from "mobx-react";
                                     text: {marginVertical: 0, fontSize: 14},
                                     button: styles.cSwitchBtn
                                 }}></SwitchTabViewModel>
-            <TabContentViewModel items={links} active={SingleMovieStore.active}></TabContentViewModel>
+            <TabContentViewModel height={SCREEN_HEIGHT * .8} items={links}
+                                 active={SingleMovieStore.active}></TabContentViewModel>
         </>
     )
 }

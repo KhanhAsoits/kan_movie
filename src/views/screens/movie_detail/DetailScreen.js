@@ -1,18 +1,12 @@
 import {Box, ScrollView, Text} from "native-base";
-import {SCREEN_WIDTH} from "../../core/helper";
+import {SCREEN_WIDTH} from "../../../core/helper";
 import {useState} from "react";
-import SingleMovieStore from "../../models/SingleMovieStore";
-import SingleMovieCast from "../components/SingleMovieCast";
-import SingleMovePhoto from "../components/SingleMovePhoto";
-import SingleMovieRelated from "../components/SingleMovieVideo";
+import SingleMovieStore from "../../../models/SingleMovieStore";
+import SingleMovieCast from "../../components/SingleMovieCast";
+import SingleMovePhoto from "../../components/SingleMovePhoto";
+import SingleMovieRelated from "../../components/SingleMovieVideo";
 
 export const DetailScreen = ({route, nav}) => {
-
-    const [truncate, setTruncate] = useState(true)
-
-    const handleCollapse = () => {
-        setTruncate(c => !c)
-    }
 
     const handleViewAllPhoto = () => {
         nav.navigate('photo-review', {photos: SingleMovieStore.movie?.images?.items})
