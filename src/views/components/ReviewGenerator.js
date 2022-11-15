@@ -6,12 +6,12 @@ import {CalculatorRating} from "../../core/helper";
 import {useState} from "react";
 import {Review} from "./Review";
 
-export const ReviewGenerator = ({reviews}) => {
+export const ReviewGenerator = ({reviews, nav}) => {
     return (
         <VStack space={3}>
             {reviews.map((review, index) => {
                 return (
-                    <Review key={index.toString()} review={review}/>
+                    <Review nav={nav} key={index.toString()} review={review}/>
                 )
             })}
         </VStack>

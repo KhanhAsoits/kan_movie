@@ -10,9 +10,12 @@ import {useNavigation} from "@react-navigation/native";
 import {BackHandler} from "react-native";
 
 const SingleMovieViewModel = ({route}) => {
-    const {movie_id} = route.params
+    const {movie_id, comingSoon} = route.params
     const [refreshing, setRefreshing] = useState(false)
     const nav = useNavigation()
+    nav.addListener('beforeRemove', () => {
+        SingleMovieStore.clearState()
+    })
     const handleBack = () => {
         nav.goBack()
         SingleMovieStore.clearState()
@@ -30,17 +33,18 @@ const SingleMovieViewModel = ({route}) => {
 
     let tabLinks = [detailTab, reviewTab, showtimeTab]
     useEffect(() => {
+        SingleMovieStore.setFetching(true)
         const async_bs = async () => {
             await SingleMovieStore.onGetMovie(movie_id)
+            SingleMovieStore.setFetching(false)
         }
-        if (Object.keys(SingleMovieStore.movie).length === 0 || SingleMovieStore.movie.id !== movie_id) {
-            async_bs()
-        }
-        const handleBack = BackHandler.addEventListener('hardwareBackPress', function () {
-            console.log('back')
-            return true
-        })
-        return () => handleBack.remove()
+        setTimeout(() => {
+            if (Object.keys(SingleMovieStore.movie).length === 0 || SingleMovieStore.movie.id !== movie_id) {
+                async_bs()
+            }
+        }, 100)
+        console.log('movie : ', SingleMovieStore.movie)
+        console.log('fetching : ', SingleMovieStore.isFetching)
     }, [movie_id])
 
     return (

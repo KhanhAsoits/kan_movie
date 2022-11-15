@@ -5,13 +5,13 @@ import Loader from "./Loader";
 import {observer} from "mobx-react";
 import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
 
-const MovieGenerator = ({movies, nav, width}) => {
+const MovieGenerator = ({movies, nav, width,comingSoon}) => {
     return (
         <Box flex={1} flexDir={"row"} style={{width: width}} justifyContent={"space-between"} my={2}
              flexWrap={'wrap'}>
             {Array.from(movies).map((movie, index) => {
                 return (
-                    <Movie key={index.toString()} movie={movie} nav={nav}></Movie>
+                    <Movie comingSoon={comingSoon} key={index.toString()} movie={movie} nav={nav}></Movie>
                 )
             })}
             {movieStore.loading && <Loader></Loader>}

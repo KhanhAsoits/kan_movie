@@ -6,14 +6,13 @@ import {CalculatorRating} from "../../core/helper";
 import {useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 
-export const Review = ({review}) => {
-    const nav = useNavigation()
+export const Review = ({review, nav}) => {
     const [waringSpoil, setWarningSpoil] = useState(review?.warningSpoilers)
     const handleShow = () => {
         if (waringSpoil) {
             setWarningSpoil(false)
-        }else {
-
+        } else {
+            nav.navigate('review_detail', {review: review})
         }
     }
     return (

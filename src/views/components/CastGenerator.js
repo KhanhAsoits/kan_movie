@@ -6,6 +6,7 @@ import ExpoFastImage from "expo-fast-image";
 import 'react-native-get-random-values'
 import {v4 as UUID} from 'uuid'
 import {SCREEN_WIDTH} from "../../core/helper";
+import {Platform, StyleSheet} from "react-native";
 
 export const CastGenerator = ({casts, all = false}) => {
     return (
@@ -17,11 +18,17 @@ export const CastGenerator = ({casts, all = false}) => {
                         alignItems={'center'} my={2}>
                     <HStack width={SCREEN_WIDTH / 2.7} justifyContent={'flex-start'} alignItems={'center'}
                             space={4}>
-                        <ExpoFastImage
-                            uri={val?.image}
-                            cacheKey={UUID()}
-                            style={{width: 46, backgroundColor: 'rgba(0,0,0,0.1)', height: 46, borderRadius: 50}}
-                        />
+                        {
+                            Platform.OS === "android" ?
+
+                                <ExpoFastImage
+                                    uri={val?.image}
+                                    cacheKey={UUID()}
+                                    style={styles.responsiveImg}
+                                />
+                                :
+                                <Image style={styles.responsiveImg} alt={'cast avatar'} source={{uri: val?.image}}/>
+                        }
                         <Text fontSize={14} fontWeight={'500'}>{val?.name}</Text>
                     </HStack>
                     <HStack justifyContent={'space-between'} width={SCREEN_WIDTH / 2.7 - 10} alignItems={'center'}
@@ -34,3 +41,11 @@ export const CastGenerator = ({casts, all = false}) => {
         })
     )
 }
+const styles = StyleSheet.create({
+    responsiveImg: {
+        width: 46,
+        backgroundColor: 'rgba(0,0,0,0.1)',
+        height: 46,
+        borderRadius: 50
+    }
+})

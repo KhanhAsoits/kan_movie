@@ -1,4 +1,4 @@
-import {ImageBackground, StyleSheet, TouchableOpacity} from "react-native";
+import {ImageBackground, Platform, StyleSheet, TouchableOpacity} from "react-native";
 import bg from "../../../assets/static/images/movie-preview.png";
 import {Box} from "native-base/src";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -38,11 +38,18 @@ const SingleMovieHeader = ({image, background, handleBack}) => {
                 </Box>
             </ImageBackground>
             <View style={styles.boxThumbnail}>
-                <ExpoFastImage
-                    uri={image}
-                    cacheKey={UUID()}
-                    style={styles.responsiveThumbnail}
-                />
+                {Platform.OS === "android" ?
+                    <ExpoFastImage
+                        uri={image}
+                        cacheKey={UUID()}
+                        style={styles.responsiveThumbnail}
+                    /> :
+                    <Image
+                        alt={'movie_img'}
+                        source={{uri: image}}
+                        style={styles.responsiveThumbnail}
+                    />
+                }
             </View>
             <View style={{height: SCREEN_HEIGHT / 5, backgroundColor: "white"}}></View>
         </>

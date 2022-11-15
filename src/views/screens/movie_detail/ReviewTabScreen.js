@@ -1,6 +1,5 @@
-import {Box, HStack, Image, ScrollView, Text, VStack} from "native-base";
-import {CalculatorRating, SCREEN_WIDTH} from "../../../core/helper";
-import {RatingGenerator} from "../../components/RatingGenerator";
+import {ScrollView} from "native-base";
+import {SCREEN_WIDTH} from "../../../core/helper";
 import {observer} from "mobx-react";
 import SingleMovieStore from "../../../models/SingleMovieStore";
 import Loader from "../../components/Loader";
@@ -14,7 +13,7 @@ const ReviewTabScreen = ({route, nav}) => {
                 SingleMovieStore.reviewFetching ?
                     <Loader height={50}></Loader>
                     :
-                    <ReviewGenerator reviews={SingleMovieStore.reviews}/>
+                    <ReviewGenerator nav={nav} reviews={SingleMovieStore.reviews}/>
             }
         </ScrollView>
     )

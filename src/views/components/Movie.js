@@ -1,5 +1,5 @@
 import {Box, Image, Text} from "native-base/src/index";
-import {StyleSheet, TouchableOpacity} from "react-native";
+import {Platform, StyleSheet, TouchableOpacity} from "react-native";
 import {RatingGenerator} from "./RatingGenerator";
 import {CalculatorRating, getRandomInt, handleMoving} from "../../core/helper";
 import {Dimensions} from "react-native";
@@ -8,22 +8,35 @@ import ExpoFastImage from "expo-fast-image";
 import 'react-native-get-random-values'
 import {v4 as UUID} from 'uuid'
 
-const Movie = ({movie, nav}) => {
+const Movie = ({movie, nav, comingSoon}) => {
     const screenWidth = Dimensions.get('window').width
     return (
         <Box>
             <TouchableOpacity activeOpacity={.7} onPress={() => {
-                handleMoving(nav, 'single_movie',{movie_id:movie.id})
+                handleMoving(nav, 'single_movie', {movie_id: movie.id, comingSoon: comingSoon})
             }}>
-                <ExpoFastImage
-                    uri={movie?.image}
-                    cacheKey={UUID()}
-                    style={{
-                        ...styles.responsiveImg,
-                        width: screenWidth / 2 - 18,
-                        height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
-                    }}
-                />
+                {Platform.OS === "android" ?
+                    <ExpoFastImage
+                        uri={movie?.image}
+                        cacheKey={UUID()}
+                        style={{
+                            ...styles.responsiveImg,
+                            width: screenWidth / 2 - 18,
+                            height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
+                        }}
+                    />
+                    :
+                    <Image
+                        alt={'movie_img'}
+                        source={{uri: movie?.image}}
+                        style={{
+                            ...styles.responsiveImg,
+                            width: screenWidth / 2 - 18,
+                            height: (screenWidth / 2 - 18) + (screenWidth / 2 - 18) / 1.5,
+                        }}
+                    />
+                }
+
                 <Box my={2}>
                     <RatingGenerator total={5} per={CalculatorRating(movie?.imDbRating)}/>
                     <Text width={160} height={6} overflow={"hidden"} fontSize={16}

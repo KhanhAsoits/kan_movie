@@ -14,6 +14,7 @@ function App() {
     //app config
     const Tab = createBottomTabNavigator();
     LogBox.ignoreAllLogs(true)
+    console.disableYellowBox = true;
     // home header config
     const HomeConfig = {
         tabBarShowLabel: false,

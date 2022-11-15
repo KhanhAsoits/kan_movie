@@ -8,6 +8,7 @@ import SingleMovieRelated from "../../components/SingleMovieVideo";
 
 export const DetailScreen = ({route, nav}) => {
 
+
     const handleViewAllPhoto = () => {
         nav.navigate('photo-review', {photos: SingleMovieStore.movie?.images?.items})
     }
@@ -15,7 +16,7 @@ export const DetailScreen = ({route, nav}) => {
         nav.navigate('cast-review', {casts: SingleMovieStore.movie?.actorList})
     }
     return (
-        <ScrollView style={{width: SCREEN_WIDTH}} bgColor={'white'} mt={0} mb={5}>
+        <ScrollView style={{width: SCREEN_WIDTH}} bgColor={'white'} mt={0} mb={5} showsVerticalScrollIndicator={false}>
             <Box mx={5}>
                 <Text fontSize={18} color={'black'}>
                     {SingleMovieStore.movie?.title}

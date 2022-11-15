@@ -17,11 +17,11 @@ const SingleMoviePhoto = ({photos, handleViewAllPhotos}) => {
                         <Text color={'blue.400'} fontSize={14} mb={3}>View All</Text>
                     </TouchableOpacity>
                 </Box>
-                <ScrollView horizontal={true}>
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     <HStack space={2}>
                         {photos.slice(0, 4).map((val, index) => {
                             return (
-                                <>
+                                <TouchableOpacity key={index.toString()}>
                                     {
                                         Platform.OS === 'android' ?
                                             <ExpoFastImage
@@ -30,11 +30,11 @@ const SingleMoviePhoto = ({photos, handleViewAllPhotos}) => {
                                                 uri={val?.image}
                                                 style={styles.responsiveImage}/>
                                             :
-                                            <Image source={{uri: val?.image}} key={index.toString()}
+                                            <Image alt={'photos'} source={{uri: val?.image}} key={index.toString()}
                                                    style={styles.responsiveImage}/>
                                     }
 
-                                </>
+                                </TouchableOpacity>
 
                             )
                         })}
