@@ -2,13 +2,13 @@ import {StyleSheet, TouchableOpacity} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Text} from "native-base/src";
 
-export const ToggleBtn = ({active, item, handleSwitch}) => {
+export const ToggleBtn = ({active, item, handleSwitch, cStyle}) => {
     return (
         <TouchableOpacity
             onPress={() => {
                 handleSwitch(item.id)
             }}
-            style={{
+            style={cStyle ? {...cStyle.button,backgroundColor: active ? "#E51937" : "white"} : {
                 ...styles.btnToggle,
                 backgroundColor: active ? "#E51937" : "white"
             }}>
@@ -22,9 +22,8 @@ export const ToggleBtn = ({active, item, handleSwitch}) => {
                 </Ionicons>
             }
 
-            <Text color={active ? 'white' : "#0F1B2B"}
+            <Text color={active ? 'white' : "#0F1B2B"} style={cStyle ? {...cStyle.text} : {marginHorizontal: 6}}
                   fontSize={14}
-                  style={{marginHorizontal: 6}}
                   alignSelf={"center"}>
                 {item?.title}
             </Text>
