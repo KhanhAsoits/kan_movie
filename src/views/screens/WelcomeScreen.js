@@ -1,17 +1,106 @@
 import {Video} from "expo-av";
-import {KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Animated, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../core/helper";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import WelcomeVideoStore from "../../models/WelcomeVideoStore";
 import {observer} from "mobx-react";
+import UserStore from "../../models/UserStore";
+import AuthStore from "../../models/AuthStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const WelcomeScreen = ({route}) => {
     const nav = useNavigation()
     const video = useRef(null)
+    const [authorizeLoading, setAuthorizeLoading] = useState(false)
+    const spinnerAni = useRef(new Animated.Value(0)).current
+
+    const aniIn = spinnerAni.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg']
+    })
+    useEffect(() => {
+        Animated.loop(Animated.timing(spinnerAni, {
+            duration: 500,
+            toValue: 1,
+            useNativeDriver: true
+        })).start()
+    }, [])
+
+    //auto login
+
+    useEffect(() => {
+        const authorizeSync = async () => {
+            let authorizeKey = await AsyncStorage.getItem('@AuthorizeId')
+            console.log('auto login! with id  : ', authorizeKey)
+
+            if (authorizeKey !== null) {
+                setAuthorizeLoading(true)
+                await AuthStore.onGetUserById(authorizeKey)
+                setAuthorizeLoading(false)
+            }
+        }
+        authorizeSync()
+    }, [])
+
+    useEffect(() => {
+        //    after login
+        const setAuthorizeKey = async (key) => {
+            await AsyncStorage.setItem('@AuthorizeId', key ? key.toString() : '')
+            AuthStore.setIsLogin(true)
+        }
+
+        const bsSync = async () => {
+            setAuthorizeLoading(true)
+            await setAuthorizeKey(UserStore.user[0]?.id)
+            setAuthorizeLoading(false)
+        }
+
+        if (Object.keys(UserStore.user).length > 0 && !AuthStore.isLogin) {
+            bsSync()
+        }
+    }, [UserStore.user])
+
+    const list = [
+        '250 top of movie.',
+        'Most of coming soon movies.',
+        'Most of showing movies.',
+        'Best movie reviews.',
+        'Ease to get a movie ticket.',
+        'Realtime notifications.',
+        'Movies wishlist and more...'
+    ]
     return (
         <View style={styles.container}>
+            {authorizeLoading &&
+                <View style={{
+                    ...StyleSheet.absoluteFillObject,
+                    backgroundColor: 'rgba(0,0,0,0.3)',
+                    width: SCREEN_WIDTH,
+                    height: SCREEN_HEIGHT,
+                    zIndex: 10
+                }}>
+                    <Animated.View style={{
+                        width: 45,
+                        height: 45,
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderTopWidth: 0,
+                        borderBottomWidth: 0,
+                        borderColor: 'white',
+                        backgroundColor: 'transparent',
+                        position: 'absolute',
+                        zIndex: 10,
+                        transform: [{rotate: aniIn}],
+                        alignSelf: 'center',
+                        top: SCREEN_HEIGHT / 2,
+                    }}>
+
+                    </Animated.View>
+                </View>
+            }
+
             <Video
                 ref={video}
                 source={require("../../../assets/static/videos/wel_vi.mp4")}
@@ -31,6 +120,34 @@ const WelcomeScreen = ({route}) => {
                     <Ionicons name={WelcomeVideoStore.muted ? 'volume-mute' : 'volume-low'} color={'white'}
                               size={20}></Ionicons>
                 </TouchableOpacity>
+                <Text style={{
+                    marginHorizontal: 20,
+                    fontSize: 55,
+                    color: 'rgba(250,50,50,.9)',
+                    letterSpacing: 1.5,
+                    fontWeight: "900"
+                }}>KAN -
+                    MOVIES.</Text>
+                <Text style={{marginHorizontal: 20, fontSize: 36, color: 'rgba(255,255,255,.9)', fontWeight: "500"}}>Your
+                    movies here's
+                </Text>
+                <View style={{marginVertical: 8}}></View>
+
+                {list.map((val, index) => {
+                    return (
+                        <Text key={index.toString()} style={{
+                            marginHorizontal: 20,
+                            letterSpacing: 1.2,
+                            fontSize: 20,
+                            color: 'rgba(255,255,255,.9)',
+                            fontWeight: "400"
+                        }}>
+                            - {val}
+                        </Text>
+                    )
+                })}
+
+
                 <View style={{
                     flex: 1,
                     alignItems: 'center',
@@ -75,7 +192,7 @@ const styles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         width: SCREEN_WIDTH,
         height: SCREEN_HEIGHT,
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
     },
     loginContainer: {
         alignItems: 'center',

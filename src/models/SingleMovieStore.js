@@ -59,7 +59,6 @@ class SingleMovieStore {
     }
 
     clearState() {
-        console.log('clear state')
         this.setFetching(true)
         this.movie = {}
     }
@@ -91,7 +90,6 @@ class SingleMovieStore {
                 let res = (await axios.get(`${configs.api_en_base_uri}/Reviews/${configs.token}/${this.movie?.id}`)).data
                 if (res?.items) {
                     this.reviews = res.items
-                    console.log('items : ', res.items[0])
                 } else {
                     console.log('err')
                 }

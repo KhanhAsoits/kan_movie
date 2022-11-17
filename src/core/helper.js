@@ -15,5 +15,6 @@ export const checkConnection = async () => {
 export const handleMoving = (nav, to, param = {}) => {
     nav.navigate(to, param)
 }
+
 export const SCREEN_WIDTH = Dimensions.get('window').width
 export const SCREEN_HEIGHT = Dimensions.get('window').height

@@ -2,8 +2,17 @@ import {Box, Text, VStack} from "native-base";
 import {SCREEN_WIDTH} from "../../core/helper";
 import {StyleSheet, TextInput, TouchableOpacity} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {useEffect, useState} from "react";
+import {observer} from "mobx-react";
+import AuthStore from '../../models/AuthStore'
 
-export const SignInTab = ({active, setActive, nav}) => {
+const SignInTab = ({
+                       setActive,
+                       emailIsValid,
+                       passwordIsValid,
+                   }) => {
+
+
     return (
         <Box flex={1} style={{width: SCREEN_WIDTH}} bgColor={'black'}
              justifyContent={'flex-start'} alignItems={'center'}>
@@ -23,14 +32,21 @@ export const SignInTab = ({active, setActive, nav}) => {
                       fontWeight={'500'}>You've been missed!</Text>
 
                 <VStack mt={12} space={4}>
-                    <TextInput placeholder={'Phone,email or username'}
+                    <TextInput onChangeText={text => AuthStore.setUserName(text)}
+                               placeholder={'Phone,email or username'}
                                placeholderTextColor={'rgba(255,255,255,.8)'}
-                               style={styles.responsiveInput}/>
-                    <TextInput placeholder={'Password'}
+                               style={{
+                                   ...styles.responsiveInput,
+                                   borderColor: emailIsValid ? 'rgba(255,255,255,.5)' : 'rgba(200,20,20,1)'
+                               }}/>
+                    <TextInput secureTextEntry={true} onChangeText={text => AuthStore.setPassword(text)}
+                               placeholder={'Password'}
                                placeholderTextColor={'rgba(255,255,255,.8)'}
-                               style={styles.responsiveInput}/>
+                               style={{
+                                   ...styles.responsiveInput,
+                                   borderColor: passwordIsValid ? 'rgba(255,255,255,.5)' : 'rgba(200,20,20,1)'
+                               }}/>
                 </VStack>
-
             </VStack>
         </Box>
     )
@@ -38,7 +54,6 @@ export const SignInTab = ({active, setActive, nav}) => {
 const styles = StyleSheet.create({
     responsiveInput: {
         width: "100%",
-        borderColor: 'rgba(255,255,255,.5)',
         borderWidth: 1,
         backgroundColor: 'rgba(40,40,40,.7)',
         borderRadius: 12,
@@ -50,3 +65,4 @@ const styles = StyleSheet.create({
         color: 'rgba(255,255,255,.8)',
     }
 })
+export default observer(SignInTab)
