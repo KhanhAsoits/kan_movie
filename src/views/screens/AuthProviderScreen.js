@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
 import WelcomeScreen from "./WelcomeScreen";
-import {AuthScreen} from "./auth/AuthScreen";
+import AuthScreen from "./auth/AuthScreen";
 
 const AuthProviderScreen = () => {
     const Stack = createStackNavigator()

@@ -3,7 +3,7 @@ import {makeAutoObservable} from 'mobx'
 class UserStore {
     user = {}
     autoLogin = false
-    isLogin = false
+
 
     constructor() {
         makeAutoObservable(this)
