@@ -8,8 +8,9 @@ export const SelectBox = ({item, active, setActive, handleSelect, cStyle}) => {
         setActive(item.id)
         handleSelect(item.id)
     }
+
     return (
-        <TouchableOpacity onPress={handleActive}>
+        <TouchableOpacity activeOpacity={.9} onPress={handleActive}>
             <Box p={3} justifyContent={'center'} style={{width: SCREEN_WIDTH / 3.6, ...cStyle}} alignItems={'center'}
                  bgColor={active === item?.id ? 'red.500' : 'secondary.100'} borderRadius={6}>
                 {!item?.name &&

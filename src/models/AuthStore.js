@@ -29,6 +29,8 @@ class AuthStore {
             await this.await(1000)
             let uri = `${configs.local_api_base_uri}/users/${id}`
             let res = (await axios.get(uri)).data
+            console.log('res:', res)
+
             if (res.length <= 0) {
                 isSuccess = false
                 Alert.alert("notification", "Something wrong when auto login,please sign in again!")
@@ -51,7 +53,8 @@ class AuthStore {
             isSuccess = false
             Alert.alert("notification", "Email or password incorrect!")
         } else {
-            UserStore.setUser(res)
+            console.log(res)
+            UserStore.setUser(res[0])
         }
         this.setLoginFetching(false)
         return isSuccess
@@ -76,6 +79,8 @@ class AuthStore {
     onHashPassword() {
         this.authInfo.password = Base64.stringify(this.authInfo.password);
     }
+
+
 
     setSignInValid(b) {
         this.isSignInValid = b

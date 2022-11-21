@@ -20,6 +20,7 @@ const WelcomeScreen = ({route}) => {
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg']
     })
+
     useEffect(() => {
         Animated.loop(Animated.timing(spinnerAni, {
             duration: 500,
@@ -53,11 +54,11 @@ const WelcomeScreen = ({route}) => {
 
         const bsSync = async () => {
             setAuthorizeLoading(true)
-            await setAuthorizeKey(UserStore.user[0]?.id)
+            await setAuthorizeKey(UserStore.user?.id)
             setAuthorizeLoading(false)
         }
 
-        if (Object.keys(UserStore.user).length > 0 && !AuthStore.isLogin) {
+        if (UserStore.user?.email !== '' && !AuthStore.isLogin) {
             bsSync()
         }
     }, [UserStore.user])

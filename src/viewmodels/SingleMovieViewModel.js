@@ -7,11 +7,9 @@ import DetailTabViewModel from "./DetailTabViewModel";
 import ReviewTabViewModel from "./ReviewTabViewModel";
 import ShowTimeTabViewModel from "./ShowTimeTabViewModel";
 import {useNavigation} from "@react-navigation/native";
-import {BackHandler} from "react-native";
 
 const SingleMovieViewModel = ({route}) => {
-    const {movie_id, comingSoon} = route.params
-    const [refreshing, setRefreshing] = useState(false)
+    const {movie_id} = route.params
     const nav = useNavigation()
     nav.addListener('beforeRemove', () => {
         SingleMovieStore.clearState()
@@ -29,7 +27,7 @@ const SingleMovieViewModel = ({route}) => {
     let detailTab = new HomeSwitchItem(1, 'Detail', 'single_movie/:id', {}, <DetailTabViewModel nav={nav}/>)
 
     let reviewTab = new HomeSwitchItem(2, 'Reviews', 'single_movie/:id/reviews', {}, <ReviewTabViewModel/>)
-    let showtimeTab = new HomeSwitchItem(3, 'Showtime', 'single_movie/:id/show_time', {}, <ShowTimeTabViewModel/>)
+    let showtimeTab = new HomeSwitchItem(3, 'Showtime', 'single_movie/:id/show_time', {}, <ShowTimeTabViewModel nav={nav}/>)
 
     let tabLinks = [detailTab, reviewTab, showtimeTab]
     useEffect(() => {
@@ -49,7 +47,7 @@ const SingleMovieViewModel = ({route}) => {
 
     return (
         <>
-            <SingleMovie handleBack={handleBack} handleSwitch={handleSwitch} movie={SingleMovieStore.movie}
+            <SingleMovie nav={nav} handleBack={handleBack} handleSwitch={handleSwitch} movie={SingleMovieStore.movie}
                          links={tabLinks}></SingleMovie>
         </>
     )

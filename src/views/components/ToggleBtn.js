@@ -5,6 +5,7 @@ import {Text} from "native-base/src";
 export const ToggleBtn = ({active, item, handleSwitch, cStyle}) => {
     return (
         <TouchableOpacity
+            activeOpacity={.9}
             onPress={() => {
                 handleSwitch(item.id)
             }}

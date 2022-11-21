@@ -16,6 +16,8 @@ import SingleMovieStore from "../models/SingleMovieStore";
 import {MediaViewAll} from "../views/components/MediaViewAll";
 import {CastAndCrewViewAll} from "../views/components/CastAndCrewViewAll";
 import {ReviewDetailScreen} from "../views/screens/movie_detail/ReviewDetailScreen";
+import OrderSeat from "../views/screens/ticket/OrderSeat";
+import OrderTicket from "../views/screens/ticket/OrderTicket";
 
 const HomeViewModel = ({route, nav}) => {
 
@@ -93,6 +95,7 @@ const HomeViewModel = ({route, nav}) => {
             <Stack.Screen name={'single_movie'} options={{
                 headerShown: false
             }} component={SingleMovieVIewModel}></Stack.Screen>
+            <Stack.Screen name={'order_ticket'} options={{headerShown:false}} component={OrderTicket}></Stack.Screen>
             <Stack.Screen name={'photo-review'} component={MediaViewAll} options={{
                 title: "Photos",
                 headerShown: false
