@@ -50,7 +50,11 @@ const RootScreen = (props) => {
             >
                 <Tab.Screen name={'home'} options={HomeConfig}
                             component={HomeViewModel}/>
-                <Tab.Screen name={'event-ticket'} options={{headerShown: false, tabBarShowLabel: false}}
+                <Tab.Screen name={'event-ticket'} options={{
+                    tabBarHideOnKeyboard: true,
+                    headerShown: false,
+                    tabBarShowLabel: false
+                }}
                             component={TicketScreen}/>
                 <Tab.Screen name={'notification'} options={{headerShown: false, tabBarShowLabel: false}}
                             component={NotificationScreen}/>

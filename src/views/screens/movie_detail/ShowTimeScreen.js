@@ -120,7 +120,7 @@ const ShowTimeScreen = ({
             }} style={{backgroundColor: 'red', marginHorizontal: 16, paddingVertical: 10, borderRadius: 8}}>
 
                 {beforeRemove ?
-                    <ActivityIndicator color={'white'} size={20}/>
+                    <ActivityIndicator color={'white'} size={30}/>
                     :
                     <Text
                         textAlign={'center'} color={'white'} fontSize={20} fontWeight={'500'}>Get

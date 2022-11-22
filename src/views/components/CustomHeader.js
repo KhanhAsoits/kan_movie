@@ -15,7 +15,7 @@ const CustomHeader = ({title, route}) => {
                 {HomeStore.searching ?
                     <TextInput autoFocus={true} style={styles.inputSearch}/>
                     :
-                    <Text color={'gray.600'} fontSize={24} fontWeight={"500"}>{title}</Text>
+                    <Text color={'gray.600'} fontSize={30} fontWeight={"500"}>{title}</Text>
                 }
                 <TouchableOpacity onPress={() => {
                     HomeStore.setSearching(!HomeStore.searching)

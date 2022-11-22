@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 import {configs} from "../core/configs";
 import axios from "axios";
+import ConnectionStore from "./ConnectionStore";
 
 class SingleMovieStore {
 
@@ -107,13 +108,13 @@ class SingleMovieStore {
             let result = (await axios.get(uri)).data
             this.setMovie(result)
         } catch (e) {
+            ConnectionStore.setConnected(false)
             console.log(e)
         }
     }
 
 
     async onGetShowTime(cinemaId, date) {
-
         try {
             let res = (await axios.get(`${configs.local_api_base_uri}/showtime/${this.movie?.id}/${cinemaId}/${date}`)).data
             this.setShowTime(res)

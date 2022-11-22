@@ -95,7 +95,7 @@ const HomeViewModel = ({route, nav}) => {
             <Stack.Screen name={'single_movie'} options={{
                 headerShown: false
             }} component={SingleMovieVIewModel}></Stack.Screen>
-            <Stack.Screen name={'order_ticket'} options={{headerShown:false}} component={OrderTicket}></Stack.Screen>
+            <Stack.Screen name={'order_ticket'} options={{headerShown: false}} component={OrderTicket}></Stack.Screen>
             <Stack.Screen name={'photo-review'} component={MediaViewAll} options={{
                 title: "Photos",
                 headerShown: false
