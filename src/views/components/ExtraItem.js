@@ -4,25 +4,22 @@ import {TextInput, TouchableOpacity} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useEffect, useRef, useState} from "react";
 
-export const ExtraItem = ({handleRemove, item, handleSetSelected, setTotal, total}) => {
+export const ExtraItem = ({handleRemove, item, handleSetSelected}) => {
     const [quantity, setQuantity] = useState(0)
-    const oldPrice = useRef(total)
     useEffect(() => {
-        let eachTotal = item.price * quantity
-        setTotal(c => c + oldPrice.current + eachTotal)
         if (quantity === 0) {
-            handleRemove(item)
+            handleRemove({...item,quantity:quantity})
         }
         if (quantity > 0) {
-            handleSetSelected(item)
+            handleSetSelected({...item,quantity:quantity})
         }
     }, [quantity])
 
     return (
-        <HStack width={SCREEN_WIDTH - 55} justifyContent={'space-between'} alignItems={'center'}>
+        <HStack width={SCREEN_WIDTH - 30} justifyContent={'space-between'} alignItems={'center'}>
             <HStack justifyContent={'center'} alignItems={'center'} space={2}>
                 <Image source={item.image} alt={'coca-cola'}
-                       style={{width: 40, resizeMode: 'cover', height: 80}}/>
+                       style={{width: 50, resizeMode: 'contain', height: 80}}/>
                 <VStack space={0}>
                     <Text fontSize={18} color={'black'}>{item.title}</Text>
                     <Text fontSize={14} color={'gray.400'}>${item.price}</Text>

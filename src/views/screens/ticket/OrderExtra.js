@@ -5,9 +5,12 @@ import pepsi from '../../../../assets/static/images/pepsi.png'
 import seven_up from '../../../../assets/static/images/7_up.png'
 import popcorn from '../../../../assets/static/images/popcorn.png'
 import {ExtraItem} from "../../components/ExtraItem";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {ActivityIndicator, TouchableOpacity} from "react-native";
+import TicketStore from "../../../models/TicketStore";
+import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
 
-const OrderExtra = ({}) => {
+const OrderExtra = ({setStep}) => {
 
     const listExtraItems = [
         {title: 'Coca', price: 4, image: coca},
@@ -15,7 +18,7 @@ const OrderExtra = ({}) => {
         {title: '7 up', price: 3, image: seven_up},
         {title: 'Popcorn', price: 5, image: popcorn}
     ]
-
+    const [nextStepLoading, setNextStepLoading] = useState(false)
     const [total, setTotal] = useState(0)
     const [selected, setSelected] = useState([])
 
@@ -26,11 +29,18 @@ const OrderExtra = ({}) => {
                 remove_index = index
             }
         })
+
         if (remove_index !== -1) {
             let tmp = [...selected]
             tmp.splice(remove_index, 1)
             setSelected(tmp)
         }
+    }
+
+    const handleCalcTotal = () => {
+        return selected.reduce((cur, next) => {
+            return cur + (next.price * next.quantity)
+        }, 0)
     }
 
     const handleSelected = (item) => {
@@ -51,18 +61,50 @@ const OrderExtra = ({}) => {
             setSelected(tmp)
         }
     }
+
+    const handleNextStep = () => {
+        setNextStepLoading(true)
+        setTimeout(() => {
+            TicketStore.setOrderTicketExtra(selected)
+            TicketStore.setOrderTicketTotal(TicketStore.orderTicket.total + handleCalcTotal())
+            setStep(c => c + 1)
+            setNextStepLoading(false)
+        }, 2000)
+    }
     return (
         <Box flex={1} px={4}>
-            <VStack space={6} justifyContent={'center'} alignItems={'center'}>
+            <VStack space={8} justifyContent={'space-between'} alignItems={'center'}>
                 {listExtraItems.map((val, index) => {
                     return (
-                        <ExtraItem handleRemove={handleRemove} handleSetSelected={handleSelected} setSelected={setSelected} total={total} setTotal={setTotal} item={val}/>
+                        <ExtraItem handleCalcTotal={handleCalcTotal} handleRemove={handleRemove}
+                                   handleSetSelected={handleSelected}
+                                   setSelected={setSelected} total={total} setTotal={setTotal} item={val}/>
                     )
                 })}
             </VStack>
             <HStack my={2} justifyContent={'space-between'} alignItems={'center'}>
                 <Text fontSize={14} color={'gray.400'}>{selected.length} SELECTED</Text>
-                <Text fontSize={24} color={'red.400'}>${total}</Text>
+                <Text fontSize={24} color={'red.400'}>${handleCalcTotal()}</Text>
+            </HStack>
+            <HStack position={'absolute'} bottom={0} width={SCREEN_WIDTH - 30} alignSelf={'center'}
+                    backgroundColor={'gray.50'}
+                    py={2}
+                    px={3}
+                    mb={2}
+                    borderRadius={8}
+                    justifyContent={'space-between'}
+                    alignItems={'center'}>
+                <VStack>
+                    <Text fontSize={12} color={'gray.400'}>TOTAL COST</Text>
+                    <Text fontSize={30} color={'red.400'}>${TicketStore.orderTicket.total + handleCalcTotal()}</Text>
+                </VStack>
+                <TouchableOpacity activeOpacity={.9} onPress={handleNextStep}>
+                    <Box bgColor={'red.500'} borderRadius={6} px={10} py={3}>
+                        {nextStepLoading ? <ActivityIndicator color={'white'} size={30}/> :
+                            <Text color={'white'} fontWeight={'500'} fontSize={18}>Next</Text>
+                        }
+                    </Box>
+                </TouchableOpacity>
             </HStack>
         </Box>
     )

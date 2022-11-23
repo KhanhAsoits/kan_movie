@@ -16,7 +16,7 @@ const SingleMovie = ({movie, links, handleSwitch, handleBack}) => {
             {singleMovieStore.isFetching ?
                 <Loader height={SCREEN_HEIGHT}></Loader> :
                 <View bgColor={'white'} flex={1} overflow={'hidden'}>
-                    <ScrollView style={{zIndex: 1}} bgColor={'white'}>
+                    <ScrollView contentContainerStyle={{flexGrow:1}} style={{zIndex: 1}} bgColor={'white'}>
                         <SingleMovieHeader handleBack={handleBack} image={movie?.image}
                                            background={movie?.trailer?.thumbnailUrl}></SingleMovieHeader>
                         <SingleMovieTitle title={movie.fullTitle} contentRating={movie?.contentRating}

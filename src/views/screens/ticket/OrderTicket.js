@@ -13,6 +13,7 @@ import SingleMovieStore from "../../../models/SingleMovieStore";
 const OrderTicket = ({route}) => {
     const {date, cinema, time} = route.params
     const [step, setStep] = useState(0)
+
     useEffect(() => {
         const data = {
             cinema: cinema,
@@ -33,15 +34,17 @@ const OrderTicket = ({route}) => {
         <NativeBaseProvider>
             <Box bgColor={'white'} flex={1}>
                 {step === 0 ?
-                    <OrderTicketLayout>
+                    <OrderTicketLayout setStep={setStep} isShowDetail={true}>
                         <OrderSeat seats={cinema.seats} setStep={setStep} cinema={cinema}/>
                     </OrderTicketLayout>
                     : step === 1 ?
-                        <OrderTicketLayout>
-                            <OrderExtra/>
+                        <OrderTicketLayout setStep={setStep} isShowDetail={false} title={'Extra Items'}>
+                            <OrderExtra setStep={setStep}/>
                         </OrderTicketLayout>
                         : step === 2 ?
-                            <Payment/>
+                            <OrderTicketLayout setStep={setStep} isShowDetail={false} title={'Payment'}>
+                                <Payment/>
+                            </OrderTicketLayout>
                             : <ResultTransaction/>
                 }
             </Box>

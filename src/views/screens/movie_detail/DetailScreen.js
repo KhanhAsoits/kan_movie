@@ -5,6 +5,7 @@ import SingleMovieStore from "../../../models/SingleMovieStore";
 import SingleMovieCast from "../../components/SingleMovieCast";
 import SingleMovePhoto from "../../components/SingleMovePhoto";
 import SingleMovieRelated from "../../components/SingleMovieVideo";
+import {Platform} from "react-native";
 
 export const DetailScreen = ({route, nav}) => {
 
@@ -16,7 +17,8 @@ export const DetailScreen = ({route, nav}) => {
         nav.navigate('cast-review', {casts: SingleMovieStore.movie?.actorList})
     }
     return (
-        <ScrollView style={{width: SCREEN_WIDTH}} bgColor={'white'} mt={0} mb={5} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} style={{width: SCREEN_WIDTH}} bgColor={'white'} mt={0} mb={5}
+                    showsVerticalScrollIndicator={Platform.OS === "android"}>
             <Box mx={5}>
                 <Text fontSize={18} color={'black'}>
                     {SingleMovieStore.movie?.title}

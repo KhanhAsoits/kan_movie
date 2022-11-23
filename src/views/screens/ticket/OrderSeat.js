@@ -10,7 +10,6 @@ import TicketStore from "../../../models/TicketStore";
 const OrderSeat = ({setStep, seats}) => {
     let countOfSeat = -1
     const [selected, setSelected] = useState([])
-    const [total, setTotal] = useState(0)
     const handleSelected = (seats) => {
         if (seats.type !== 2) {
             if (selected.length === 0) {
@@ -44,18 +43,16 @@ const OrderSeat = ({setStep, seats}) => {
             setNextStepLoading(true)
             setTimeout(() => {
                 TicketStore.setOrderTicketSelectSeat(selected)
-                TicketStore.setOrderTicketTotal(total)
+                let total_ = selected.reduce((cur, prev) => {
+                    return cur + (prev.type === 1 ? 10 : 30)
+                }, 0)
+                TicketStore.setOrderTicketTotal(total_)
                 setStep(c => c + 1)
                 setNextStepLoading(false)
             }, 1000)
         }
+
     }
-    useEffect(() => {
-        let total = selected.reduce((cur, prev) => {
-            return cur + (prev.type === 1 ? 10 : 30)
-        }, 0)
-        setTotal(total)
-    }, [selected])
 
     return (
         <>
@@ -127,9 +124,9 @@ const OrderSeat = ({setStep, seats}) => {
                                 return cur + (prev.type === 1 ? 10 : 30)
                             }, 0)}</Text>
                         </VStack>
-                        <TouchableOpacity activeOpacity={.8} onPress={handleNextStep}>
+                        <TouchableOpacity activeOpacity={.9} onPress={handleNextStep}>
                             <Box bgColor={'red.500'} borderRadius={6} px={10} py={3}>
-                                {nextStepLoading ? <ActivityIndicator color={'white'}  size={20}/> :
+                                {nextStepLoading ? <ActivityIndicator color={'white'} size={30}/> :
                                     <Text color={'white'} fontWeight={'500'} fontSize={18}>Next</Text>
                                 }
                             </Box>

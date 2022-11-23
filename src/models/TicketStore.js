@@ -8,7 +8,8 @@ class TicketStore {
         date: {},
         time: {},
         movie: {},
-        total: 0
+        total: 0,
+        extra: []
     }
 
     orderedTickets = []
@@ -37,8 +38,15 @@ class TicketStore {
     setPreTicketData = (value) => {
         this.orderTicket = value
     }
+    setOrderTicketExtra = (value) => {
+        this.orderTicket.extra = value
+    }
     setOrderTicketMovie = (value) => {
         this.orderTicket.movie = value
+    }
+    setOrderTicketSeatAndTotal = (seats,total)=>{
+        this.setOrderTicketSelectSeat(seats)
+        this.setOrderTicketTotal(total)
     }
 }
 
