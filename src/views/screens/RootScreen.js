@@ -4,10 +4,11 @@ import TicketScreen from "./ticket/TicketScreen";
 import NotificationScreen from "./NotificationScreen";
 import UserScreen from "./profile/UserScreen";
 import {NavigationContainer} from "@react-navigation/native";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Platform} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import ThemeStore from "../../models/ThemeStore";
 
 const RootScreen = (props) => {
 
@@ -39,10 +40,15 @@ const RootScreen = (props) => {
             return <Ionicons name={iconName} size={22.5} color={color}/>;
         },
         tabBarHideOnKeyboard: true,
-        tabBarStyle: {height: Platform.OS === "android" ? 60 : 75},
         tabBarActiveTintColor: "#47CFFF",
         tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+            height: Platform.OS === "android" ? 60 : 75,
+            backgroundColor: ThemeStore.baseProps.themeBg
+        }
     })
+    useEffect(() => {}, [ThemeStore.mode])
+
     return (
         <NavigationContainer>
             <Tab.Navigator

@@ -9,7 +9,7 @@ import {observer} from "mobx-react";
 const CustomHeader = ({title, route}) => {
     return (
         <Box height={88} bgColor={"white"}>
-            <Box style={{height: 88}} justifyContent={"space-between"}
+            <Box justifyContent={"space-between"}
                  flexDir={'row'}
                  alignItems={'center'} pt={8} px={3} shadow={1}>
                 {HomeStore.searching ?

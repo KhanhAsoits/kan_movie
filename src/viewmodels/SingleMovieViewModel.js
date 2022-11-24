@@ -33,10 +33,13 @@ const SingleMovieViewModel = ({route}) => {
 
     let tabLinks = [detailTab, reviewTab, showtimeTab]
     useEffect(() => {
+
         SingleMovieStore.setFetching(true)
         const async_bs = async () => {
             if (await ConnectionStore.checkConnection()) {
-                await SingleMovieStore.onGetMovie(movie_id)
+                if (await ConnectionStore.checkConnection()) {
+                    await SingleMovieStore.onGetMovie(movie_id)
+                }
             }
             SingleMovieStore.setFetching(false)
         }
@@ -46,7 +49,7 @@ const SingleMovieViewModel = ({route}) => {
             }
         }, 100)
 
-    }, [movie_id])
+    }, [movie_id, ConnectionStore.connected])
 
     return (
         <>

@@ -7,6 +7,7 @@ import {HelpButton} from "../../components/HelpButton";
 import React from "react";
 import {observer} from "mobx-react";
 import PaypalStore from "../../../models/PaypalStore";
+import {ActivityIndicator} from "react-native";
 
 const OrderTicketLayout = (props) => {
     return (
@@ -14,8 +15,10 @@ const OrderTicketLayout = (props) => {
             <HStack width={SCREEN_WIDTH - 30} alignSelf={'center'} my={4} justifyContent={'space-between'}
                     alignItems={'center'}>
                 <BackButton size={36} color={'black'} handleBack={() => {
-                    PaypalStore.setApprovalUrl(null)
-                    props.setStep(c => c - 1 >= 0 ? c - 1 : 0)
+                    if (!PaypalStore.processing && !PaypalStore.approval_url) {
+                        PaypalStore.setApprovalUrl(null)
+                        props.setStep(c => c - 1 >= 0 ? c - 1 : 0)
+                    }
                 }}/>
                 {props.isShowDetail ?
                     <HStack space={2} justifyContent={'center'} alignItems={'center'}>
@@ -31,7 +34,10 @@ const OrderTicketLayout = (props) => {
                     </HStack> :
                     <Text fontSize={20}>{props.title}</Text>
                 }
-                <HelpButton size={36} color={'black'} message={'Order Seats'}/>
+                {PaypalStore.processing ?
+                    <ActivityIndicator size={30}/> :
+                    <HelpButton size={36} color={'black'} message={props.helpTitle ? props.helpTitle : 'Help Button'}/>
+                }
             </HStack>
             {props.children}
         </>

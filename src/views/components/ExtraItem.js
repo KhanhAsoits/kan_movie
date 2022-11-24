@@ -33,7 +33,7 @@ export const ExtraItem = ({handleRemove, item, handleSetSelected}) => {
                         <Ionicons name={'remove'} color={'#47CFFF'} size={25}/>
                     </Box>
                 </TouchableOpacity>
-                <TextInput keyboardType={'number-pad'} maxLength={2}
+                <TextInput editable={false} keyboardType={'number-pad'} maxLength={2}
                            style={{
                                width: SCREEN_WIDTH / 5,
                                borderColor: 'rgba(0,0,0,0.6)',

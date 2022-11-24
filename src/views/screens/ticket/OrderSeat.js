@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 import {Box, HStack, ScrollView, Text, VStack} from "native-base";
-import React, {useEffect, useRef, useState} from "react";
+import React,{ useState} from "react";
 import {ActivityIndicator, Alert, TouchableOpacity} from "react-native";
 import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
 import SvgComponent from "../../components/ScreenSvg";

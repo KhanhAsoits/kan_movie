@@ -1,11 +1,11 @@
 import {observer} from "mobx-react";
-import {Box, HStack, Image, Text, VStack} from "native-base";
+import {Box, HStack, Text, VStack} from "native-base";
 import coca from '../../../../assets/static/images/cocacola.png'
 import pepsi from '../../../../assets/static/images/pepsi.png'
 import seven_up from '../../../../assets/static/images/7_up.png'
 import popcorn from '../../../../assets/static/images/popcorn.png'
 import {ExtraItem} from "../../components/ExtraItem";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {ActivityIndicator, TouchableOpacity} from "react-native";
 import TicketStore from "../../../models/TicketStore";
 import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
@@ -50,15 +50,23 @@ const OrderExtra = ({setStep}) => {
             setSelected(tmp)
         }
         let isHas = false
+        let hasIndex = -1
         selected.forEach((val, index) => {
             if (val.title === item.title) {
                 isHas = true
+                hasIndex = index
             }
         })
         if (isHas === false) {
             let tmp = [...selected]
             tmp.push(item)
             setSelected(tmp)
+        } else {
+            if (hasIndex !== -1) {
+                let tmp = [...selected]
+                tmp[hasIndex].quantity = tmp[hasIndex]?.quantity + 1
+                setSelected(tmp)
+            }
         }
     }
 

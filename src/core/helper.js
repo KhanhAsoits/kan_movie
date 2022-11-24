@@ -1,6 +1,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import {Dimensions} from "react-native";
 import * as ImagePicker from 'expo-image-picker'
+
 export const CalculatorRating = (rating) => {
     return Math.round(rating / 2)
 }
@@ -9,6 +10,15 @@ export function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+export const numberTokenGenerator = (count) => {
+
+    let token = ''
+    let nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    for (let i = 0; i < count; i++) {
+        token += nums[Math.round(Math.random() * (nums.length - 1))]
+    }
+    return token
+}
 export const checkConnection = async () => {
     return (await NetInfo.fetch()).isConnected
 }
@@ -24,7 +34,7 @@ export const PickImage = async () => {
         quality: 1,
     })
     console.log(res)
-    if(!res.cancelled){
+    if (!res.cancelled) {
         return res.uri
     }
     return null

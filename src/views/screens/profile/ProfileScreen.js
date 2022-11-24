@@ -32,7 +32,7 @@ const ProfileScreen = ({route}) => {
                         <Ionicons name={'help-circle-outline'} color={'black'} size={36}/>
                     </TouchableOpacity>
                 </HStack>
-                <ScrollView showsVerticalScrollIndicator={false} my={8}>
+                <ScrollView showsVerticalScrollIndicator={false} my={0}>
                     <Image style={{
                         width: SCREEN_WIDTH / 3,
                         height: SCREEN_WIDTH / 3,
