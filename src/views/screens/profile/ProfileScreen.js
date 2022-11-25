@@ -74,7 +74,6 @@ const ProfileScreen = ({route}) => {
                                 </TouchableOpacity>
                             )
                         })}
-
                     </VStack>
                 </ScrollView>
             </Box>
