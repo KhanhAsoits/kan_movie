@@ -8,6 +8,7 @@ import singleMovieStore from "../../../models/SingleMovieStore";
 import Loader from "../../components/Loader";
 import {SCREEN_HEIGHT} from "../../../core/helper";
 import {View} from "react-native";
+import ThemeStore from "../../../models/ThemeStore";
 
 const SingleMovie = ({movie, links, handleSwitch, handleBack}) => {
 
@@ -15,7 +16,7 @@ const SingleMovie = ({movie, links, handleSwitch, handleBack}) => {
         <NativeBaseProvider>
             {singleMovieStore.isFetching ?
                 <Loader height={SCREEN_HEIGHT}></Loader> :
-                <View bgColor={'white'} flex={1} overflow={'hidden'}>
+                <View bgColor={ThemeStore.baseProps.themeBg} flex={1} overflow={'hidden'}>
                     <ScrollView contentContainerStyle={{flexGrow:1}} style={{zIndex: 1}} bgColor={'white'}>
                         <SingleMovieHeader handleBack={handleBack} image={movie?.image}
                                            background={movie?.trailer?.thumbnailUrl}></SingleMovieHeader>

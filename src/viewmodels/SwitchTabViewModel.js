@@ -1,10 +1,11 @@
-import {useState} from "react";
-import {SwitchTab} from "../views/components/SwitchTab";
+import SwitchTab from "../views/components/SwitchTab";
+import {observer} from "mobx-react";
 
-export const SwitchTabViewModel = ({links,active,handleSwitch,cStyle}) => {
+const SwitchTabViewModel = ({links,active,handleSwitch,cStyle}) => {
 
     return (
         <SwitchTab links={links} active={active} handleSwitch={handleSwitch} cStyle={cStyle}></SwitchTab>
     )
 
 }
+export default observer(SwitchTabViewModel)

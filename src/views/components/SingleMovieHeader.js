@@ -8,8 +8,7 @@ import {observer} from "mobx-react";
 import 'react-native-get-random-values'
 import {v4 as UUID} from "uuid";
 import ExpoFastImage from "expo-fast-image";
-import {useNavigation} from "@react-navigation/native";
-import SingleMovieStore from "../../models/SingleMovieStore";
+import ThemeStore from "../../models/ThemeStore";
 
 const SingleMovieHeader = ({image, background, handleBack}) => {
 
@@ -42,16 +41,16 @@ const SingleMovieHeader = ({image, background, handleBack}) => {
                     <ExpoFastImage
                         uri={image}
                         cacheKey={UUID()}
-                        style={styles.responsiveThumbnail}
+                        style={{...styles.responsiveThumbnail, backgroundColor: ThemeStore.baseProps.text_black_06}}
                     /> :
                     <Image
                         alt={'movie_img'}
                         source={{uri: image}}
-                        style={styles.responsiveThumbnail}
+                        style={{...styles.responsiveThumbnail, backgroundColor: ThemeStore.baseProps.text_black_06}}
                     />
                 }
             </View>
-            <View style={{height: SCREEN_HEIGHT / 5, backgroundColor: "white"}}></View>
+            <View style={{height: SCREEN_HEIGHT / 5, backgroundColor: ThemeStore.baseProps.themeBg}}></View>
         </>
     )
 }
@@ -80,7 +79,6 @@ const styles = StyleSheet.create({
         zIndex: 10
     },
     responsiveThumbnail: {
-        backgroundColor: 'rgba(0,0,0,1)',
         borderRadius: 6,
         resizeMode: "cover",
         width: SCREEN_WIDTH / 1.6 - 50,

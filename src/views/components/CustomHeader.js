@@ -5,22 +5,23 @@ import React, {useState} from "react";
 import {TouchableOpacity, TextInput, StyleSheet} from "react-native";
 import HomeStore from "../../models/HomeStore";
 import {observer} from "mobx-react";
+import ThemeStore from "../../models/ThemeStore";
 
 const CustomHeader = ({title, route}) => {
     return (
-        <Box height={88} bgColor={"white"}>
+        <Box height={88} bgColor={ThemeStore.baseProps.themeBg}>
             <Box justifyContent={"space-between"}
                  flexDir={'row'}
                  alignItems={'center'} pt={8} px={3} shadow={1}>
                 {HomeStore.searching ?
                     <TextInput autoFocus={true} style={styles.inputSearch}/>
                     :
-                    <Text color={'gray.600'} fontSize={30} fontWeight={"500"}>{title}</Text>
+                    <Text color={ThemeStore.baseProps.text_24} fontSize={30} fontWeight={"500"}>{title}</Text>
                 }
                 <TouchableOpacity onPress={() => {
                     HomeStore.setSearching(!HomeStore.searching)
                 }}>
-                    <Ionicons name={HomeStore.searching ? 'close' : 'search'} color={'gray.600'}
+                    <Ionicons name={HomeStore.searching ? 'close' : 'search'} color={ThemeStore.baseProps.text_24}
                               size={HomeStore.searching ? 30 : 26}/>
                 </TouchableOpacity>
             </Box>

@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
 import {useEffect, useRef, useState} from "react";
 import {CastLoader} from "./CastLoader";
+import ThemeStore from "../../models/ThemeStore";
 
 export const CastAndCrewViewAll = ({route}) => {
     const {casts} = route.params
@@ -29,25 +30,28 @@ export const CastAndCrewViewAll = ({route}) => {
 
     return (
         <NativeBaseProvider>
-            <HStack justifyContent={'space-between'} alignItems={'center'} flex={.1} mt={8} mx={2}>
-                <TouchableOpacity activeOpacity={.6} onPress={handleBack}>
-                    <Ionicons name={'chevron-back-outline'} color={'black'} size={30}></Ionicons>
-                </TouchableOpacity>
-                <Text textAlign={'center'} fontSize={20}>Cast & Crew</Text>
-                <TouchableOpacity activeOpacity={.6}>
-                    <Ionicons name={'help-circle-outline'} color={'black'} size={30}></Ionicons>
-                </TouchableOpacity>
-            </HStack>
-            <ScrollView flex={1}>
-                {
-                    preLoad ?
-                        <VStack justifyContent={'center'} alignItems={'center'}>
-                            <CastGenerator casts={casts} all={true}></CastGenerator>
-                        </VStack>
-                        :
-                        <CastLoader count={Math.round(loadCounter)}></CastLoader>
-                }
-            </ScrollView>
+            <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
+                <HStack justifyContent={'space-between'} alignItems={'center'} flex={.1} mt={2} mx={2}>
+                    <TouchableOpacity activeOpacity={.6} onPress={handleBack}>
+                        <Ionicons name={'chevron-back-outline'} color={ThemeStore.baseProps.text_24} size={30}></Ionicons>
+                    </TouchableOpacity>
+                    <Text textAlign={'center'} color={ThemeStore.baseProps.text_24} fontSize={20}>Cast & Crew</Text>
+                    <TouchableOpacity activeOpacity={.6}>
+                        <Ionicons name={'help-circle-outline'} color={ThemeStore.baseProps.text_24} size={30}></Ionicons>
+                    </TouchableOpacity>
+                </HStack>
+                <ScrollView flex={1}>
+                    {
+                        preLoad ?
+                            <VStack justifyContent={'center'} alignItems={'center'}>
+                                <CastGenerator casts={casts} all={true}></CastGenerator>
+                            </VStack>
+                            :
+                            <CastLoader count={Math.round(loadCounter)}></CastLoader>
+                    }
+                </ScrollView>
+            </Box>
+
         </NativeBaseProvider>
     )
 }

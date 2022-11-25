@@ -9,6 +9,7 @@ import React, {useState} from "react";
 import {ActivityIndicator, TouchableOpacity} from "react-native";
 import TicketStore from "../../../models/TicketStore";
 import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
+import ThemeStore from "../../../models/ThemeStore";
 
 const OrderExtra = ({setStep}) => {
 
@@ -95,7 +96,7 @@ const OrderExtra = ({setStep}) => {
                 <Text fontSize={24} color={'red.400'}>${handleCalcTotal()}</Text>
             </HStack>
             <HStack position={'absolute'} bottom={0} width={SCREEN_WIDTH - 30} alignSelf={'center'}
-                    backgroundColor={'gray.50'}
+                    backgroundColor={ThemeStore.baseProps.text_black_02}
                     py={2}
                     px={3}
                     mb={2}

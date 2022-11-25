@@ -5,6 +5,7 @@ import MovieGenerator from "../../components/MovieGenerator";
 import comingSoonMovieStore from "../../../models/ComingSoonMovieStore";
 import Loader from "../../components/Loader";
 import {useNavigation} from "@react-navigation/native";
+import ThemeStore from "../../../models/ThemeStore";
 
 const ComingSoonScreen = ({movies, screenWidth, refreshing, handleRefresh}) => {
     const handleLoad = (event) => {
@@ -17,7 +18,7 @@ const ComingSoonScreen = ({movies, screenWidth, refreshing, handleRefresh}) => {
     return (
         <ScrollView flex={1}
                     scrollEventThrottle={16}
-                    bgColor={'white'} px={3}
+                    bgColor={ThemeStore.baseProps.themeBg} px={3}
                     onScroll={handleLoad}
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}></RefreshControl>

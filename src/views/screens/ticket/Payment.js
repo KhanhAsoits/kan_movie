@@ -8,6 +8,7 @@ import PaypalStore from "../../../models/PaypalStore";
 import {ActivityIndicator, Alert, TextInput, TouchableOpacity} from "react-native";
 import WebView from "react-native-webview";
 import {useState} from "react";
+import ThemeStore from "../../../models/ThemeStore";
 
 const Payment = ({setStep, setResultTransaction}) => {
     const handlePaypalRequest = async () => {
@@ -25,9 +26,10 @@ const Payment = ({setStep, setResultTransaction}) => {
                 let result = await PaypalStore.getTransactionResult(PayerID)
                 if (result?.failed_transactions.length > 0) {
                     setResultTransaction(false)
+                    await TicketStore.onSyncTicket("", "", false)
                     setStep(c => c + 1)
                 } else {
-                    await TicketStore.onSyncTicket(shippingAddress, desc)
+                    await TicketStore.onSyncTicket(shippingAddress, desc, true)
                     setResultTransaction(true)
                     setStep(c => c + 1)
                 }
@@ -53,7 +55,7 @@ const Payment = ({setStep, setResultTransaction}) => {
                     <Box flex={1} px={4} style={{height: 200, overflow: 'hidden'}}>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <Box shadow={1} width={SCREEN_WIDTH - 35} alignSelf={'center'} my={3}>
-                                <HStack space={3} bgColor={'white'} overflow={'hidden'} p={5} borderRadius={8}>
+                                <HStack space={3} bgColor={ThemeStore.baseProps.text_black_02} overflow={'hidden'} p={5} borderRadius={8}>
                                     <Image source={{uri: TicketStore.orderTicket.movie.image} || bg}
                                            alt={'movie thumbnail'}
                                            style={{width: SCREEN_WIDTH / 4, height: SCREEN_HEIGHT / 5}}
@@ -61,7 +63,7 @@ const Payment = ({setStep, setResultTransaction}) => {
                                            borderRadius={12}/>
                                     <VStack>
                                         <Text width={SCREEN_WIDTH / 1.7} fontSize={20}
-                                              fontWeight={'500'}>{TicketStore.orderTicket.movie?.title}</Text>
+                                              fontWeight={'500'} color={ThemeStore.baseProps.text_24}>{TicketStore.orderTicket.movie?.title}</Text>
                                         <Text width={SCREEN_WIDTH / 1.7} fontSize={16}
                                               fontWeight={'300'}
                                               color={'gray.400'}>
@@ -88,7 +90,7 @@ const Payment = ({setStep, setResultTransaction}) => {
                                     width: SCREEN_WIDTH - 33,
                                     borderRadius: 8,
                                     paddingVertical: 10,
-                                    borderColor: "rgba(0,0,0,0.4)",
+                                    borderColor: ThemeStore.baseProps.text_black_06,
                                     borderWidth: 1,
                                     fontSize: 14, paddingHorizontal: 6,
                                 }}/>
@@ -101,7 +103,7 @@ const Payment = ({setStep, setResultTransaction}) => {
                                     width: SCREEN_WIDTH - 33,
                                     borderRadius: 8,
                                     paddingVertical: 10,
-                                    borderColor: "rgba(0,0,0,0.4)",
+                                    borderColor: ThemeStore.baseProps.text_black_06,
                                     borderWidth: 1
                                 }}
                                            multiline={true}
@@ -109,7 +111,7 @@ const Payment = ({setStep, setResultTransaction}) => {
                                 />
                             </VStack>
                         </ScrollView>
-                        <VStack bgColor={'white'} mb={3} px={5} width={SCREEN_WIDTH}
+                        <VStack bgColor={ThemeStore.baseProps.themeBg} mb={3} px={5} width={SCREEN_WIDTH}
                                 alignSelf={'center'}
                                 justifyContent={'center'} alignItems={'center'}
                         >

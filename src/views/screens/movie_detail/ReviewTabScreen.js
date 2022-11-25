@@ -5,10 +5,11 @@ import SingleMovieStore from "../../../models/SingleMovieStore";
 import Loader from "../../components/Loader";
 import 'react-native-get-random-values'
 import {ReviewGenerator} from "../../components/ReviewGenerator";
+import ThemeStore from "../../../models/ThemeStore";
 
 const ReviewTabScreen = ({route, nav}) => {
     return (
-        <ScrollView style={{width: SCREEN_WIDTH}} bg={'white'} px={4}>
+        <ScrollView style={{width: SCREEN_WIDTH}} bg={ThemeStore.baseProps.themeBg} px={4}>
             {
                 SingleMovieStore.reviewFetching ?
                     <Loader height={50}></Loader>

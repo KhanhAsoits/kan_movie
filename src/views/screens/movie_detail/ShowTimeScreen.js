@@ -6,6 +6,7 @@ import SelectBoxGenerator from "../../components/SelectBoxGenerator";
 import SingleMovieStore from "../../../models/SingleMovieStore";
 import {observer} from "mobx-react";
 import Loader from "../../components/Loader";
+import ThemeStore from "../../../models/ThemeStore";
 
 
 const ShowTimeScreen = ({
@@ -24,16 +25,16 @@ const ShowTimeScreen = ({
 
     return (
         <>
-            <ScrollView style={{width: SCREEN_WIDTH}} bgColor={'white'} px={4} showsVerticalScrollIndicator={false}>
+            <ScrollView style={{width: SCREEN_WIDTH}} bgColor={ThemeStore.baseProps.themeBg} px={4}
+                        showsVerticalScrollIndicator={false}>
                 {SingleMovieStore.showTimeFetching ? <Loader height={50}></Loader> :
                     <Box my={2}>
-                        {        console.log('date', chosenDate)
-                        }
                         <VStack space={3}>
                             <Box>
                                 {/* chose date*/}
                                 <HStack justifyContent={'space-between'} alignItems={'center'}>
-                                    <Text fontSize={20} color={'black'} fontWeight={'500'}>Chose Date</Text>
+                                    <Text fontSize={20} color={ThemeStore.baseProps.text_24} fontWeight={'500'}>Chose
+                                        Date</Text>
                                     <TouchableOpacity>
                                         <Ionicons name={'calendar-outline'} size={24} color={'#23C581'}/>
                                     </TouchableOpacity>
@@ -117,7 +118,13 @@ const ShowTimeScreen = ({
                         setBeforeRemove(false)
                     }, 1000)
                 }
-            }} style={{backgroundColor: 'red', marginHorizontal: 16, paddingVertical: 10, borderRadius: 8}}>
+            }} style={{
+                backgroundColor: 'red',
+                marginHorizontal: 16,
+                paddingVertical: 10,
+                marginBottom: 10,
+                borderRadius: 8
+            }}>
 
                 {beforeRemove ?
                     <ActivityIndicator color={'white'} size={30}/>

@@ -6,12 +6,13 @@ import {observer} from "mobx-react";
 import ExpoFastImage from "expo-fast-image";
 import {v4 as UUID} from "uuid";
 import {StyleSheet} from "react-native";
+import ThemeStore from "../../models/ThemeStore";
 
 const SingleMovieRelated = ({videos}) => {
     return (
         <Box my={2}>
             <Box flexDir={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                <Text fontSize={18} color={'black'} fontWeight={'500'} mb={3}>Similars</Text>
+                <Text fontSize={18} color={ThemeStore.baseProps.text_24} fontWeight={'500'} mb={3}>Similars</Text>
                 <TouchableOpacity>
                     <Text color={'blue.400'} fontSize={14} mb={3}>View All</Text>
                 </TouchableOpacity>

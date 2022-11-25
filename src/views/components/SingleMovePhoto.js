@@ -6,13 +6,14 @@ import ExpoFastImage from "expo-fast-image";
 import 'react-native-get-random-values'
 import {v4 as UUID} from "uuid";
 import {observer} from "mobx-react";
+import ThemeStore from "../../models/ThemeStore";
 
 const SingleMoviePhoto = ({photos, handleViewAllPhotos}) => {
     return (
         <>
             <Box my={2}>
                 <Box flexDir={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                    <Text fontSize={18} color={'black'} fontWeight={'500'} mb={3}>Photos</Text>
+                    <Text fontSize={18} color={ThemeStore.baseProps.text_24} fontWeight={'500'} mb={3}>Photos</Text>
                     <TouchableOpacity onPress={handleViewAllPhotos}>
                         <Text color={'blue.400'} fontSize={14} mb={3}>View All</Text>
                     </TouchableOpacity>
@@ -28,10 +29,16 @@ const SingleMoviePhoto = ({photos, handleViewAllPhotos}) => {
                                                 key={index.toString()}
                                                 cacheKey={UUID()}
                                                 uri={val?.image}
-                                                style={styles.responsiveImage}/>
+                                                style={{
+                                                    ...styles.responsiveImage,
+                                                    backgroundColor: ThemeStore.baseProps.text_black_06
+                                                }}/>
                                             :
                                             <Image alt={'photos'} source={{uri: val?.image}} key={index.toString()}
-                                                   style={styles.responsiveImage}/>
+                                                   style={{
+                                                       ...styles.responsiveImage,
+                                                       backgroundColor: ThemeStore.baseProps.text_black_06
+                                                   }}/>
                                     }
                                 </TouchableOpacity>
                             )

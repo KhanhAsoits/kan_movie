@@ -8,6 +8,7 @@ import UserStore from "../../../models/UserStore";
 import default_avatar from "../../../../assets/static/images/user.png";
 import ProfileInputBox from "../../components/ProfileInputBox";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+import ThemeStore from "../../../models/ThemeStore";
 
 const ProfileDetailScreen = ({
                                  handleBack,
@@ -20,17 +21,17 @@ const ProfileDetailScreen = ({
 
     return (
         <NativeBaseProvider>
-            <Box bgColor={'white'} flex={1} px={4}>
+            <Box bgColor={ThemeStore.baseProps.themeBg} flex={1} px={4}>
                 <HStack justifyContent={'space-between'} my={8} alignItems={'center'}>
                     <TouchableOpacity activeOpacity={.9} onPress={handleBack}>
-                        <Ionicons name={'chevron-back'} color={'black'} size={30}/>
+                        <Ionicons name={'chevron-back'} color={ThemeStore.baseProps.text_24} size={30}/>
                     </TouchableOpacity>
-                    <Text color={'black'} fontSize={22} fontWeight={'500'} letterSpacing={1.5}>Account
+                    <Text color={ThemeStore.baseProps.text_24} fontSize={22} fontWeight={'500'} letterSpacing={1.5}>Account
                         Information</Text>
                     {loading ?
-                        <ActivityIndicator size={30} color={'black'}/> :
+                        <ActivityIndicator size={30} color={ThemeStore.baseProps.text_24}/> :
                         <TouchableOpacity activeOpacity={.9}>
-                            <Ionicons name={'help-circle-outline'} color={'black'} size={30}/>
+                            <Ionicons name={'help-circle-outline'} color={ThemeStore.baseProps.text_24} size={30}/>
                         </TouchableOpacity>
                     }
 
@@ -55,8 +56,10 @@ const ProfileDetailScreen = ({
                                 <ProfileInputBox val={val} setSate={UserStore.setUserUpdateData}/>
                             )
                         })}
-                        <Text fontSize={20} my={2} textAlign={'center'} color={'gray.300'}>What your birthday ?</Text>
+                        <Text fontSize={20} my={2} textAlign={'center'} color={ThemeStore.baseProps.text_black_06}>What
+                            your birthday ?</Text>
                         <RNDateTimePicker
+                            textColor={ThemeStore.baseProps.text_24}
                             maximumDate={new Date(new Date().getFullYear() - 10, 1, 0)}
                             onChange={handleChangeBirthday}
                             style={{width: SCREEN_WIDTH - 100, alignSelf: 'center', height: 300}}
@@ -73,7 +76,8 @@ const ProfileDetailScreen = ({
                             width: SCREEN_WIDTH - 100,
                             alignSelf: 'center',
                             paddingVertical: 12,
-                            borderRadius: 6
+                            borderRadius: 6,
+                            marginBottom: 10
                         }}>
                             {loading ? <ActivityIndicator color={'white'} size={16}/>
                                 :
@@ -82,7 +86,6 @@ const ProfileDetailScreen = ({
                             }
                         </TouchableOpacity>
                     </VStack>
-
                 </ScrollView>
             </Box>
         </NativeBaseProvider>

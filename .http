@@ -1,7 +1,4 @@
-POST https://api.sandbox.paypal.com/v1/payments/payment/PAYID-MN66VSA0RA22668T22366313/execute
+POST http://localhost:3000/transaction
 Content-Type: application/json
-Authorization: Bearer A21AAKXDN0KiL2AuPm1Azc58s5LsxjJ6D1GGWpsldmz4nr6r0e0YPowL__mzpyTOxFvQpGfWHyvlPr3VNFgm0EgxG_k4IPmKw
 
-{
-  "payer_id": "8H2J35FSTDMX4"
-}
+{"items":{"movie":{"id":"tt9471404","image":"https://m.media-amazon.com/images/M/MV5BMmY4MTk3NjItMTRjMS00YWVlLTk0YTYtMGY1ZDYzZTkwYzNmXkEyXkFqcGdeQXN3aWZ0dw@@._V1_.jpg","title":"The Chosen (TV Series 2017– )"},"extras":[{"title":"Coca","price":4,"image":6,"quantity":2},{"title":"Popcorn","price":5,"image":9,"quantity":2}],"amount":58,"date":1669346001361},"userId":1}

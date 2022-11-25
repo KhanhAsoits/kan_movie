@@ -1,7 +1,7 @@
 import {observer} from "mobx-react";
 import HomeViewModel from "../../viewmodels/HomeViewModel";
 import TicketScreen from "./ticket/TicketScreen";
-import NotificationScreen from "./NotificationScreen";
+import NotificationScreen from "./notification/NotificationScreen";
 import UserScreen from "./profile/UserScreen";
 import {NavigationContainer} from "@react-navigation/native";
 import React, {useEffect, useState} from "react";
@@ -9,6 +9,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {Platform} from "react-native";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import ThemeStore from "../../models/ThemeStore";
+import TicketStore from "../../models/TicketStore";
+import NotificationStore from "../../models/NotificationStore";
 
 const RootScreen = (props) => {
 
@@ -47,7 +49,8 @@ const RootScreen = (props) => {
             backgroundColor: ThemeStore.baseProps.themeBg
         }
     })
-    useEffect(() => {}, [ThemeStore.mode])
+    useEffect(() => {
+    }, [ThemeStore.mode])
 
     return (
         <NavigationContainer>
@@ -59,10 +62,15 @@ const RootScreen = (props) => {
                 <Tab.Screen name={'event-ticket'} options={{
                     tabBarHideOnKeyboard: true,
                     headerShown: false,
-                    tabBarShowLabel: false
+                    tabBarShowLabel: false,
+                    tabBarBadge: TicketStore.new_ticket > 0 ? '' : null
                 }}
                             component={TicketScreen}/>
-                <Tab.Screen name={'notification'} options={{headerShown: false, tabBarShowLabel: false}}
+                <Tab.Screen name={'notification'} options={{
+                    headerShown: false,
+                    tabBarShowLabel: false,
+                    tabBarBadge: NotificationStore.new_notification > 0 ? '' : null
+                }}
                             component={NotificationScreen}/>
                 <Tab.Screen name={'user'} options={{headerShown: false, tabBarShowLabel: false}}
                             component={UserScreen}/>

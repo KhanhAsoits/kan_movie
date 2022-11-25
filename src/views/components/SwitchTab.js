@@ -1,17 +1,17 @@
 import {Box, Text} from "native-base/src/index";
-import {StyleSheet, TouchableOpacity} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import {ToggleBtn} from "./ToggleBtn";
+import ToggleBtn from "./ToggleBtn";
+import ThemeStore from "../../models/ThemeStore";
+import {observer} from "mobx-react";
 
-export const SwitchTab = ({links, active, handleSwitch,cStyle}) => {
+const SwitchTab = ({links, active, handleSwitch, cStyle}) => {
 
     return (
-        <Box paddingTop={22} paddingBottom={4} bgColor={'white'}>
+        <Box paddingTop={22} paddingBottom={4} bgColor={ThemeStore.baseProps.themeBg}>
             <Box justifyContent={"space-between"}
                  alignItems={"center"}
                  flexDir={'row'}
                  borderWidth={1}
-                 borderColor={"gray.200"}
+                 borderColor={ThemeStore.baseProps.text_black_06}
                  borderRadius={50}
                  mx={3}>
                 {
@@ -27,4 +27,5 @@ export const SwitchTab = ({links, active, handleSwitch,cStyle}) => {
     )
 }
 
+export default observer(SwitchTab)
 

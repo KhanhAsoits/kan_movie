@@ -51,7 +51,7 @@ const ResultTransaction = ({result, nav}) => {
                             <VStack width={'50%'}>
                                 <Text color={'gray.400'}>DATE</Text>
                                 <Text fontWeight={'500'}
-                                      fontSize={17}>{TicketStore.orderTicket.date?.date.slice(0, 16)}</Text>
+                                      fontSize={17}>{TicketStore.orderTicket.date?.date?.slice(0, 16)}</Text>
                             </VStack>
                             <VStack width={'50%'}>
                                 <Text color={'gray.400'}>TIME</Text>

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {TouchableOpacity} from "react-native";
 import {Box} from "native-base";
 import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
+import ThemeStore from "../../models/ThemeStore";
 
 export const SeatBox = ({handleSelected, type_, seat, index, isCenter}) => {
     const [type, setType] = useState(type_ ? type_ : 1)
@@ -19,11 +20,11 @@ export const SeatBox = ({handleSelected, type_, seat, index, isCenter}) => {
         }
     }, [])
     const typeBlock = {
-        backgroundColor: 'rgba(0,0,0,0.1)',
-        borderColor: 'rgba(0,0,0,0.1)'
+        backgroundColor: ThemeStore.baseProps.text_black_02,
+        borderColor:  ThemeStore.baseProps.text_black_02
     }
     const typeNormal = {
-        borderColor: 'rgba(0,0,0,0.2)',
+        borderColor: ThemeStore.baseProps.text_black_02,
         borderWidth: 1
     }
     const typeVip = {

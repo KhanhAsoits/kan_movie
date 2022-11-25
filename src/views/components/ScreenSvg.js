@@ -1,5 +1,6 @@
 import * as React from "react"
-import Svg, { Path } from "react-native-svg"
+import Svg, {Path} from "react-native-svg"
+import ThemeStore from "../../models/ThemeStore";
 
 function SvgComponent(props) {
     return (
@@ -12,7 +13,7 @@ function SvgComponent(props) {
             {...props}
         >
             <Path
-                opacity={0.1}
+                opacity={ThemeStore.mode === "light" ? 0.1 : 1}
                 d="M3 28.594c82-34.624 243-33.624 324 0"
                 stroke="#2C3F5B"
                 strokeWidth={6}

@@ -4,10 +4,11 @@ import movieStore from "../../models/ShowingMoviesStore";
 import Loader from "./Loader";
 import {observer} from "mobx-react";
 import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
+import ThemeStore from "../../models/ThemeStore";
 
 const MovieGenerator = ({movies, nav, width,comingSoon}) => {
     return (
-        <Box flex={1} flexDir={"row"} style={{width: width}} justifyContent={"space-between"} my={2}
+        <Box bgColor={ThemeStore.baseProps.themeBg} flex={1} flexDir={"row"} style={{width: width}} justifyContent={"space-between"} my={2}
              flexWrap={'wrap'}>
             {Array.from(movies).map((movie, index) => {
                 return (

@@ -1,11 +1,12 @@
 import {observer} from "mobx-react";
-import {Box, HStack, ScrollView, Text, VStack} from "native-base";
+import {Box, Center, HStack, ScrollView, Text, VStack} from "native-base";
 import React,{ useState} from "react";
 import {ActivityIndicator, Alert, TouchableOpacity} from "react-native";
 import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
 import SvgComponent from "../../components/ScreenSvg";
 import {SeatBox} from "../../components/SeatBox";
 import TicketStore from "../../../models/TicketStore";
+import ThemeStore from "../../../models/ThemeStore";
 
 const OrderSeat = ({setStep, seats}) => {
     let countOfSeat = -1
@@ -56,10 +57,12 @@ const OrderSeat = ({setStep, seats}) => {
 
     return (
         <>
-            <Box bgColor={'white'} flex={1} py={4} justifyContent={'flex-start'} alignItems={'center'}>
+            <Box bgColor={ThemeStore.baseProps.themeBg} flex={1} py={4} justifyContent={'flex-start'} alignItems={'center'}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <SvgComponent/>
-                    <Text color={'gray.400'} alignSelf={'center'} fontWeight={'500'}>SCREEN</Text>
+                    <Center>
+                        <SvgComponent/>
+                        <Text color={'gray.400'} alignSelf={'center'} fontWeight={'500'}>SCREEN</Text>
+                    </Center>
                     <Box my={6}></Box>
                     <VStack space={3} justifyContent={'center'} alignItems={'center'}>
                         {seats.map((val, index) => {
@@ -95,7 +98,7 @@ const OrderSeat = ({setStep, seats}) => {
                             }
                         })}
                     </VStack>
-                    <HStack bgColor={'gray.100'} py={3} px={3} borderRadius={6} width={SCREEN_WIDTH - 55}
+                    <HStack bgColor={ThemeStore.baseProps.text_black_02} py={3} px={3} borderRadius={6} width={SCREEN_WIDTH - 55}
                             alignSelf={'center'} mt={6} justifyContent={'space-between'}
                             alignItems={'center'}>
                         <VStack justifyContent={'center'} alignItems={'center'}>
@@ -115,7 +118,7 @@ const OrderSeat = ({setStep, seats}) => {
                             <Text color={'gray.400'}>Selected</Text>
                         </VStack>
                     </HStack>
-                    <HStack my={6} bgColor={'gray.50'} py={3} px={3} justifyContent={'space-between'}
+                    <HStack my={6} bgColor={ThemeStore.baseProps.text_black_02} borderRadius={6} py={3} px={3} justifyContent={'space-between'}
                             alignItems={'center'}>
                         <VStack>
                             <Text fontSize={12} fontWeight={'500'}

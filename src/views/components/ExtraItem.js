@@ -3,15 +3,16 @@ import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
 import {TextInput, TouchableOpacity} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useEffect, useRef, useState} from "react";
+import ThemeStore from "../../models/ThemeStore";
 
 export const ExtraItem = ({handleRemove, item, handleSetSelected}) => {
     const [quantity, setQuantity] = useState(0)
     useEffect(() => {
         if (quantity === 0) {
-            handleRemove({...item,quantity:quantity})
+            handleRemove({...item, quantity: quantity})
         }
         if (quantity > 0) {
-            handleSetSelected({...item,quantity:quantity})
+            handleSetSelected({...item, quantity: quantity})
         }
     }, [quantity])
 
@@ -21,7 +22,7 @@ export const ExtraItem = ({handleRemove, item, handleSetSelected}) => {
                 <Image source={item.image} alt={'coca-cola'}
                        style={{width: 50, resizeMode: 'contain', height: 80}}/>
                 <VStack space={0}>
-                    <Text fontSize={18} color={'black'}>{item.title}</Text>
+                    <Text fontSize={18} color={ThemeStore.baseProps.text_24}>{item.title}</Text>
                     <Text fontSize={14} color={'gray.400'}>${item.price}</Text>
                 </VStack>
             </HStack>
@@ -35,6 +36,7 @@ export const ExtraItem = ({handleRemove, item, handleSetSelected}) => {
                 </TouchableOpacity>
                 <TextInput editable={false} keyboardType={'number-pad'} maxLength={2}
                            style={{
+                               color: ThemeStore.baseProps.text_24,
                                width: SCREEN_WIDTH / 5,
                                borderColor: 'rgba(0,0,0,0.6)',
                                borderRadius: 6,

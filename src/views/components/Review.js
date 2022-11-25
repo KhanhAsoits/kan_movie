@@ -4,7 +4,7 @@ import us from "../../../assets/static/images/cast.png";
 import {RatingGenerator} from "./RatingGenerator";
 import {CalculatorRating} from "../../core/helper";
 import {useState} from "react";
-import {useNavigation} from "@react-navigation/native";
+import ThemeStore from "../../models/ThemeStore";
 
 export const Review = ({review, nav}) => {
     const [waringSpoil, setWarningSpoil] = useState(review?.warningSpoilers)
@@ -23,17 +23,17 @@ export const Review = ({review, nav}) => {
                     <Text color={'blue.300'}>Maybe spoil movie content,You can click to show!</Text>
                 </Box>
                 :
-                <VStack space={2} p={3} bgColor={'secondary.50'} borderRadius={6}>
+                <VStack space={2} p={3} bgColor={ThemeStore.baseProps.review_bg} borderRadius={6}>
                     <HStack space={4} alignItems={'center'}>
                         <Image source={us} style={{width: 50, height: 50, borderRadius: 50}}/>
                         <Box>
-                            <Text fontSize={16} fontWeight={'500'}>{review?.username}</Text>
+                            <Text fontSize={16} fontWeight={'500'} color={ThemeStore.baseProps.text_24}>{review?.username}</Text>
                             <Text fontSize={14} color={'gray.400'} fontWeight={'500'}>{review?.date}</Text>
                         </Box>
                     </HStack>
                     <RatingGenerator per={CalculatorRating(review?.rate)} total={5}
                                      cSize={12}></RatingGenerator>
-                    <Text flex={1} fontSize={14} mb={3} color={'gray.500'} fontWeight={'400'}>
+                    <Text flex={1} fontSize={14} mb={3} color={ThemeStore.baseProps.text_black_06} fontWeight={'400'}>
                         {review?.title}
                     </Text>
                 </VStack>

@@ -1,4 +1,4 @@
-import {SwitchTabViewModel} from "../../viewmodels/SwitchTabViewModel";
+import SwitchTabViewModel from "../../viewmodels/SwitchTabViewModel";
 import SingleMovieStore from "../../models/SingleMovieStore";
 import {TabContentViewModel} from "../../viewmodels/TabContentViewModel";
 import {StyleSheet} from "react-native";
