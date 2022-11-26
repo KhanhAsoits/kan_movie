@@ -15,18 +15,12 @@ const HomeScreen = ({route, nav, searching, links, active, handleSwitch}) => {
         <NativeBaseProvider>
             <CustomHeader title={'Start Movie'}/>
             <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
-                {
-                    HomeStore.searching ?
-                        <SearchResultViewModel/> :
-                        <>
-                            <SwitchTabViewModel active={active} handleSwitch={handleSwitch}
-                                                links={links}></SwitchTabViewModel>
-                            {connectionStore.connected ?
-                                <TabContentViewModel active={active} items={links}></TabContentViewModel>
-                                :
-                                <ErrorScreen message={"You don't connect a network >.<"}/>
-                            }
-                        </>
+                <SwitchTabViewModel active={active} handleSwitch={handleSwitch}
+                                    links={links}></SwitchTabViewModel>
+                {connectionStore.connected ?
+                    <TabContentViewModel active={active} items={links}></TabContentViewModel>
+                    :
+                    <ErrorScreen message={"You don't connect a network >.<"}/>
                 }
             </Box>
         </NativeBaseProvider>

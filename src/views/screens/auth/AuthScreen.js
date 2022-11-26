@@ -13,18 +13,19 @@ import {observer} from "mobx-react";
 import {Alert_} from "../../components/Alert";
 import SignInTabModel from "../../../viewmodels/SignInTabModel";
 import UserStore from "../../../models/UserStore";
+import SignUpTabViewModel from "../../../viewmodels/SignUpTabViewModel";
 
 const AuthScreen = ({route}) => {
     const nav = useNavigation()
     nav.addListener('beforeRemove', () => {
         WelcomeVideoStore.setPlay(true)
+        AuthStore.clearUserSignUp()
     })
     const [tabActive, setTabActive] = useState(0)
 
     const handleSignIn = async () => {
         if (AuthStore.isSignInValid) {
             let res = await AuthStore.onPostLogin()
-            console.log('res : ', res)
             if (res) {
                 nav.goBack('welcome_screen')
             }
@@ -45,11 +46,11 @@ const AuthScreen = ({route}) => {
                      justifyContent={'space-between'}
                      alignItems={'flex-start'}>
 
-                    <SignUpTab active={tabActive} setActive={setTabActive}/>
+                    <SignUpTabViewModel/>
                     <SignInTabModel setActive={setTabActive}/>
 
                 </Box>
-                <HStack style={{width: SCREEN_WIDTH - 100}}
+                <HStack style={{width: SCREEN_WIDTH - 45}}
                         flexDir={'row'}
                         alignSelf={'center'}
                         borderRadius={12}
@@ -62,7 +63,7 @@ const AuthScreen = ({route}) => {
                                 backgroundColor: 'white',
                                 borderRadius: 12,
                                 paddingVertical: 16,
-                                width: (SCREEN_WIDTH - 100) / 2,
+                                width: (SCREEN_WIDTH - 45) / 2,
                             }}>
                                 <Text color={'black'} fontSize={16} fontWeight={'700'} textAlign={'center'}>Sign
                                     Up</Text>
@@ -78,7 +79,7 @@ const AuthScreen = ({route}) => {
                         borderRadius: 12,
                         paddingVertical: 16,
                         backgroundColor: tabActive === 1 ? 'white' : 'transparent',
-                        width: tabActive === 0 ? (SCREEN_WIDTH - 100) / 2 : SCREEN_WIDTH - 100,
+                        width: tabActive === 0 ? (SCREEN_WIDTH - 45) / 2 : SCREEN_WIDTH - 45,
                     }}>
                         {
                             AuthStore.loginFetching ?

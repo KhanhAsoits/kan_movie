@@ -16,16 +16,18 @@ const SignInTab = ({
     return (
         <Box flex={1} style={{width: SCREEN_WIDTH}} bgColor={'black'}
              justifyContent={'flex-start'} alignItems={'center'}>
-            <VStack px={8} width={SCREEN_WIDTH - 10} my={3} space={2}>
-                <Box my={8} alignSelf={'flex-start'}>
+            <VStack px={4} width={SCREEN_WIDTH - 10} my={3} space={2}>
+                <Box my={6} mb={0} alignSelf={'flex-start'}>
                     <TouchableOpacity activeOpacity={1} onPress={() => {
                         setActive(0)
                     }}>
                         <Ionicons name={'arrow-back'} color={'white'} size={30}/>
                     </TouchableOpacity>
                 </Box>
-                <Text color={'white'} fontSize={30} letterSpacing={1.5} width={SCREEN_WIDTH}
-                      fontWeight={'800'}>Let's sign you in.</Text>
+                <Text color={'white'} fontSize={70} letterSpacing={1.5} width={SCREEN_WIDTH}
+                      fontWeight={'600'}>Let's sign</Text>
+                <Text color={'white'} fontSize={50} letterSpacing={1.5} width={SCREEN_WIDTH}
+                      fontWeight={'600'}>You in.</Text>
                 <Text color={'white'} fontSize={26} letterSpacing={1.5} width={SCREEN_WIDTH}
                       fontWeight={'500'}>Welcome Back.</Text>
                 <Text color={'white'} fontSize={26} letterSpacing={1.5} width={SCREEN_WIDTH}

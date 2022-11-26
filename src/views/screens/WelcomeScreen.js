@@ -58,7 +58,7 @@ const WelcomeScreen = ({route}) => {
             setAuthorizeLoading(false)
         }
 
-        if (UserStore.user?.email !== '' && !AuthStore.isLogin) {
+        if (UserStore.user.id !== '' && !AuthStore.isLogin) {
             bsSync()
         }
     }, [UserStore.user])

@@ -6,7 +6,7 @@ class SearchingMovieStore {
 
     showingMovies = []
 
-    fetching = true
+    fetching = false
 
     showingMoviesByPage = new Set()
 
@@ -16,8 +16,14 @@ class SearchingMovieStore {
 
     loading = false
 
+    query = ''
+
     constructor() {
         makeAutoObservable(this)
+    }
+
+    setQuery = (value) => {
+        this.query = value
     }
 
     setLoading(isLoading) {

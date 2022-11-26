@@ -67,7 +67,10 @@ const NotificationScreen = () => {
                 <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
                     <ScrollView showsVerticalScrollIndicator={false} px={4}>
                         {NotificationStore.notifications.length <= 0 &&
-                            <Text color={ThemeStore.baseProps.text_black_06} fontSize={18}>Nothing here.</Text>
+                            <Box flex={1} height={SCREEN_HEIGHT - useBottomTabBarHeight() - 80}
+                                 justifyContent={'center'} alignItems={'center'}>
+                                <Text color={ThemeStore.baseProps.text_black_06} fontSize={18}>Nothing here.</Text>
+                            </Box>
                         }
                         {
                             NotificationStore.notifications.map((val, index) => {
@@ -79,10 +82,6 @@ const NotificationScreen = () => {
                     </ScrollView>
                 </Box>
             }
-            <TouchableOpacity onPress={ThemeStore.toggleMode}
-                              style={{width: 200, height: 50, backgroundColor: 'red', justifyContent: 'center'}}>
-                <Text color={'white'} textAlign={'center'}>Click to dark mode</Text>
-            </TouchableOpacity>
         </NativeBaseProvider>
     )
 }

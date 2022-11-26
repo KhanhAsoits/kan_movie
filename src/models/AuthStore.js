@@ -1,9 +1,12 @@
 import {makeAutoObservable} from "mobx";
-import Base64 from 'crypto-js/enc-base64';
 import axios from "axios";
 import {configs} from "../core/configs";
 import {Alert} from "react-native";
 import UserStore from "./UserStore";
+import 'react-native-get-random-values'
+import {v4 as UUID} from 'uuid'
+import * as Aes from 'crypto-js/aes'
+import * as Crypto from "crypto-js";
 
 class AuthStore {
     isLogin = false
@@ -12,7 +15,17 @@ class AuthStore {
         username: "",
         password: ""
     }
+    userSignUp = {
+        username: '',
+        email: '',
+        phone: '',
+        password: '',
+        birthday: '',
+        time: '',
+        avatar: ''
+    }
     isSignInValid = false;
+    emailValidCode = '';
 
     constructor() {
         makeAutoObservable(this)
@@ -21,6 +34,21 @@ class AuthStore {
 
     await(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
+    onGetEmailValidCode = async () => {
+
+        try {
+            let res = (await axios.get(`${configs.local_api_base_uri}/mail/verify/${this.userSignUp.email}`)).data
+            if (res) {
+                this.onSetEmailValidCode(res?.opt)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    onSetEmailValidCode = (value) => {
+        this.emailValidCode = value
     }
 
     async onGetUserById(id) {
@@ -43,12 +71,25 @@ class AuthStore {
         }
     }
 
+    onCheckEmailExit = async () => {
+        try {
+            let res = (await axios.get(`${configs.local_api_base_uri}/users?email=${this.userSignUp.email}`)).data
+            console.log(res)
+            return res.length <= 0;
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     async onPostLogin() {
         this.setLoginFetching(true)
         let isSuccess = true
         await this.await(1000)
-        let uri = `${configs.local_api_base_uri}/users?email=${this.authInfo.username}`
+        console.log(authStore.authInfo.password)
+        let uri = `${configs.local_api_base_uri}/users?email=${this.authInfo.username}&password=${this.onHashPassword(this.authInfo.password)}`
         let res = (await axios.get(uri)).data
+        console.log(uri)
+
         if (res.length <= 0) {
             isSuccess = false
             Alert.alert("notification", "Email or password incorrect!")
@@ -76,14 +117,65 @@ class AuthStore {
         this.authInfo.password = value
     }
 
-    onHashPassword() {
-        this.authInfo.password = Base64.stringify(this.authInfo.password);
+    onHashPassword(password) {
+        return Crypto.HmacSHA1(password,configs.auth_secret)
     }
-
-
 
     setSignInValid(b) {
         this.isSignInValid = b
+    }
+
+    setUserEmail = (value) => {
+        this.userSignUp.email = value
+    }
+
+    setUserPassword = (value) => {
+        this.userSignUp.password = value
+    }
+    setUserSignUpName = (value) => {
+        this.userSignUp.username = value
+    }
+    setUserSignUpBirthDay = (val) => {
+        this.userSignUp.birthday = val
+    }
+    setPhone = (val) => {
+        this.userSignUp.phone = val
+    }
+    setTime = (val) => {
+        this.userSignUp.time = val
+    }
+    setAvatar = (val) => {
+        this.userSignUp.avatar = val
+    }
+
+    async onSignUp() {
+        try {
+            let res_reg_up = (await axios.post(`${configs.local_api_base_uri}/users`, JSON.stringify({
+                ...this.userSignUp,
+                password: this.onHashPassword(this.userSignUp.password),
+                id: UUID()
+            }), {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })).data
+
+            if (res_reg_up) {
+                UserStore.setUser(res_reg_up)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    clearUserSignUp() {
+        this.setUserSignUpName('')
+        this.setUserEmail('')
+        this.setUserSignUpBirthDay('')
+        this.setTime('')
+        this.setPhone('')
+        this.setAvatar('')
+        this.setPassword('')
     }
 }
 

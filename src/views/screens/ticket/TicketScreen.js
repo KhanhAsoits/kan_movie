@@ -120,9 +120,17 @@ const TicketScreen = () => {
                 <Loader height={SCREEN_HEIGHT - useBottomTabBarHeight() - 80}></Loader>
                 :
                 <Box flex={1} px={6} bgColor={ThemeStore.baseProps.themeBg}>
-                    <FlatList showsVerticalScrollIndicator={false} data={TicketStore.orderedTickets}
-                              pagingEnabled={true}
-                              renderItem={({item, index}) => <TicketBox ticket={item}/>}/>
+                    {TicketStore.orderedTickets.length > 0 ?
+                        <FlatList showsVerticalScrollIndicator={false} data={TicketStore.orderedTickets}
+                        pagingEnabled={true}
+                        renderItem={({item, index}) => <TicketBox ticket={item}/>}/>
+                        :
+                        <Box alignSelf={'center'} flex={1} justifyContent={'center'} alignItems={'center'}>
+                            <Text textAlign={'center'} fontSize={18} color={ThemeStore.baseProps.text_black_06}>Nothing here.</Text>
+                        </Box>
+                    }
+
+
                 </Box>
             }
         </NativeBaseProvider>

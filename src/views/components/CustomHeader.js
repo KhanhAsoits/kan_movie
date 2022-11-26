@@ -6,8 +6,10 @@ import {TouchableOpacity, TextInput, StyleSheet} from "react-native";
 import HomeStore from "../../models/HomeStore";
 import {observer} from "mobx-react";
 import ThemeStore from "../../models/ThemeStore";
+import {useNavigation} from "@react-navigation/native";
 
 const CustomHeader = ({title, route}) => {
+    const nav = useNavigation()
     return (
         <Box height={88} bgColor={ThemeStore.baseProps.themeBg}>
             <Box justifyContent={"space-between"}
@@ -19,10 +21,10 @@ const CustomHeader = ({title, route}) => {
                     <Text color={ThemeStore.baseProps.text_24} fontSize={30} fontWeight={"500"}>{title}</Text>
                 }
                 <TouchableOpacity onPress={() => {
-                    HomeStore.setSearching(!HomeStore.searching)
+                    nav.navigate('search_screen')
                 }}>
-                    <Ionicons name={HomeStore.searching ? 'close' : 'search'} color={ThemeStore.baseProps.text_24}
-                              size={HomeStore.searching ? 30 : 26}/>
+                    <Ionicons name={'search'} color={ThemeStore.baseProps.text_24}
+                              size={30}/>
                 </TouchableOpacity>
             </Box>
         </Box>

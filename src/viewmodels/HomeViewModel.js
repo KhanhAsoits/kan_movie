@@ -18,6 +18,7 @@ import {CastAndCrewViewAll} from "../views/components/CastAndCrewViewAll";
 import {ReviewDetailScreen} from "../views/screens/movie_detail/ReviewDetailScreen";
 import OrderSeat from "../views/screens/ticket/OrderSeat";
 import OrderTicket from "../views/screens/ticket/OrderTicket";
+import SearchResultViewModel from "./SearchResultViewModel";
 
 const HomeViewModel = ({route, nav}) => {
 
@@ -92,6 +93,7 @@ const HomeViewModel = ({route, nav}) => {
                           children={(props) => <HomeScreen {...props} active={homeStore.active}
                                                            links={switchTabItems}
                                                            handleSwitch={handleSwitch}/>}></Stack.Screen>
+            <Stack.Screen name={'search_screen'} options={{headerShown: false}} component={SearchResultViewModel}/>
             <Stack.Screen name={'single_movie'} options={{
                 headerShown: false
             }} component={SingleMovieVIewModel}></Stack.Screen>

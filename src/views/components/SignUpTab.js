@@ -1,34 +1,54 @@
-import {Box, Image, Text} from "native-base";
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../core/helper";
-import bg from "../../../assets/static/images/reg_bg.png";
-import {TouchableOpacity} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import {StepZero} from "../screens/auth/StepZero";
+import StepOne from "../screens/auth/StepOne";
+import StepTwo from "../screens/auth/StepTwo";
+import StepThree from "../screens/auth/StepThree";
+import StepFour from "../screens/auth/StepFour";
+import StepFive from "../screens/auth/StepFive";
+import SignUpTabViewLayout from "../screens/auth/SignUpTabViewLayout";
 
-export const SignUpTab = ({active, setActive, nav}) => {
+export const SignUpTab = ({
+                              backHandleStepFive,
+                              nextHandleStepFive,
+                              nextHandleStepFour,
+                              backHandleStepFour,
+                              nextHandleStepThree,
+                              backHandleStepThree,
+                              confirmPassword,
+                              setConfirmPassword,
+                              backHandleStepTwo,
+                              loading,
+                              backHandleStepOne,
+                              nextHandleStepOne,
+                              step,
+                              setStep
+                          }) => {
 
+    const limitStep = 5
     return (
-        <Box flex={1} style={{width: SCREEN_WIDTH}}
-             justifyContent={'flex-start'} alignItems={'center'}>
-            <Box mt={8} mb={4} pr={12}>
-                <Image source={bg} alt={'bg'} resizeMode={'contain'}
-                       style={{width: SCREEN_WIDTH, height: SCREEN_HEIGHT / 2}}/>
-            </Box>
-            <Text color={'white'} fontSize={30} mx={4} mb={4} fontWeight={'800'}>Unlimited movies
-                reviews,Tickets,
-                and
-                more. </Text>
-            <Text color={'white'} fontSize={14} mx={4} fontWeight={'500'}>Watch anywhere. Cancel
-                anytime.</Text>
-            <TouchableOpacity
-                style={{
-                    backgroundColor: 'white',
-                    paddingHorizontal: 12,
-                    paddingVertical: 10,
-                    marginVertical: 16,
-                    borderRadius: 50
-                }}>
-                <Ionicons name={'arrow-forward'} color={'black'} size={20}/>
-            </TouchableOpacity>
-        </Box>
+        <>
+            {step === 0 ? <StepZero setStep={setStep}/> :
+                step === 1 ?
+                    <SignUpTabViewLayout loading={loading} handleBack={backHandleStepOne} handleNext={nextHandleStepOne}
+                                         step={step}
+                                         limit={limitStep}><StepOne/></SignUpTabViewLayout> :
+                    step === 2 ?
+                        <SignUpTabViewLayout handleBack={backHandleStepTwo} loading={loading} step={step}
+                                             limit={limitStep}><StepTwo nextStep={() => {
+                            setStep(c => c + 1)
+                        }}/></SignUpTabViewLayout> :
+                        step === 3 ?
+                            <SignUpTabViewLayout handleBack={backHandleStepThree} handleNext={nextHandleStepThree}
+                                                 loading={loading}
+                                                 step={step} limit={limitStep}><StepThree
+                                confirmPassword={confirmPassword}
+                                setConfirmPassword={setConfirmPassword}/></SignUpTabViewLayout> :
+                            step === 4 ?
+                                <SignUpTabViewLayout handleBack={backHandleStepFour} handleNext={nextHandleStepFour}
+                                                     loading={loading}
+                                                     step={step} limit={limitStep}><StepFour/></SignUpTabViewLayout> :
+                                <SignUpTabViewLayout handleBack={backHandleStepFive} handleNext={nextHandleStepFive}
+                                                     loading={loading}
+                                                     step={step} limit={limitStep}><StepFive/></SignUpTabViewLayout>}
+        </>
     )
 }
