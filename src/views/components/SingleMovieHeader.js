@@ -14,7 +14,7 @@ const SingleMovieHeader = ({image, background, handleBack}) => {
 
     return (
         <>
-            <ImageBackground style={styles.responsiveBackground} source={{uri: background}} resizeMode={"cover"}>
+            <ImageBackground style={{...styles.responsiveBackground,backgroundColor:ThemeStore.baseProps.text_black_02}} source={{uri: background}} resizeMode={"cover"}>
                 <Box flex={1} flexDir={'row'} justifyContent={'space-between'} alignItems={'center'} px={3}
                      height={10} mt={10}>
                     <TouchableOpacity activeOpacity={.6} onPress={handleBack}>

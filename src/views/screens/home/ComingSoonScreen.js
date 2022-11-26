@@ -23,7 +23,7 @@ const ComingSoonScreen = ({movies, screenWidth, refreshing, handleRefresh}) => {
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh}></RefreshControl>
                     }>
-            <MovieGenerator comingSoon={true} movies={movies} width={screenWidth - 20} nav={nav}></MovieGenerator>
+            <MovieGenerator showTime={false} movies={movies} width={screenWidth - 20} nav={nav}></MovieGenerator>
             {comingSoonMovieStore.fetching && <Loader></Loader>}
         </ScrollView>
     )

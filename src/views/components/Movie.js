@@ -9,12 +9,12 @@ import 'react-native-get-random-values'
 import {v4 as UUID} from 'uuid'
 import ThemeStore from "../../models/ThemeStore";
 
-const Movie = ({movie, nav, comingSoon}) => {
+const Movie = ({movie, nav, showTime}) => {
     const screenWidth = Dimensions.get('window').width
     return (
         <Box>
             <TouchableOpacity activeOpacity={.7} onPress={() => {
-                handleMoving(nav, 'single_movie', {movie_id: movie.id, comingSoon: comingSoon})
+                handleMoving(nav, 'single_movie', {movie_id: movie.id, showTime: showTime})
             }}>
                 {Platform.OS === "android" ?
                     <ExpoFastImage

@@ -28,7 +28,7 @@ const ShowingScreen = ({id, movies, screenWidth, refreshing, handleRefresh}) => 
                     }
                     key={Math.random().toString()} flex={1}>
 
-            <MovieGenerator comingSoon={false} movies={movies} width={screenWidth - 23}
+            <MovieGenerator showTime={true} movies={movies} width={screenWidth - 23}
                             nav={navigation}></MovieGenerator>
             {movieStore.fetching && <Loader></Loader>}
         </ScrollView>

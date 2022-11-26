@@ -6,13 +6,13 @@ import {observer} from "mobx-react";
 import comingSoonMovieStore from "../../models/ComingSoonMovieStore";
 import ThemeStore from "../../models/ThemeStore";
 
-const MovieGenerator = ({movies, nav, width,comingSoon}) => {
+const MovieGenerator = ({movies, nav, width,showTime}) => {
     return (
         <Box bgColor={ThemeStore.baseProps.themeBg} flex={1} flexDir={"row"} style={{width: width}} justifyContent={"space-between"} my={2}
              flexWrap={'wrap'}>
             {Array.from(movies).map((movie, index) => {
                 return (
-                    <Movie comingSoon={comingSoon} key={index.toString()} movie={movie} nav={nav}></Movie>
+                    <Movie showTime={showTime} key={index.toString()} movie={movie} nav={nav}></Movie>
                 )
             })}
             {movieStore.loading && <Loader></Loader>}

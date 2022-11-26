@@ -12,7 +12,7 @@ import {ErrorScreen} from "../views/screens/errors/ErrorScreen";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 
 const SingleMovieViewModel = ({route}) => {
-    const {movie_id} = route.params
+    const {movie_id,showTime} = route.params
     const nav = useNavigation()
     nav.addListener('beforeRemove', () => {
         SingleMovieStore.clearState()
@@ -29,6 +29,7 @@ const SingleMovieViewModel = ({route}) => {
 
     let reviewTab = new HomeSwitchItem(2, 'Reviews', 'single_movie/:id/reviews', {}, <ReviewTabViewModel/>)
     let showtimeTab = new HomeSwitchItem(3, 'Showtime', 'single_movie/:id/show_time', {}, <ShowTimeTabViewModel
+        showTime={showTime}
         nav={nav}/>)
 
     let tabLinks = [detailTab, reviewTab, showtimeTab]

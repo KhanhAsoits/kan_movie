@@ -2,9 +2,12 @@ import ShowTimeScreen from "../views/screens/movie_detail/ShowTimeScreen";
 import {observer} from "mobx-react";
 import {useEffect, useState} from "react";
 import SingleMovieStore from "../models/SingleMovieStore";
-import {Alert} from "react-native";
+import {Alert, SafeAreaView} from "react-native";
+import ThemeStore from "../models/ThemeStore";
+import {Box, Center, Text} from "native-base";
+import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
 
-const ShowTimeTabViewModel = ({route, nav}) => {
+const ShowTimeTabViewModel = ({route, nav, showTime}) => {
     const [localLoader, setLocalLoader] = useState(false)
     const [beforeRemove, setBeforeRemove] = useState(false)
     let [chosenDate, setChoseDate] = useState({})
@@ -60,11 +63,22 @@ const ShowTimeTabViewModel = ({route, nav}) => {
     }
 
     return (
-        <ShowTimeScreen setBeforeRemove={setBeforeRemove} localLoader={localLoader} beforeRemove={beforeRemove}
-                        chosenDate={chosenDate}
-                        chosenCinema={chosenCinema} chosenTime={chosenTime}
-                        handleChoseDate={handleChoseDate} handleValidBeforeGetTicket={handleValidBeforeGetTicket}
-                        handleChoseCinema={handleChoseCinema} setChoseTime={setChoseTime} nav={nav}></ShowTimeScreen>
-    )
+        <>
+            {
+                showTime ?
+                    <ShowTimeScreen setBeforeRemove={setBeforeRemove} localLoader={localLoader}
+                                    beforeRemove={beforeRemove}
+                                    chosenDate={chosenDate}
+                                    chosenCinema={chosenCinema} chosenTime={chosenTime}
+                                    handleChoseDate={handleChoseDate}
+                                    handleValidBeforeGetTicket={handleValidBeforeGetTicket}
+                                    handleChoseCinema={handleChoseCinema} setChoseTime={setChoseTime}
+                                    nav={nav}></ShowTimeScreen> :
+                    <Box w={SCREEN_WIDTH} justifyContent={'center'} alignItems={'center'}>
+                        <Text color={ThemeStore.baseProps.text_black_06} fontSize={18}>Not show now.</Text>
+                    </Box>
+            }
+        </>)
 }
+
 export default observer(ShowTimeTabViewModel)
