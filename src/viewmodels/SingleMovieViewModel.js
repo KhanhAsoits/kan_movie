@@ -12,7 +12,7 @@ import {ErrorScreen} from "../views/screens/errors/ErrorScreen";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 
 const SingleMovieViewModel = ({route}) => {
-    const {movie_id,showTime} = route.params
+    const {movie_id, showTime} = route.params
     const nav = useNavigation()
     nav.addListener('beforeRemove', () => {
         SingleMovieStore.clearState()
@@ -34,9 +34,8 @@ const SingleMovieViewModel = ({route}) => {
 
     let tabLinks = [detailTab, reviewTab, showtimeTab]
     useEffect(() => {
-
-        SingleMovieStore.setFetching(true)
         const async_bs = async () => {
+            SingleMovieStore.setFetching(true)
             if (await ConnectionStore.checkConnection()) {
                 if (await ConnectionStore.checkConnection()) {
                     await SingleMovieStore.onGetMovie(movie_id)
@@ -51,7 +50,9 @@ const SingleMovieViewModel = ({route}) => {
         }, 100)
 
     }, [movie_id, ConnectionStore.connected])
-
+    useEffect(() => {
+        console.log('fecthing:', SingleMovieStore.isFetching)
+    }, [SingleMovieStore.isFetching])
     return (
         <>
             {ConnectionStore.connected ?

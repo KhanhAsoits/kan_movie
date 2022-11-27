@@ -44,6 +44,7 @@ const RootScreen = (props) => {
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: "#47CFFF",
         tabBarInactiveTintColor: 'gray',
+        lazy: true,
         tabBarStyle: {
             height: Platform.OS === "android" ? 60 : 75,
             backgroundColor: ThemeStore.baseProps.themeBg

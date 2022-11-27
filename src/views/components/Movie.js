@@ -46,7 +46,7 @@ const Movie = ({movie, nav, showTime}) => {
                          flexDir={'row'}>
                         <Text height={6} fontSize={12}
                               style={{color: ThemeStore.baseProps.text_black_06, opacity: .6}}>
-                            {movie.genreList.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value : "None"}
+                            {movie?.genreList?.length > 0 ? movie?.genreList?.[getRandomInt(movie?.genreList.length)]?.value : "None"}
                         </Text>
                         <Box mb={1} mx={2} style={{...styles.dot,backgroundColor:ThemeStore.baseProps.text_black_06}}></Box>
                         <Text height={6} fontSize={11}
