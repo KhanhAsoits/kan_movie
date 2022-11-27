@@ -118,7 +118,7 @@ class AuthStore {
     }
 
     onHashPassword(password) {
-        return Crypto.HmacSHA1(password,configs.auth_secret)
+        return Crypto.HmacSHA1(password, configs.auth_secret).toString()
     }
 
     setSignInValid(b) {
@@ -146,6 +146,26 @@ class AuthStore {
     }
     setAvatar = (val) => {
         this.userSignUp.avatar = val
+    }
+
+    onCheckNameAndPhone = async () => {
+        let isValid = true
+        try {
+            let res = await axios.get(`${configs.local_api_base_uri}/users?username=${this.userSignUp.username}`)
+            if (res.data?.length > 0) {
+                Alert.alert('Waning','Username has taken.')
+                return false
+            }
+            let phone_res = await axios.get(`${configs.local_api_base_uri}/users?phone=${this.userSignUp.phone}`)
+            if (phone_res.data?.length > 0) {
+                Alert.alert('Waning','Phone has taken.')
+                return  false
+            }
+            return true
+        } catch (e) {
+            return false
+            console.log(e)
+        }
     }
 
     async onSignUp() {

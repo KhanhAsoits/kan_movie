@@ -62,6 +62,7 @@ const WelcomeScreen = ({route}) => {
             bsSync()
         }
     }, [UserStore.user])
+    console.log(UserStore.user)
 
     const list = [
         '250 top of movie.',

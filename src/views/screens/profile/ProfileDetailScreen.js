@@ -9,6 +9,7 @@ import default_avatar from "../../../../assets/static/images/user.png";
 import ProfileInputBox from "../../components/ProfileInputBox";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import ThemeStore from "../../../models/ThemeStore";
+import {useNavigation} from "@react-navigation/native";
 
 const ProfileDetailScreen = ({
                                  handleBack,
@@ -18,6 +19,7 @@ const ProfileDetailScreen = ({
                                  handleChangeBirthday,
                                  handleSaveChange
                              }) => {
+    const nav = useNavigation()
 
     return (
         <NativeBaseProvider>
@@ -66,7 +68,7 @@ const ProfileDetailScreen = ({
                             display={'spinner'}
                             value={UserStore.user.time !== '' ? new Date(parseInt(UserStore.user.time)) : new Date()}
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{nav.navigate('change_password')}}>
                             <Text textAlign={'center'} fontSize={16} fontWeight={'500'} letterSpacing={1.5}
                                   color={'red.300'}>Change
                                 Password</Text>

@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import AuthStore from "../models/AuthStore";
 import {Alert} from "react-native";
 import alert from "native-base/src/components/composites/Alert/Alert";
+import User from "../core/types/User";
+import UserStore from "../models/UserStore";
 
 const SignUpTabViewModel = () => {
 
@@ -93,9 +95,9 @@ const SignUpTabViewModel = () => {
             alertBack(handleSet)
         }
     }
-    const nextHandleStepFour = () => {
+    const nextHandleStepFour = async () => {
         setStepLoading(true)
-        setTimeout(() => {
+        setTimeout(async () => {
             if (AuthStore.userSignUp.username.trim().length < 6) {
                 alertNext('Username can not be less than 6 character.')
                 setStepLoading(false)
@@ -113,7 +115,9 @@ const SignUpTabViewModel = () => {
                 AuthStore.setUserSignUpBirthDay(new Date(time).toString())
             }
             //    if valid
-            setStep(c => c + 1)
+            if (await AuthStore.onCheckNameAndPhone()) {
+                setStep(c => c + 1)
+            }
             setStepLoading(false)
         }, 500)
     }

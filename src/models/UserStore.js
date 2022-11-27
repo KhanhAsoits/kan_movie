@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from 'mobx'
 import {configs} from "../core/configs";
 import {Alert} from "react-native";
 import axios from "axios";
+import AuthStore from "./AuthStore";
 
 class UserStore {
     user = {
@@ -146,6 +147,36 @@ class UserStore {
 
     setUserUpdateAvatar = (result) => {
         this.userUpdate.avatar = result
+    }
+
+    onCheckOldPassword = async (password) => {
+        try {
+            let res = await axios.get(`${configs.local_api_base_uri}/users?password=${AuthStore.onHashPassword(password)}`)
+            if (res.data?.length > 0) {
+                return true
+            }
+            return false
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    onChangePassword = async (password) => {
+        try {
+
+            let updatePassword = {...this.user, password: AuthStore.onHashPassword(password)}
+            let res = (await axios.put(`${configs.local_api_base_uri}/users/${this.user.id}`, JSON.stringify(updatePassword), {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })).data
+            if (res) {
+                console.log(res)
+                this.setUser(res)
+                AuthStore.setIsLogin(false)
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
 }
 
