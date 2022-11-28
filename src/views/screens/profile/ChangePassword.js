@@ -48,9 +48,7 @@ const ChangePassword = () => {
                         Password</Text>
                     {loading ?
                         <ActivityIndicator size={30} color={ThemeStore.baseProps.text_24}/> :
-                        <TouchableOpacity activeOpacity={.9}>
-                            <Ionicons name={'help-circle-outline'} color={ThemeStore.baseProps.text_24} size={30}/>
-                        </TouchableOpacity>
+                        <></>
                     }
                 </HStack>
                 <VStack space={2}>

@@ -27,7 +27,7 @@ const SearchResultScreen = ({movies, nav, handleBack}) => {
                     <HStack pl={2} py={1} px={1} bgColor={ThemeStore.baseProps.text_black_02} borderRadius={6}
                             justifyContent={'space-between'}
                             alignItems={'center'}>
-                        <TextInput style={styles.searchInput} value={SearchingMovieStore.query}
+                        <TextInput  style={styles.searchInput} value={SearchingMovieStore.query}
                                    onChangeText={text => SearchingMovieStore.setQuery(text)} autoFocus={true}
                                    placeholderTextColor={ThemeStore.baseProps.text_black_06}
                                    placeholder={'Type title or movie name to search.'}/>
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     searchInput: {
         fontSize: 18,
         width: '90%',
+        color:ThemeStore.baseProps.text_24
     }
 })
 export default observer(SearchResultScreen)

@@ -31,6 +31,7 @@ const OrderTicket = ({route}) => {
             }
         }
         TicketStore.setPreTicketData(data)
+        console.log(TicketStore.orderTicket)
     }, [])
     useEffect(() => {
         if (step === 1) {
@@ -64,7 +65,7 @@ const OrderTicket = ({route}) => {
         <NativeBaseProvider>
             <Box bgColor={'white'} flex={1}>
                 {step === 0 ?
-                    <OrderTicketLayout setStep={setStep} isShowDetail={true}>
+                    <OrderTicketLayout step={step} setStep={setStep} isShowDetail={true}>
                         <OrderSeat seats={cinema.seats} setStep={setStep} cinema={cinema}/>
                     </OrderTicketLayout>
                     : step === 1 ?

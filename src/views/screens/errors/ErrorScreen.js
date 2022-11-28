@@ -3,8 +3,9 @@ import {TouchableOpacity} from "react-native";
 import movieStore from "../../../models/ShowingMoviesStore";
 import connectionStore from "../../../models/ConnectionStore";
 import ThemeStore from "../../../models/ThemeStore";
+import {observer} from "mobx-react";
 
-export const ErrorScreen = ({message}) => {
+ const ErrorScreen = ({message}) => {
     const handleReload = () => {
         const bs = async () => {
             await connectionStore.reloadConnection()
@@ -22,3 +23,4 @@ export const ErrorScreen = ({message}) => {
         </Box>
     )
 }
+export default observer(ErrorScreen)

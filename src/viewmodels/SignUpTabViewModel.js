@@ -106,7 +106,6 @@ const SignUpTabViewModel = () => {
             if (AuthStore.userSignUp.phone.trim().length < 10) {
                 alertNext('Phone can not be less than 10 character.')
                 setStepLoading(false)
-
                 return;
             }
             if (AuthStore.userSignUp.time === '') {

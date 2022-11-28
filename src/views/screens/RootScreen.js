@@ -50,7 +50,9 @@ const RootScreen = (props) => {
             backgroundColor: ThemeStore.baseProps.themeBg
         }
     })
+
     useEffect(() => {
+        console.log(ThemeStore.mode)
     }, [ThemeStore.mode])
 
     return (

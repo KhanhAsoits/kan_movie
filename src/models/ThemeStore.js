@@ -3,13 +3,14 @@ import {makeAutoObservable} from 'mobx'
 class ThemeStore {
     mode = "light"
 
-
+    changing = false
     baseProps = {
-        themeBg: this.mode === "light" ? 'white' : '#0F1B2B',
+        themeBg: this.mode === "light" ? '#ecf0f6' : '#0F1B2B',
         text_24: this.mode === "light" ? 'black' : 'white',
         text_black_06: this.mode === "light" ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,.6)',
         text_black_02: this.mode === "light" ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,.1)',
-        review_bg:this.mode === "light" ? 'secondary.50' : '#2B3543',
+        text_black_03: this.mode === "light" ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,.3)',
+        review_bg: this.mode === "light" ? 'secondary.50' : '#2B3543',
     }
 
 
@@ -17,13 +18,17 @@ class ThemeStore {
         makeAutoObservable(this)
     }
 
+    setChanging = (value) => {
+        this.changing = value
+    }
     initBaseProps = () => {
         let changeProps = {
-            themeBg: this.mode === "light" ? 'white' : '#0F1B2B',
+            themeBg: this.mode === "light" ? '#ecf0f6' : '#0F1B2B',
             text_24: this.mode === "light" ? 'black' : 'white',
             text_black_06: this.mode === "light" ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,.6)',
             text_black_02: this.mode === "light" ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,.1)',
-            review_bg:this.mode === "light" ? 'secondary.50' : '#2B3543',
+            text_black_03: this.mode === "light" ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,.3)',
+            review_bg: this.mode === "light" ? 'secondary.50' : '#2B3543',
         }
         this.setBaseProps({...this.baseProps, ...changeProps})
     }
@@ -35,7 +40,10 @@ class ThemeStore {
     setMode = (value) => {
         this.mode = value
     }
-    toggleMode = () => {
+    wait = async (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+    toggleMode = async () => {
         this.mode === "light" ? this.setMode('dark') : this.setMode('light')
         this.initBaseProps()
     }

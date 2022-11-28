@@ -20,7 +20,7 @@ const ProfileScreen = ({route}) => {
     const [loading, setLoading] = useState(false)
     const links = [
         {title: 'Account information', icon: 'person', to: 'profile_detail', size: 20},
-        {title: 'Transaction History', icon: 'logo-bitcoin', to: '', size: 22},
+        {title: 'Transaction History', icon: 'logo-bitcoin', to: 'transaction_history', size: 22},
         {title: 'Privacy Policy', icon: 'shield', to: '', size: 20},
         {title: 'Logout', icon: 'log-out-outline', to: '', size: 24}
     ]
@@ -46,16 +46,26 @@ const ProfileScreen = ({route}) => {
             AuthStore.setIsLogin(false)
             setLoading(false)
         }, 500)
-
     }
+
     return (
         <NativeBaseProvider>
             <Box flex={1} bgColor={ThemeStore.baseProps.themeBg} px={4}>
                 <HStack justifyContent={'space-between'} my={6} alignItems={'center'}>
                     <Text color={ThemeStore.baseProps.text_24} fontSize={26} fontWeight={'500'} letterSpacing={1.5}>User
                         Profile</Text>
-                    <TouchableOpacity activeOpacity={.9}>
-                        <Ionicons name={'help-circle-outline'} color={'black'} size={36}/>
+                    <TouchableOpacity onPress={ThemeStore.toggleMode} activeOpacity={.9} style={{
+                        borderRadius: 100,
+                        borderWidth: 1,
+                        padding: 6,
+                        borderColor: ThemeStore.baseProps.text_24
+                    }}>
+                        {ThemeStore.changing ?
+                            <ActivityIndicator color={ThemeStore.baseProps.text_24} size={20}/> :
+                            <Ionicons name={ThemeStore.mode === 'light' ? 'moon' : 'sunny'}
+                                      color={ThemeStore.baseProps.text_24} size={22}/>
+                        }
+
                     </TouchableOpacity>
                 </HStack>
                 <ScrollView showsVerticalScrollIndicator={false} my={0}>
@@ -100,7 +110,7 @@ const ProfileScreen = ({route}) => {
 
                                     <HStack justifyContent={loading ? 'space-between' : 'flex-start'} borderRadius={6}
                                             borderWidth={2}
-                                            width={SCREEN_WIDTH - 100} borderColor={ThemeStore.baseProps.text_black_06}
+                                            width={SCREEN_WIDTH - 100} borderColor={ThemeStore.baseProps.text_black_03}
                                             px={2} py={3}
                                             alignItems={'center'}>
 

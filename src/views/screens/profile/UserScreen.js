@@ -3,6 +3,7 @@ import CreateStackNavigator from "@react-navigation/stack/src/navigators/createS
 import ProfileScreen from "./ProfileScreen";
 import ProfileDetailViewModel from "../../../viewmodels/ProfileDetailViewModel";
 import ChangePassword from "./ChangePassword";
+import TransactionHistory from "./TransactionHistory";
 
 const UserScreen = () => {
     const Stack = CreateStackNavigator()
@@ -13,6 +14,7 @@ const UserScreen = () => {
                           component={ProfileDetailViewModel}></Stack.Screen>
             <Stack.Screen name={'change_password'} component={ChangePassword}
                           options={{headerShown: false}}></Stack.Screen>
+            <Stack.Screen name={'transaction_history'} component={TransactionHistory} options={{headerShown:false,title:'Transaction History'}}></Stack.Screen>
         </Stack.Navigator>
     )
 }

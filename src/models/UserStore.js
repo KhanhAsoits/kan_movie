@@ -28,10 +28,26 @@ class UserStore {
         avatar: ''
     }
 
+    transactions = []
+
     constructor() {
         makeAutoObservable(this)
     }
 
+    onGetTransaction = async () => {
+        try {
+            let transaction = await axios.get(`${configs.local_api_base_uri}/transaction?userId=${this.user.id}&_sort=createdAt&_order=desc`)
+            console.log(transaction.data)
+            if (transaction.data?.length > 0) {
+                this.onSetTransaction(transaction.data)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    onSetTransaction = (value) => {
+        this.transactions = value
+    }
     setUserUpdateName = (value) => {
         this.userUpdate.username = value
     }
