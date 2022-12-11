@@ -10,7 +10,7 @@ import HomeStore from "../../../models/HomeStore";
 import SearchResultViewModel from "../../../viewmodels/SearchResultViewModel";
 import ThemeStore from "../../../models/ThemeStore";
 
-const HomeScreen = ({route, nav, searching, links, active, handleSwitch}) => {
+const HomeScreen = ({links, active, handleSwitch}) => {
     return (
         <NativeBaseProvider>
             <CustomHeader title={'Start Movie'}/>

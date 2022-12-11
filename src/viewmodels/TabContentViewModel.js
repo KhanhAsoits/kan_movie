@@ -20,7 +20,6 @@ export const TabContentViewModel = ({active, items, height}) => {
                                 content={item}></TabContent>
                 )
             })}
-
         </Box>
     )
 }
