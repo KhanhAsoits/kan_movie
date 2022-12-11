@@ -82,23 +82,27 @@ class AuthStore {
     }
 
     async onPostLogin() {
-        this.setLoginFetching(true)
-        let isSuccess = true
-        await this.await(1000)
-        console.log(authStore.authInfo.password)
-        let uri = `${configs.local_api_base_uri}/users?email=${this.authInfo.username}&password=${this.onHashPassword(this.authInfo.password)}`
-        let res = (await axios.get(uri)).data
-        console.log(uri)
-
-        if (res.length <= 0) {
-            isSuccess = false
-            Alert.alert("notification", "Email or password incorrect!")
-        } else {
-            console.log(res)
-            UserStore.setUser(res[0])
+        try {
+            this.setLoginFetching(true)
+            let isSuccess = true
+            await this.await(1000)
+            let uri = `${configs.local_api_base_uri}/users?email=${this.authInfo.username}&password=${this.onHashPassword(this.authInfo.password)}`
+            let res = (await axios.get(uri)).data
+            console.log('uri:', uri)
+            if (res.length <= 0) {
+                isSuccess = false
+                Alert.alert("notification", "Email or password incorrect!")
+            } else {
+                console.log(res)
+                UserStore.setUser(res[0])
+            }
+            this.setLoginFetching(false)
+            return isSuccess
+        } catch (e) {
+            this.setLoginFetching(false)
+            return false
         }
-        this.setLoginFetching(false)
-        return isSuccess
+
     }
 
     setLoginFetching(value) {
@@ -153,13 +157,13 @@ class AuthStore {
         try {
             let res = await axios.get(`${configs.local_api_base_uri}/users?username=${this.userSignUp.username}`)
             if (res.data?.length > 0) {
-                Alert.alert('Waning','Username has taken.')
+                Alert.alert('Waning', 'Username has taken.')
                 return false
             }
             let phone_res = await axios.get(`${configs.local_api_base_uri}/users?phone=${this.userSignUp.phone}`)
             if (phone_res.data?.length > 0) {
-                Alert.alert('Waning','Phone has taken.')
-                return  false
+                Alert.alert('Waning', 'Phone has taken.')
+                return false
             }
             return true
         } catch (e) {
@@ -179,7 +183,7 @@ class AuthStore {
                     "Content-Type": "application/json"
                 }
             })).data
-
+            console.log(res_reg_up)
             if (res_reg_up) {
                 UserStore.setUser(res_reg_up)
             }

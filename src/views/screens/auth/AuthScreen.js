@@ -28,8 +28,9 @@ const AuthScreen = ({route}) => {
             let res = await AuthStore.onPostLogin()
             if (res) {
                 nav.goBack('welcome_screen')
+            } else {
+                Alert('Notification', 'Something wrong.')
             }
-            console.log(UserStore.isLogin)
         } else {
             Alert.alert("Warning",
                 "Authorize info not valid.",)

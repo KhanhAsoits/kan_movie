@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 import {Box, Text} from "native-base";
-import {TextInput} from "react-native";
+import {KeyboardAvoidingView, TextInput} from "react-native";
 import AuthStore from "../../../models/AuthStore";
 
 const StepOne = () => {

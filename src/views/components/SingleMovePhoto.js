@@ -19,7 +19,7 @@ const SingleMoviePhoto = ({photos, handleViewAllPhotos}) => {
                     </TouchableOpacity>
                 </Box>
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <HStack space={2} my={10}>
+                    <HStack space={2} mb={6}>
                         {photos.slice(0, 4).map((val, index) => {
                             return (
                                 <TouchableOpacity key={index.toString()}>

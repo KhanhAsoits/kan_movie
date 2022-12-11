@@ -24,7 +24,7 @@ const ShowTimeScreen = ({
                         }) => {
 
     return (
-        <>
+        <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
             <ScrollView style={{width: SCREEN_WIDTH}} bgColor={ThemeStore.baseProps.themeBg} px={4}
                         showsVerticalScrollIndicator={false}>
                 {SingleMovieStore.showTimeFetching ? <Loader height={50}></Loader> :
@@ -48,7 +48,7 @@ const ShowTimeScreen = ({
                             <Box>
                                 {/*chose cinema*/}
                                 <HStack justifyContent={'space-between'} alignItems={'center'}>
-                                    <Text fontSize={20} color={'black'} fontWeight={'500'}>Chose Cinema</Text>
+                                    <Text fontSize={20} color={ThemeStore.baseProps.text_24} fontWeight={'500'}>Chose Cinema</Text>
                                 </HStack>
                                 <ScrollView horizontal={true} my={3} showsHorizontalScrollIndicator={false}>
                                     <SelectBoxGenerator cStyle={styles.cinemaBox} handleSelect={handleChoseCinema}
@@ -130,11 +130,11 @@ const ShowTimeScreen = ({
                     <ActivityIndicator color={'white'} size={30}/>
                     :
                     <Text
-                        textAlign={'center'} color={'white'} fontSize={20} fontWeight={'500'}>Get
-                        A Ticket</Text>
+                        textAlign={'center'} color={'white'} fontSize={20} fontWeight={'500'}>
+                        Get A Ticket</Text>
                 }
             </TouchableOpacity>
-        </>
+        </Box>
     )
 }
 const styles = StyleSheet.create({

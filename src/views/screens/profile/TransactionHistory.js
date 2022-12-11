@@ -55,7 +55,7 @@ const TransactionHistory = () => {
                         <Loader height={SCREEN_HEIGHT - useBottomTabBarHeight() - 60}></Loader>
                         :
                         <VStack space={3} justifyContent={'center'} alignItems={'center'}>
-                            {UserStore.transactions.map(() => {
+                            {UserStore.transactions.map((val, index) => {
                                 return (
                                     <HStack justifyContent={'space-between'} alignItems={'center'}
                                             bgColor={ThemeStore.baseProps.themeBg} shadow={2} borderRadius={8}
@@ -67,18 +67,18 @@ const TransactionHistory = () => {
                                                 <Ionicons name={'wallet'} color={'#47CFFF'} size={26}/>
                                             </Box>
                                             <VStack>
-                                                <Text fontSize={16} fontWeight={'500'} color={ThemeStore.baseProps.text_24}>Booked Ticket</Text>
-                                                <Text fontSize={14} color={ThemeStore.baseProps.text_black_06}>John Wick
-                                                    3:
-                                                    Parabellum</Text>
+                                                <Text fontSize={16} fontWeight={'500'}
+                                                      color={ThemeStore.baseProps.text_24}>Booked Ticket</Text>
+                                                <Text fontSize={14}
+                                                      color={ThemeStore.baseProps.text_black_06}>{val.items.movie.title}</Text>
                                             </VStack>
                                         </HStack>
                                         <VStack>
                                             <Text fontSize={16} fontWeight={'500'} color={'red.500'}
                                                   textAlign={'right'}>-
-                                                $54</Text>
-                                            <Text fontSize={14} color={ThemeStore.baseProps.text_black_06}>24 MAY,
-                                                2019</Text>
+                                                ${val.items.amount}</Text>
+                                            <Text fontSize={14}
+                                                  color={ThemeStore.baseProps.text_black_06}>{new Date(val.items.date).toDateString()}</Text>
                                         </VStack>
                                     </HStack>
                                 )

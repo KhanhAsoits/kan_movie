@@ -53,7 +53,7 @@ const TicketScreen = () => {
                 <Box borderWidth={1} borderRadius={8} borderColor={ThemeStore.baseProps.text_black_06}>
                     <Image borderTopRadius={8} alt={'movie thumbnail'} resizeMode={'cover'}
                            source={{uri: ticket?.movie?.image}}
-                           width={'100%'} height={SCREEN_HEIGHT / 5}/>
+                           width={'100%'} bgColor={'white'} height={SCREEN_HEIGHT / 5}/>
                     <VStack borderBottomRadius={8} bgColor={ThemeStore.baseProps.themeBg} px={4} pt={3} pb={5}
                             space={2}>
                         <Text fontSize={22} color={ThemeStore.baseProps.text_24}>{ticket.movie?.title}</Text>

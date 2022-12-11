@@ -6,7 +6,7 @@ import {ActivityIndicator, TouchableOpacity} from "react-native";
 const SignUpTabViewLayout = (props) => {
 
     return (
-        <Box flex={1} py={4} bgColor={'black'}>
+        <Box flex={1} py={6} bgColor={'black'}>
             <HStack px={0} pr={2} justifyContent={'space-between'}>
                 <TouchableOpacity activeOpacity={.8}
                                   style={{justifyContent: 'center', flexDirection: 'row', alignItems: 'center'}}

@@ -5,7 +5,7 @@ class ThemeStore {
 
     changing = false
     baseProps = {
-        themeBg: this.mode === "light" ? '#ecf0f6' : '#0F1B2B',
+        themeBg: this.mode === "light" ? 'white' : '#0F1B2B',
         text_24: this.mode === "light" ? 'black' : 'white',
         text_black_06: this.mode === "light" ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,.6)',
         text_black_02: this.mode === "light" ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,.1)',
