@@ -1,6 +1,6 @@
 import {observer} from "mobx-react";
 import React, {useEffect} from "react";
-import {ActivityIndicator, FlatList, StyleSheet, TouchableOpacity} from "react-native";
+import {ActivityIndicator, FlatList, SafeAreaView, StyleSheet, TouchableOpacity} from "react-native";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 import {Box, Center, HStack, Image, ScrollView, Text, VStack} from "native-base";
 import ThemeStore from "../../../models/ThemeStore";
@@ -9,6 +9,7 @@ import Barcode from "@adrianso/react-native-barcode-builder/index";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
 import TicketStore from "../../../models/TicketStore";
 import Loader from "../../components/Loader";
+import {SCREEN_WIDTH} from "axelra-react-native-bottom-sheet";
 
 const TicketScreen = () => {
     const bottomTabHeight = useBottomTabBarHeight()
@@ -53,7 +54,7 @@ const TicketScreen = () => {
                 <Box borderWidth={1} borderRadius={8} borderColor={ThemeStore.baseProps.text_black_06}>
                     <Image borderTopRadius={8} alt={'movie thumbnail'} resizeMode={'cover'}
                            source={{uri: ticket?.movie?.image}}
-                           width={'100%'} bgColor={'white'} height={SCREEN_HEIGHT / 5}/>
+                           width={SCREEN_WIDTH} bgColor={ThemeStore.baseProps.text_black_06} height={SCREEN_HEIGHT / 5}/>
                     <VStack borderBottomRadius={8} bgColor={ThemeStore.baseProps.themeBg} px={4} pt={3} pb={5}
                             space={2}>
                         <Text fontSize={22} color={ThemeStore.baseProps.text_24}>{ticket.movie?.title}</Text>
@@ -109,32 +110,34 @@ const TicketScreen = () => {
             </Box>
         )
     }
+
     return (
-        <NativeBaseProvider>
-            <Box shadow={5} style={{height: 80}} justifyContent={'center'} px={6}
-                 bgColor={ThemeStore.baseProps.themeBg}>
-                <Text fontSize={30} color={ThemeStore.baseProps.text_24} fontWeight={'500'} shadow={1}
-                      my={3}>Tickets</Text>
-            </Box>
-            {TicketStore.fetching ?
-                <Loader height={SCREEN_HEIGHT - useBottomTabBarHeight() - 80}></Loader>
-                :
-                <Box flex={1} px={6} bgColor={ThemeStore.baseProps.themeBg}>
-                    {TicketStore.orderedTickets.length > 0 ?
-                        <FlatList showsVerticalScrollIndicator={false} data={TicketStore.orderedTickets}
-                        pagingEnabled={true}
-                        renderItem={({item, index}) => <TicketBox ticket={item}/>}/>
-                        :
-                        <Box alignSelf={'center'} flex={1} justifyContent={'center'} alignItems={'center'}>
-                            <Text textAlign={'center'} fontSize={18} color={ThemeStore.baseProps.text_black_06}>Nothing here.</Text>
-                        </Box>
-                    }
-
-
+        <SafeAreaView style={{flex: 1}}>
+            <NativeBaseProvider>
+                <Box shadow={5} borderBottomWidth={1} borderBottomColor={ThemeStore.baseProps.text_black_03} style={{height: 80}} justifyContent={'center'} px={6}
+                     bgColor={ThemeStore.baseProps.themeBg}>
+                    <Text fontSize={30} color={ThemeStore.baseProps.text_24} fontWeight={'500'} shadow={1}
+                          my={3}>Tickets</Text>
                 </Box>
-            }
-        </NativeBaseProvider>
-    )
+                {TicketStore.fetching ?
+                    <Loader height={SCREEN_HEIGHT - useBottomTabBarHeight() - 80}></Loader>
+                    :
+                    <Box flex={1} px={6} bgColor={ThemeStore.baseProps.themeBg}>
+                        {TicketStore.orderedTickets.length > 0 ?
+                            <FlatList showsVerticalScrollIndicator={false} data={TicketStore.orderedTickets}
+                                      pagingEnabled={true}
+                                      renderItem={({item, index}) => <TicketBox ticket={item}/>}/>
+                            :
+                            <Box alignSelf={'center'} flex={1} justifyContent={'center'} alignItems={'center'}>
+                                <Text textAlign={'center'} fontSize={18} color={ThemeStore.baseProps.text_black_06}>Nothing
+                                    here.</Text>
+                            </Box>
+                        }
+                    </Box>
+                }
+            </NativeBaseProvider>
+        </SafeAreaView>
+)
 }
 export default observer(TicketScreen)
 const styles = StyleSheet.create({

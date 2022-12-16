@@ -2,7 +2,7 @@ import {observer} from "mobx-react";
 import {NativeBaseProvider} from "native-base/src/core/NativeBaseProvider";
 import {Box, HStack, Image, ScrollView, Text, VStack} from "native-base";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {ActivityIndicator, TouchableOpacity} from "react-native";
+import {ActivityIndicator, SafeAreaView, TouchableOpacity} from "react-native";
 import UserStore from "../../../models/UserStore";
 import default_avatar from '../../../../assets/static/images/user.png'
 import {SCREEN_WIDTH} from "../../../core/helper";
@@ -49,87 +49,93 @@ const ProfileScreen = ({route}) => {
     }
 
     return (
-        <NativeBaseProvider>
-            <Box flex={1} bgColor={ThemeStore.baseProps.themeBg} px={4}>
-                <HStack justifyContent={'space-between'} my={6} alignItems={'center'}>
-                    <Text color={ThemeStore.baseProps.text_24} fontSize={26} fontWeight={'500'} letterSpacing={1.5}>User
-                        Profile</Text>
-                    <TouchableOpacity onPress={ThemeStore.toggleMode} activeOpacity={.9} style={{
-                        borderRadius: 100,
-                        borderWidth: 1,
-                        padding: 6,
-                        borderColor: ThemeStore.baseProps.text_24
-                    }}>
-                        {ThemeStore.changing ?
-                            <ActivityIndicator color={ThemeStore.baseProps.text_24} size={20}/> :
-                            <Ionicons name={ThemeStore.mode === 'light' ? 'moon' : 'sunny'}
-                                      color={ThemeStore.baseProps.text_24} size={22}/>
-                        }
+        <SafeAreaView style={{flex: 1}}>
+            <NativeBaseProvider>
+                <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
+                    <HStack style={{height:80}}  px={4} borderBottomWidth={1} borderBottomColor={ThemeStore.baseProps.text_black_03} justifyContent={'space-between'} alignItems={'center'}>
+                        <Text color={ThemeStore.baseProps.text_24} fontSize={28} shadow={1} fontWeight={'500'} letterSpacing={1.5}>User
+                            Profile</Text>
+                        <TouchableOpacity onPress={ThemeStore.toggleMode} activeOpacity={.9} style={{
+                            borderRadius: 100,
+                            padding: 6,
+                        }}>
+                            {ThemeStore.changing ?
+                                <ActivityIndicator color={ThemeStore.baseProps.text_24} size={20}/> :
+                                <Ionicons name={ThemeStore.mode === 'light' ? 'moon' : 'sunny'}
+                                          color={ThemeStore.baseProps.text_24} size={22}/>
+                            }
 
-                    </TouchableOpacity>
-                </HStack>
-                <ScrollView showsVerticalScrollIndicator={false} my={0}>
-                    <Image style={{
-                        width: SCREEN_WIDTH / 3,
-                        height: SCREEN_WIDTH / 3,
-                        borderRadius: 1000,
-                        alignSelf: 'center'
-                    }}
-                           alt={'avatar'}
-                           source={UserStore.user?.avatar ? {uri: UserStore.user?.avatar} : default_avatar}/>
-                    <HStack justifyContent={'center'} alignItems={'center'} my={2}>
-                        <Text fontSize={23} textAlign={'center'} fontWeight={'500'} letterSpacing={1.1}
-                              color={ThemeStore.baseProps.text_24}>{UserStore.user?.username}</Text>
+                        </TouchableOpacity>
                     </HStack>
-                    <Box bgColor={'gray.100'} borderRadius={'4'} py={1} px={5} alignSelf={'center'}>
-                        <Text fontSize={12} color={'green.400'}>MEMBER</Text>
-                    </Box>
+                    <Box py={6} flex={1}>
+                        <ScrollView  px={4} showsVerticalScrollIndicator={false} my={0}>
+                            <Box alignSelf={"center"}>
+                                <Image style={{
+                                    width: SCREEN_WIDTH / 3,
+                                    height: SCREEN_WIDTH / 3,
+                                    borderRadius: 1000,
+                                    alignSelf: 'center'
+                                }}
+                                       alt={'avatar'}
+                                       source={{uri: UserStore.user?.avatar} || default_avatar}/>
+                            </Box>
+                            <HStack justifyContent={'center'} alignItems={'center'} my={2}>
+                                <Text fontSize={23} textAlign={'center'} fontWeight={'500'} letterSpacing={1.1}
+                                      color={ThemeStore.baseProps.text_24}>{UserStore.user?.username}</Text>
+                            </HStack>
+                            <Box bgColor={'gray.100'} borderRadius={'4'} py={1} px={5} alignSelf={'center'}>
+                                <Text fontSize={12} color={'green.400'}>MEMBER</Text>
+                            </Box>
 
-                    <Box flexDir={'row'} justifyContent={'space-between'} my={5} px={10} alignItems={'center'}>
-                        <VStack>
-                            <Text fontSize={30} textAlign={'center'} color={ThemeStore.baseProps.text_24}>123</Text>
-                            <Text fontSize={12} color={'gray.400'} textAlign={ThemeStore.baseProps.text_24}>TOTAL
-                                POINT</Text>
-                        </VStack>
-                        <VStack>
-                            <Text fontSize={30} textAlign={'center'} color={ThemeStore.baseProps.text_24}>06</Text>
-                            <Text fontSize={12} color={'gray.400'} textAlign={ThemeStore.baseProps.text_24}>MOVIE
-                                WATCHED</Text>
-                        </VStack>
-                    </Box>
-                    <VStack justifyContent={'center'} space={3} alignItems={'center'}>
-                        {links.map((val, index) => {
-                            return (
-                                <TouchableOpacity activeOpacity={.9} onPress={() => {
-                                    if (val.title === "Logout") {
-                                        handleLogout()
-                                        return;
-                                    }
-                                    handleTo(nav, val.to)
-                                }}>
+                            <Box flexDir={'row'} justifyContent={'space-between'} my={5} px={10} alignItems={'center'}>
+                                <VStack>
+                                    <Text fontSize={30} textAlign={'center'} color={ThemeStore.baseProps.text_24}>123</Text>
+                                    <Text fontSize={12} color={'gray.400'} textAlign={ThemeStore.baseProps.text_24}>TOTAL
+                                        POINT</Text>
+                                </VStack>
+                                <VStack>
+                                    <Text fontSize={30} textAlign={'center'} color={ThemeStore.baseProps.text_24}>06</Text>
+                                    <Text fontSize={12} color={'gray.400'} textAlign={ThemeStore.baseProps.text_24}>MOVIE
+                                        WATCHED</Text>
+                                </VStack>
+                            </Box>
+                            <VStack justifyContent={'center'} space={3} alignItems={'center'}>
+                                {links.map((val, index) => {
+                                    return (
+                                        <TouchableOpacity activeOpacity={.9} onPress={() => {
+                                            if (val.title === "Logout") {
+                                                handleLogout()
+                                                return;
+                                            }
+                                            handleTo(nav, val.to)
+                                        }}>
 
-                                    <HStack justifyContent={loading ? 'space-between' : 'flex-start'} borderRadius={6}
-                                            borderWidth={2}
-                                            width={SCREEN_WIDTH - 100} borderColor={ThemeStore.baseProps.text_black_03}
-                                            px={2} py={3}
-                                            alignItems={'center'}>
+                                            <HStack justifyContent={loading ? 'space-between' : 'flex-start'}
+                                                    borderRadius={6}
+                                                    borderWidth={2}
+                                                    width={SCREEN_WIDTH - 100}
+                                                    borderColor={ThemeStore.baseProps.text_black_03}
+                                                    px={2} py={3}
+                                                    alignItems={'center'}>
 
-                                        {val.title === "Logout" && loading ?
-                                            <ActivityIndicator color={ThemeStore.baseProps.text_black_06}/> :
-                                            <HStack space={2}>
-                                                <Ionicons name={val.icon} color={ThemeStore.baseProps.text_black_06}
-                                                          size={val.size}/>
-                                                <Text color={ThemeStore.baseProps.text_black_06}>{val.title}</Text>
+                                                {val.title === "Logout" && loading ?
+                                                    <ActivityIndicator color={ThemeStore.baseProps.text_black_06}/> :
+                                                    <HStack space={2}>
+                                                        <Ionicons name={val.icon} color={ThemeStore.baseProps.text_black_06}
+                                                                  size={val.size}/>
+                                                        <Text color={ThemeStore.baseProps.text_black_06}>{val.title}</Text>
+                                                    </HStack>
+                                                }
                                             </HStack>
-                                        }
-                                    </HStack>
-                                </TouchableOpacity>
-                            )
-                        })}
-                    </VStack>
-                </ScrollView>
-            </Box>
-        </NativeBaseProvider>
+                                        </TouchableOpacity>
+                                    )
+                                })}
+                            </VStack>
+                        </ScrollView>
+                    </Box>
+                </Box>
+            </NativeBaseProvider>
+        </SafeAreaView>
     )
 }
 

@@ -8,7 +8,7 @@ import NotificationStore from "../../../models/NotificationStore";
 import Loader from "../../components/Loader";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../../core/helper";
 import {useBottomTabBarHeight} from "@react-navigation/bottom-tabs";
-import {TouchableOpacity} from "react-native";
+import {SafeAreaView, TouchableOpacity} from "react-native";
 
 const NotificationScreen = () => {
 
@@ -34,6 +34,7 @@ const NotificationScreen = () => {
 
     const NotificationBox = ({item}) => {
         return (
+
             <HStack space={3} borderBottomWidth={.5} borderColor={ThemeStore.baseProps.text_black_06}
                     borderBottomStyle={'dashed'} flexDir={'row'} py={6} justifyContent={'flex-start'}
                     alignItems={'center'}>
@@ -54,35 +55,37 @@ const NotificationScreen = () => {
     }
 
     return (
-        <NativeBaseProvider>
-            <Box shadow={5} style={{height: 80}} justifyContent={'center'} px={6}
-                 bgColor={ThemeStore.baseProps.themeBg}>
-                <Text fontSize={30} color={ThemeStore.baseProps.text_24} fontWeight={'500'} shadow={1}
-                      my={3}>Notification</Text>
-            </Box>
-
-            {NotificationStore.fetching ?
-                <Loader height={SCREEN_HEIGHT - 80 - useBottomTabBarHeight()}></Loader>
-                :
-                <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
-                    <ScrollView showsVerticalScrollIndicator={false} px={4}>
-                        {NotificationStore.notifications.length <= 0 &&
-                            <Box flex={1} height={SCREEN_HEIGHT - useBottomTabBarHeight() - 80}
-                                 justifyContent={'center'} alignItems={'center'}>
-                                <Text color={ThemeStore.baseProps.text_black_06} fontSize={18}>Nothing here.</Text>
-                            </Box>
-                        }
-                        {
-                            NotificationStore.notifications.map((val, index) => {
-                                return (
-                                    <NotificationBox item={val}/>
-                                )
-                            })
-                        }
-                    </ScrollView>
+        <SafeAreaView style={{flex: 1}}>
+            <NativeBaseProvider>
+                <Box borderBottomWidth={1} borderBottomColor={ThemeStore.baseProps.text_black_03} shadow={5} style={{height: 80}} justifyContent={'center'} px={6}
+                     bgColor={ThemeStore.baseProps.themeBg}>
+                    <Text fontSize={30} color={ThemeStore.baseProps.text_24} fontWeight={'500'} shadow={1}
+                          my={3}>Notification</Text>
                 </Box>
-            }
-        </NativeBaseProvider>
+
+                {NotificationStore.fetching ?
+                    <Loader height={SCREEN_HEIGHT - 80 - useBottomTabBarHeight()}></Loader>
+                    :
+                    <Box flex={1} bgColor={ThemeStore.baseProps.themeBg}>
+                        <ScrollView showsVerticalScrollIndicator={false} px={4}>
+                            {NotificationStore.notifications.length <= 0 &&
+                                <Box flex={1} height={SCREEN_HEIGHT - useBottomTabBarHeight() - 80}
+                                     justifyContent={'center'} alignItems={'center'}>
+                                    <Text color={ThemeStore.baseProps.text_black_06} fontSize={18}>Nothing here.</Text>
+                                </Box>
+                            }
+                            {
+                                NotificationStore.notifications.map((val, index) => {
+                                    return (
+                                        <NotificationBox item={val}/>
+                                    )
+                                })
+                            }
+                        </ScrollView>
+                    </Box>
+                }
+            </NativeBaseProvider>
+        </SafeAreaView>
     )
 }
 export default observer(NotificationScreen)

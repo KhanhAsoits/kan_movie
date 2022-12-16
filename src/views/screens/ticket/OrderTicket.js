@@ -10,7 +10,7 @@ import {Box} from "native-base";
 import TicketStore from "../../../models/TicketStore";
 import SingleMovieStore from "../../../models/SingleMovieStore";
 import {useNavigation} from "@react-navigation/native";
-import {Alert} from "react-native";
+import {Alert, SafeAreaView} from "react-native";
 
 const OrderTicket = ({route}) => {
     const {date, cinema, time} = route.params
@@ -62,25 +62,27 @@ const OrderTicket = ({route}) => {
         })
     }, [nav])
     return (
-        <NativeBaseProvider>
-            <Box bgColor={'white'} flex={1}>
-                {step === 0 ?
-                    <OrderTicketLayout step={step} setStep={setStep} isShowDetail={true}>
-                        <OrderSeat seats={cinema.seats} setStep={setStep} cinema={cinema}/>
-                    </OrderTicketLayout>
-                    : step === 1 ?
-                        <OrderTicketLayout setStep={setStep} isShowDetail={false} title={'Extra Items'}>
-                            <OrderExtra setStep={setStep}/>
+        <SafeAreaView style={{flex: 1}}>
+            <NativeBaseProvider>
+                <Box bgColor={'white'} flex={1}>
+                    {step === 0 ?
+                        <OrderTicketLayout step={step} setStep={setStep} isShowDetail={true}>
+                            <OrderSeat seats={cinema.seats} setStep={setStep} cinema={cinema}/>
                         </OrderTicketLayout>
-                        : step === 2 ?
-                            <OrderTicketLayout setStep={setStep} isShowDetail={false} title={'Payment'}>
-                                <Payment setResultTransaction={setTransactionResult} setStep={setStep}/>
+                        : step === 1 ?
+                            <OrderTicketLayout setStep={setStep} isShowDetail={false} title={'Extra Items'}>
+                                <OrderExtra setStep={setStep}/>
                             </OrderTicketLayout>
-                            : <ResultTransaction nav={nav} result={transactionResult}/>
-                }
-            </Box>
+                            : step === 2 ?
+                                <OrderTicketLayout setStep={setStep} isShowDetail={false} title={'Payment'}>
+                                    <Payment setResultTransaction={setTransactionResult} setStep={setStep}/>
+                                </OrderTicketLayout>
+                                : <ResultTransaction nav={nav} result={transactionResult}/>
+                    }
+                </Box>
 
-        </NativeBaseProvider>
+            </NativeBaseProvider>
+        </SafeAreaView>
     )
 }
 export default observer(OrderTicket)

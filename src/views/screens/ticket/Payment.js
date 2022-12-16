@@ -5,7 +5,7 @@ import {Box, HStack, Image, ScrollView, Text, VStack} from "native-base";
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from "../../../core/helper";
 import bg from '../../../../assets/static/images/movie-preview.png'
 import PaypalStore from "../../../models/PaypalStore";
-import {ActivityIndicator, Alert, TextInput, TouchableOpacity} from "react-native";
+import {ActivityIndicator, Alert, SafeAreaView, TextInput, TouchableOpacity} from "react-native";
 import WebView from "react-native-webview";
 import {useState} from "react";
 import ThemeStore from "../../../models/ThemeStore";
@@ -41,7 +41,7 @@ const Payment = ({setStep, setResultTransaction}) => {
     }
 
     return (
-        <>
+        <SafeAreaView style={{flex: 1}}>
             {PaypalStore.approval_url ?
                 <WebView
                     source={{uri: PaypalStore.approval_url}}
@@ -55,7 +55,8 @@ const Payment = ({setStep, setResultTransaction}) => {
                     <Box flex={1} px={4} style={{height: 200, overflow: 'hidden'}}>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <Box shadow={1} width={SCREEN_WIDTH - 35} alignSelf={'center'} my={3}>
-                                <HStack space={3} bgColor={ThemeStore.baseProps.text_black_02} overflow={'hidden'} p={5} borderRadius={8}>
+                                <HStack space={3} bgColor={ThemeStore.baseProps.text_black_02} overflow={'hidden'} p={5}
+                                        borderRadius={8}>
                                     <Image source={{uri: TicketStore.orderTicket.movie.image} || bg}
                                            alt={'movie thumbnail'}
                                            style={{width: SCREEN_WIDTH / 4, height: SCREEN_HEIGHT / 5}}
@@ -63,7 +64,8 @@ const Payment = ({setStep, setResultTransaction}) => {
                                            borderRadius={12}/>
                                     <VStack>
                                         <Text width={SCREEN_WIDTH / 1.7} fontSize={20}
-                                              fontWeight={'500'} color={ThemeStore.baseProps.text_24}>{TicketStore.orderTicket.movie?.title}</Text>
+                                              fontWeight={'500'}
+                                              color={ThemeStore.baseProps.text_24}>{TicketStore.orderTicket.movie?.title}</Text>
                                         <Text width={SCREEN_WIDTH / 1.7} fontSize={16}
                                               fontWeight={'300'}
                                               color={'gray.400'}>
@@ -138,7 +140,7 @@ const Payment = ({setStep, setResultTransaction}) => {
                     </Box>
                 </NativeBaseProvider>
             }
-        </>
+        </SafeAreaView>
     )
 }
 export default observer(Payment)

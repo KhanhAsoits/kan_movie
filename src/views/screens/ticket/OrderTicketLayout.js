@@ -13,6 +13,7 @@ import TicketStore from "../../../models/TicketStore";
 
 const OrderTicketLayout = (props) => {
     return (
+
         <Box flex={1} py={ThemeStore.mode === "light" ? 0 : 2} bgColor={ThemeStore.baseProps.themeBg}>
             <HStack width={SCREEN_WIDTH - 30} alignSelf={'center'} my={4} justifyContent={'space-between'}
                     alignItems={'center'}>
@@ -40,7 +41,7 @@ const OrderTicketLayout = (props) => {
                 }
                 {PaypalStore.processing ?
                     <ActivityIndicator size={30}/> :
-                    <Text></Text>
+                    <Text>          </Text>
                 }
             </HStack>
             {props.children}
